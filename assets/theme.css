@@ -1508,6 +1508,78 @@ body.kb-has-sticky-cta .kb-rewards-btn { bottom: 80px; }
   margin-bottom: 20px;
 }
 .kb-collection__main { display: flex; flex-direction: column; }
+
+/* ========== MOBILE TỐI ƯU COLLECTION PAGE ========== */
+@media (max-width: 768px) {
+  /* Category hero cards — gọn hơn, padding ngang nhỏ hơn */
+  .kb-category-hero {
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    padding: 10px 16px;
+  }
+  .kb-category-hero__card {
+    aspect-ratio: 16/9;
+    padding: 14px;
+    border-radius: 8px;
+  }
+  .kb-category-hero__label {
+    font-size: 16px;
+    letter-spacing: 2px;
+  }
+
+  /* Collection grid — filter trên, products dưới (stack) */
+  .kb-collection {
+    grid-template-columns: 1fr;
+    gap: 0;
+    padding: 16px;
+  }
+
+  /* Filter trên mobile: collapsed mặc định, làm sticky button kéo xuống */
+  .kb-filters {
+    margin-bottom: 16px;
+    border-radius: 8px;
+  }
+  .kb-filters__head {
+    padding: 4px 0;
+    margin-bottom: 0;
+    border-bottom: none;
+  }
+  /* Body filter ẩn hoàn toàn khi collapsed (override desktop) */
+  .kb-filters.is-collapsed .kb-filters__body { display: none; }
+  .kb-filters:not(.is-collapsed) .kb-filters__head {
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: 12px;
+    margin-bottom: 12px;
+  }
+
+  /* Filter group spacing trên mobile — gọn hơn */
+  .kb-filter-group { margin-bottom: 14px; }
+  .kb-filter-group__title { font-size: 12px; padding: 2px 0; }
+  .kb-filter-group label { font-size: 12px; padding: 5px 0; }
+
+  /* Toolbar mobile — sort xuống dưới count */
+  .kb-collection__toolbar {
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-start;
+  }
+  .kb-sort { width: 100%; justify-content: space-between; }
+  .kb-sort select { font-size: 11px; padding: 6px 10px; }
+
+  /* No results mobile */
+  .kb-no-results { padding: 30px 16px; font-size: 13px; }
+}
+
+@media (max-width: 480px) {
+  .kb-category-hero__card {
+    aspect-ratio: 4/3;
+    padding: 12px;
+  }
+  .kb-category-hero__label {
+    font-size: 14px;
+    letter-spacing: 1.5px;
+  }
+}
 .kb-collection__toolbar {
   display: flex;
   justify-content: space-between;

@@ -368,14 +368,22 @@
 
   // Collapse toàn bộ filter sidebar
   var toggleBtn = document.querySelector('[data-kb-toggle-filters]');
+  function setCollapsed(collapsed) {
+    if (!toggleBtn) return;
+    filters.classList.toggle('is-collapsed', collapsed);
+    var label = toggleBtn.querySelector('.kb-filters__head-label');
+    var caret = toggleBtn.querySelector('.kb-filters__head-caret');
+    if (label) label.textContent = collapsed ? 'HIỆN BỘ LỌC' : 'ẨN BỘ LỌC';
+    if (caret) caret.textContent = collapsed ? '▼' : '▲';
+  }
   if (toggleBtn) {
     toggleBtn.addEventListener('click', function () {
-      var collapsed = filters.classList.toggle('is-collapsed');
-      var label = toggleBtn.querySelector('.kb-filters__head-label');
-      var caret = toggleBtn.querySelector('.kb-filters__head-caret');
-      if (label) label.textContent = collapsed ? 'HIỆN BỘ LỌC' : 'ẨN BỘ LỌC';
-      if (caret) caret.textContent = collapsed ? '▼' : '▲';
+      setCollapsed(!filters.classList.contains('is-collapsed'));
     });
+    // Auto-collapse trên mobile khi load
+    if (window.innerWidth <= 768) {
+      setCollapsed(true);
+    }
   }
 
   // Collapse từng nhóm
