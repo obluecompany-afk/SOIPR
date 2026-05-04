@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>S.O.I — K-Beauty</title>
+<link rel="stylesheet" href="assets/theme.css" />
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="kb-header">
+  <button class="kb-hamburger" data-kb-open-menu aria-label="Menu">☰</button>
+  <a href="index.html" class="kb-logo">
+    S<span class="kb-logo__dot">.</span>O<span class="kb-logo__dot">.</span>I
+  </a>
+  <nav class="kb-nav">
+    <ul>
+      <li><a href="collection.html">Mua sắm</a></li>
+      <li><a href="collection.html">Trang điểm</a></li>
+      <li><a href="collection.html">Chăm sóc da</a></li>
+      <li><a href="collection.html">Ưu đãi</a></li>
+      <li><a href="#">Thẻ quà tặng</a></li>
+      <li><a href="#">Dịch vụ ảo</a></li>
+      <li><a href="contact.html">Liên hệ</a></li>
+      <li><a href="#">Tiracels</a></li>
+      <li><a href="blog.html">Tin tức</a></li>
+      <li><a href="#">Phần thưởng</a></li>
+    </ul>
+  </nav>
+  <div class="kb-header__icons">
+    <a href="login.html" class="kb-icon" aria-label="Tài khoản">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1"/></svg>
+    </a>
+    <a href="search.html" class="kb-icon" aria-label="Tìm kiếm">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="21" y2="21"/></svg>
+    </a>
+    <button type="button" class="kb-icon kb-icon--cart" data-kb-open-cart aria-label="Giỏ hàng">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><path d="M6 8h12l-1 12H7L6 8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+      <sup class="kb-cart-count">2</sup>
+    </button>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="kb-hero">
+  <button class="kb-hero__arrow kb-hero__arrow--left" aria-label="Previous">‹</button>
+  <div class="kb-hero__content">
+    <div class="kb-hero__tag">ƯU ĐÃI MÙA XUÂN</div>
+    <h1 class="kb-hero__title">MATCHA<br/>REFRESH</h1>
+    <div class="kb-hero__date">20/04 – 27/04</div>
+  </div>
+  <div class="kb-hero__cards">
+    <div class="kb-hero__card">
+      <div class="kb-hero__card-title">Quà tặng</div>
+      <div class="kb-hero__card-sub">Cho đơn đầu tiên</div>
+    </div>
+    <div class="kb-hero__card">
+      <div class="kb-hero__card-title">Quà tặng cho đơn từ 1.250.000₫</div>
+    </div>
+    <div class="kb-hero__card">
+      <div class="kb-hero__card-title">CHĂM SÓC DA MATCHA</div>
+    </div>
+  </div>
+  <button class="kb-hero__arrow kb-hero__arrow--right" aria-label="Next">›</button>
+  <div class="kb-hero__dots">
+    <span class="active"></span><span></span><span></span>
+  </div>
+</section>
+
+<!-- SẢN PHẨM BÁN CHẠY -->
+<section class="kb-section">
+  <h2 class="kb-section-title">SẢN PHẨM BÁN CHẠY</h2>
+  <div class="kb-best-sellers-grid">
+    <a class="kb-product-card" href="product.html">
+      <div class="kb-product-card__img kb-pi-red">
+        <div class="kb-emoji-lg">💄</div>
+        <span class="kb-product-card__shades-badge">40 MÀU</span>
+      </div>
+      <div class="kb-product-card__name">Mask Fit Red Cushion</div>
+      <div class="kb-product-card__desc">Rạng rỡ bền lâu</div>
+      <div class="kb-product-card__price">625.000₫</div>
+      <div class="kb-shade-dots">
+        <span style="background:#f5d5b0"></span><span style="background:#eac29a"></span>
+        <span style="background:#d9a87a"></span><span style="background:#c49060"></span>
+        <em>+35</em>
+      </div>
+    </a>
+    <a class="kb-product-card" href="product.html">
+      <div class="kb-product-card__img kb-pi-pink">
+        <div class="kb-emoji-lg">🧴</div>
+        <span class="kb-product-card__shades-badge">30 MÀU</span>
+      </div>
+      <div class="kb-product-card__name">Mask Fit Red Foundation</div>
+      <div class="kb-product-card__desc">Kem nền lỏng, nhẹ tênh</div>
+      <div class="kb-product-card__price">675.000₫</div>
+      <div class="kb-shade-dots">
+        <span style="background:#f5d5b0"></span><span style="background:#eac29a"></span>
+        <span style="background:#d9a87a"></span><span style="background:#c49060"></span>
+        <em>+25</em>
+      </div>
+    </a>
+    <a class="kb-product-card" href="product.html">
+      <div class="kb-product-card__img kb-pi-orange">
+        <div class="kb-emoji-lg">🌔</div>
+        <span class="kb-product-card__shades-badge">30 MÀU</span>
+      </div>
+      <div class="kb-product-card__name">Mask Fit AI Filter Cushion</div>
+      <div class="kb-product-card__desc">Che phủ hoàn hảo</div>
+      <div class="kb-product-card__price">625.000₫</div>
+      <div class="kb-shade-dots">
+        <span style="background:#f5d5b0"></span><span style="background:#eac29a"></span>
+        <span style="background:#d9a87a"></span><span style="background:#c49060"></span>
+        <em>+25</em>
+      </div>
+    </a>
+    <a class="kb-product-card" href="product.html">
+      <div class="kb-product-card__img kb-pi-dark">
+        <div class="kb-emoji-lg">💋</div>
+        <span class="kb-product-card__shades-badge">THÊM NHANH</span>
+      </div>
+      <div class="kb-product-card__name">Glide &amp; Hide Blurring Concealer</div>
+      <div class="kb-product-card__desc">Kem che khuyết điểm 2-in-1</div>
+      <div class="kb-product-card__price">400.000₫</div>
+      <div class="kb-shade-dots">
+        <span style="background:#f5d5b0"></span><span style="background:#eac29a"></span>
+        <span style="background:#d9a87a"></span><span style="background:#c49060"></span>
+        <em>+18</em>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- GET MATCHED -->
+<section class="kb-section">
+  <h2 class="kb-section-title">TÌM ĐÚNG MÀU CHO BẠN</h2>
+  <p class="kb-section-sub">Tìm màu phù hợp, thử sản phẩm ảo và khám phá skincare hiệu quả — trước khi mua.</p>
+  <div class="kb-matched-grid">
+    <a class="kb-matched-card" href="#">
+      <span class="kb-matched-tag">MÀU SỐNG ĐỘNG</span>
+      <div class="kb-matched-image">📱</div>
+      <h3>THỬ ẢO</h3>
+      <p>Chưa biết hợp màu nào? Thử ảo ngay.</p>
+    </a>
+    <a class="kb-matched-card" href="#">
+      <span class="kb-matched-tag">TÌM ĐÚNG TONE</span>
+      <div class="kb-matched-image">💄</div>
+      <h3>TÌM MÀU CỦA BẠN</h3>
+      <p>Tìm màu hợp với bạn</p>
+    </a>
+    <a class="kb-matched-card" href="#">
+      <span class="kb-matched-tag">DÀNH RIÊNG CHO DA BẠN</span>
+      <div class="kb-matched-image">🧖</div>
+      <h3>TRẮC NGHIỆM DA</h3>
+      <p>Tìm quy trình S.O.I phù hợp qua bài trắc nghiệm nhanh.</p>
+    </a>
+  </div>
+</section>
+
+<!-- CAROUSEL — video lookbook (mỗi video link tới product cụ thể) -->
+<section class="kb-carousel-section">
+  <div class="kb-carousel">
+    <a class="kb-carousel-item" href="product.html"
+       data-product-id="matcha-tea-pads"
+       data-product-name="Matcha Tea Pads"
+       data-product-price="517500"
+       data-product-image="🌿">
+      <div class="kb-carousel-media kb-cm-1">
+        <video muted loop playsinline preload="metadata"
+          src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4"></video>
+        <button type="button" class="kb-video-mute" data-kb-video-mute aria-label="Bật/tắt tiếng">
+          <svg class="kb-video-mute__off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="16" height="16"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+          <svg class="kb-video-mute__on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="16" height="16" hidden><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+        </button>
+      </div>
+      <div class="kb-product-mini">
+        <div class="kb-product-mini__img">🌿</div>
+        <div class="kb-product-mini__info">
+          <div class="kb-product-mini__name">Matcha Tea Pads</div>
+          <div class="kb-product-mini__price">518.000₫ <s>575.000₫</s></div>
+        </div>
+        <button type="button" class="kb-plus-btn" data-kb-quick-add title="Thêm vào giỏ">+</button>
+      </div>
+    </a>
+
+    <a class="kb-carousel-item" href="product.html"
+       data-product-id="matcha-dual-serum"
+       data-product-name="Matcha Dual Serum"
+       data-product-price="652500"
+       data-product-image="👝">
+      <div class="kb-carousel-media kb-cm-2">
+        <video muted loop playsinline preload="metadata"
+          src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4"></video>
+        <button type="button" class="kb-video-mute" data-kb-video-mute aria-label="Bật/tắt tiếng">
+          <svg class="kb-video-mute__off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="16" height="16"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+          <svg class="kb-video-mute__on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="16" height="16" hidden><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+        </button>
+      </div>
+      <div class="kb-product-mini">
+        <div class="kb-product-mini__img">👝</div>
+        <div class="kb-product-mini__info">
+          <div class="kb-product-mini__name">Matcha Dual Serum</div>
+          <div class="kb-product-mini__price">652.000₫ <s>725.000₫</s></div>
+        </div>
+        <button type="button" class="kb-plus-btn" data-kb-quick-add title="Thêm vào giỏ">+</button>
+      </div>
+    </a>
+
+    <a class="kb-carousel-item" href="product.html"
+       data-product-id="mood-glider-lip-red"
+       data-product-name="Mood Glider Lip Stick — Red"
+       data-product-price="20.00"
+       data-product-image="💄">
+      <div class="kb-carousel-media kb-cm-3">
+        <video muted loop playsinline preload="metadata"
+          src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4"></video>
+        <button type="button" class="kb-video-mute" data-kb-video-mute aria-label="Bật/tắt tiếng">
+          <svg class="kb-video-mute__off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="16" height="16"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+          <svg class="kb-video-mute__on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="16" height="16" hidden><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+        </button>
+      </div>
+      <div class="kb-product-mini">
+        <div class="kb-product-mini__img">💄</div>
+        <div class="kb-product-mini__info">
+          <div class="kb-product-mini__name">Mood Glider Lip Stick — Red</div>
+          <div class="kb-product-mini__price">500.000₫</div>
+        </div>
+        <button type="button" class="kb-plus-btn" data-kb-quick-add title="Thêm vào giỏ">+</button>
+      </div>
+    </a>
+
+    <a class="kb-carousel-item" href="product.html"
+       data-product-id="mood-glider-lip-wine"
+       data-product-name="Mood Glider Lip Stick — Wine"
+       data-product-price="20.00"
+       data-product-image="💋">
+      <div class="kb-carousel-media kb-cm-4">
+        <video muted loop playsinline preload="metadata"
+          src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4"></video>
+        <button type="button" class="kb-video-mute" data-kb-video-mute aria-label="Bật/tắt tiếng">
+          <svg class="kb-video-mute__off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="16" height="16"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+          <svg class="kb-video-mute__on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="16" height="16" hidden><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+        </button>
+      </div>
+      <div class="kb-product-mini">
+        <div class="kb-product-mini__img">💋</div>
+        <div class="kb-product-mini__info">
+          <div class="kb-product-mini__name">Mood Glider Lip Stick — Wine</div>
+          <div class="kb-product-mini__price">500.000₫</div>
+        </div>
+        <button type="button" class="kb-plus-btn" data-kb-quick-add title="Thêm vào giỏ">+</button>
+      </div>
+    </a>
+
+    <a class="kb-carousel-item" href="product.html"
+       data-product-id="mood-glider-lip-pink"
+       data-product-name="Mood Glider Lip Stick — Pink"
+       data-product-price="20.00"
+       data-product-image="🌸">
+      <div class="kb-carousel-media kb-cm-5">
+        <video muted loop playsinline preload="metadata"
+          src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4"></video>
+        <button type="button" class="kb-video-mute" data-kb-video-mute aria-label="Bật/tắt tiếng">
+          <svg class="kb-video-mute__off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="16" height="16"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+          <svg class="kb-video-mute__on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="16" height="16" hidden><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+        </button>
+      </div>
+      <div class="kb-product-mini">
+        <div class="kb-product-mini__img">🌸</div>
+        <div class="kb-product-mini__info">
+          <div class="kb-product-mini__name">Mood Glider Lip Stick — Pink</div>
+          <div class="kb-product-mini__price">500.000₫</div>
+        </div>
+        <button type="button" class="kb-plus-btn" data-kb-quick-add title="Thêm vào giỏ">+</button>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- JUST DROPPED -->
+<section class="kb-section">
+  <h2 class="kb-section-title">MỚI RA MẮT & XU HƯỚNG</h2>
+  <div class="kb-just-dropped-grid">
+    <a class="kb-drop-card kb-drop-card--pink" href="product.html">
+      <div class="kb-drop-badges">
+        <span class="kb-drop-badge kb-drop-badge--red">MỚI</span>
+        <span class="kb-drop-badge">6 MÀU</span>
+      </div>
+      <div class="kb-drop-info">
+        <h3>MOOD GLIDER LIP &amp; BLUSH STICK</h3>
+        <p>Color that melts in like skin.</p>
+      </div>
+    </a>
+    <a class="kb-drop-card kb-drop-card--orange" href="product.html">
+      <div class="kb-drop-badges">
+        <span class="kb-drop-badge kb-drop-badge--red">HOT</span>
+        <span class="kb-drop-badge">20 MÀU</span>
+      </div>
+      <div class="kb-drop-info">
+        <h3>MASK FIT AI FILTER CUSHION</h3>
+        <p>Flawless, Filter-Like Skin — Now in Real Life.</p>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="kb-newsletter">
+  <h2>Đừng bỏ lỡ tin mới</h2>
+  <p>Nhận thông tin sản phẩm mới, ưu đãi giới hạn và đặc quyền thành viên.<br/>Đăng ký để nhận ưu đãi bất ngờ.</p>
+  <a href="collection.html"><button type="button">MUA NGAY</button></a>
+</section>
+
+<!-- FOOTER -->
+<footer class="kb-footer">
+  <div class="kb-footer__grid">
+    <div class="kb-footer__col">
+      <div class="kb-logo">S<span class="kb-logo__dot">.</span>O<span class="kb-logo__dot">.</span>I</div>
+      <h4>ĐĂNG KÝ — GIẢM 10%</h4>
+      <p>Là người đầu tiên biết về BST mới và ưu đãi độc quyền.</p>
+      <form onsubmit="event.preventDefault(); alert('Cảm ơn bạn đã đăng ký!');">
+        <input type="text" name="name" placeholder="Name" required />
+        <input type="email" name="email" placeholder="Email" required />
+        <button type="submit" class="kb-join-btn">JOIN</button>
+      </form>
+    </div>
+    <div class="kb-footer__col">
+      <h4>DANH MỤC</h4>
+      <ul>
+        <li><a href="#">Hợp tác</a></li>
+        <li><a href="#">Tiếp cận</a></li>
+        <li><a href="#">Điều khoản dịch vụ</a></li>
+        <li><a href="#">Chính sách bảo mật</a></li>
+        <li><a href="#">Chính sách vận chuyển</a></li>
+        <li><a href="#">Chính sách hoàn tiền</a></li>
+      </ul>
+    </div>
+    <div class="kb-footer__col">
+      <h4>LIÊN HỆ</h4>
+      <p>S.O.I Inc.<br/>Copyright &copy; 2026. Đã đăng ký bản quyền</p>
+      <p>Hỗ trợ khách hàng <strong>CHAT TRỰC TUYẾN</strong></p>
+      <p><strong>HỆ THỐNG CỬA HÀNG</strong></p>
+    </div>
+  </div>
+</footer>
+
+<!-- CART DRAWER (render từ localStorage bởi theme.js) -->
+<aside id="cart-drawer" class="kb-cart-drawer">
+  <div class="kb-cart-drawer__head">
+    <h3>GIỎ HÀNG (0)</h3>
+    <button type="button" data-kb-close-cart aria-label="Đóng">✕</button>
+  </div>
+  <div class="kb-cart-drawer__free">
+    <span class="kb-free-msg">Thêm 1.250.000₫ để được miễn phí vận chuyển.</span>
+    <div class="kb-cart-drawer__progress"><span style="width:0%"></span></div>
+  </div>
+  <div class="kb-cart-drawer__label">Sản phẩm</div>
+  <div class="kb-cart-drawer__subtotal"><span>TẠM TÍNH</span><strong>0₫</strong></div>
+  <button type="button" class="kb-btn-primary kb-btn-block kb-btn-checkout" onclick="window.location='checkout.html'">
+    <span>THANH TOÁN</span>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg>
+  </button>
+  <p class="kb-cart-drawer__note">Phí ship, thuế và khuyến mãi được tính tại trang thanh toán.</p>
+</aside>
+<div class="kb-cart-overlay" data-kb-close-cart></div>
+
+<!-- MOBILE MENU -->
+<aside id="mobile-menu" class="kb-mobile-menu">
+  <div class="kb-mobile-menu__head">
+    <div class="kb-logo">S<span class="kb-logo__dot">.</span>O<span class="kb-logo__dot">.</span>I</div>
+    <button type="button" data-kb-close-menu>✕</button>
+  </div>
+  <ul>
+    <li><a href="collection.html">Mua sắm</a></li>
+    <li><a href="collection.html">Trang điểm</a></li>
+    <li><a href="collection.html">Chăm sóc da</a></li>
+    <li><a href="#">Ưu đãi</a></li>
+    <li><a href="#">Thẻ quà tặng</a></li>
+    <li><a href="#">Dịch vụ ảo</a></li>
+    <li><a href="#">Liên hệ</a></li>
+    <li><a href="#">Tiracels</a></li>
+    <li><a href="#">Tin tức</a></li>
+    <li><a href="#">Phần thưởng</a></li>
+  </ul>
+</aside>
+<div class="kb-menu-overlay" data-kb-close-menu></div>
+
+<!-- FLOATING BUTTONS -->
+<button type="button" class="kb-rewards-btn">🎁 Rewards</button>
+<button class="kb-fab" aria-label="Chat">💬</button>
+
+<script src="assets/theme.js" defer></script>
+</body>
+</html>

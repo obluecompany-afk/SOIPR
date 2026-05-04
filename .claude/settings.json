@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(curl -s http://localhost:8765/index.html)",
+      "Bash(python3 -c ' *)",
+      "Bash(open /Users/mac/Documents/TIRTIR/all-pages.html)"
+    ]
+  }
+}

@@ -1,0 +1,21 @@
+# macOS
+.DS_Store
+._*
+__MACOSX/
+
+# Vercel
+.vercel/
+
+# Local
+*.log
+node_modules/
+.env
+.env.local
+
+# Sapo build artifacts (giữ source soi-theme/, ignore zip output)
+soi-theme-pkg/
+
+# IDE
+.vscode/
+.idea/
+*.swp

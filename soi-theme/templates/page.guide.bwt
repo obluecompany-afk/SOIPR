@@ -1,0 +1,34 @@
+<section class="kb-section" style="max-width:900px;margin:0 auto;">
+  <h1 class="kb-section-title">{{ page.title | default: 'HƯỚNG DẪN' }}</h1>
+
+  {% if page.content %}
+    <div class="kb-page-content">{{ page.content }}</div>
+  {% else %}
+    <div class="kb-accordion">
+      <div class="kb-accordion__item open">
+        <div class="kb-accordion__head">CÁCH CHỌN MÀU NỀN PHÙ HỢP <span>—</span></div>
+        <div class="kb-accordion__body">
+          Xem màu da cổ tay, so sánh với bảng shade. Với tone da vàng hãy chọn W (warm), tone hồng chọn C (cool), tone trung tính chọn N.
+        </div>
+      </div>
+      <div class="kb-accordion__item">
+        <div class="kb-accordion__head">CÁC BƯỚC TRANG ĐIỂM CƠ BẢN <span>+</span></div>
+        <div class="kb-accordion__body" hidden>
+          1. Kem lót → 2. Cushion/Foundation → 3. Che khuyết điểm → 4. Phấn phủ → 5. Má hồng → 6. Son môi.
+        </div>
+      </div>
+      <div class="kb-accordion__item">
+        <div class="kb-accordion__head">QUY TRÌNH CHĂM SÓC DA 10 BƯỚC <span>+</span></div>
+        <div class="kb-accordion__body" hidden>
+          Tẩy trang → Rửa mặt → Tẩy tế bào chết → Toner → Essence → Serum → Mặt nạ → Kem mắt → Kem dưỡng → Kem chống nắng.
+        </div>
+      </div>
+      <div class="kb-accordion__item">
+        <div class="kb-accordion__head">CÁCH BẢO QUẢN MỸ PHẨM <span>+</span></div>
+        <div class="kb-accordion__body" hidden>
+          Để nơi khô ráo, tránh ánh nắng trực tiếp, nhiệt độ 15-25°C.
+        </div>
+      </div>
+    </div>
+  {% endif %}
+</section>

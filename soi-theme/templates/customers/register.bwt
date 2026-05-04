@@ -1,0 +1,25 @@
+<section class="kb-section" style="max-width:480px;margin:0 auto;">
+  <h1 class="kb-section-title">ĐĂNG KÝ TÀI KHOẢN</h1>
+
+  {% form 'create_customer' %}
+    {{ form.errors | default_errors }}
+
+    <label class="kb-form-label">Họ</label>
+    <input type="text" name="customer[first_name]" required class="kb-form-input" />
+
+    <label class="kb-form-label">Tên</label>
+    <input type="text" name="customer[last_name]" required class="kb-form-input" />
+
+    <label class="kb-form-label">Email</label>
+    <input type="email" name="customer[email]" required class="kb-form-input" />
+
+    <label class="kb-form-label">Mật khẩu</label>
+    <input type="password" name="customer[password]" required class="kb-form-input" />
+
+    <button type="submit" class="kb-btn-primary kb-btn-block" style="margin-top:20px;">TẠO TÀI KHOẢN</button>
+  {% endform %}
+
+  <p class="kb-form-foot">
+    Đã có tài khoản? <a href="/account/login">Đăng nhập</a>
+  </p>
+</section>

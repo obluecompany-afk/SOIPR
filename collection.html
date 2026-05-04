@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Makeup — S.O.I</title>
+<link rel="stylesheet" href="assets/theme.css" />
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="kb-header">
+  <button class="kb-hamburger" data-kb-open-menu aria-label="Menu">☰</button>
+  <a href="index.html" class="kb-logo">S<span class="kb-logo__dot">.</span>O<span class="kb-logo__dot">.</span>I</a>
+  <nav class="kb-nav">
+    <ul>
+      <li><a href="collection.html">Mua sắm</a></li>
+      <li><a href="collection.html">Trang điểm</a></li>
+      <li><a href="collection.html">Chăm sóc da</a></li>
+      <li><a href="collection.html">Ưu đãi</a></li>
+      <li><a href="#">Thẻ quà tặng</a></li>
+      <li><a href="#">Dịch vụ ảo</a></li>
+      <li><a href="contact.html">Liên hệ</a></li>
+      <li><a href="#">Tiracels</a></li>
+      <li><a href="blog.html">Tin tức</a></li>
+      <li><a href="#">Phần thưởng</a></li>
+    </ul>
+  </nav>
+  <div class="kb-header__icons">
+    <a href="login.html" class="kb-icon" aria-label="Tài khoản">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1"/></svg>
+    </a>
+    <a href="search.html" class="kb-icon" aria-label="Tìm kiếm">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="21" y2="21"/></svg>
+    </a>
+    <button type="button" class="kb-icon kb-icon--cart" data-kb-open-cart aria-label="Giỏ hàng">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><path d="M6 8h12l-1 12H7L6 8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+      <sup class="kb-cart-count">2</sup>
+    </button>
+  </div>
+</header>
+
+<!-- CATEGORY HERO -->
+<section class="kb-category-hero">
+  <a class="kb-category-hero__card kb-ch-face" href="collection.html">
+    <span class="kb-category-hero__label">FACE</span>
+  </a>
+  <a class="kb-category-hero__card kb-ch-lips" href="collection.html">
+    <span class="kb-category-hero__label">LIPS</span>
+  </a>
+</section>
+
+<!-- COLLECTION LAYOUT -->
+<section class="kb-collection">
+  <aside class="kb-filters" id="kb-filters">
+    <button type="button" class="kb-filters__head" data-kb-toggle-filters>
+      <span class="kb-filters__head-label">ẨN BỘ LỌC</span>
+      <span class="kb-filters__head-caret">▲</span>
+    </button>
+    <div class="kb-filters__body">
+      <div class="kb-filter-group" data-kb-group>
+        <button type="button" class="kb-filter-group__title" data-kb-group-toggle>
+          Loại sản phẩm <span class="kb-group-sign">−</span>
+        </button>
+        <div class="kb-filter-group__list">
+          <label><input type="checkbox" data-filter="cushion"/> Cushion</label>
+          <label><input type="checkbox" data-filter="lip-and-blush"/> Lip and Blush</label>
+          <label><input type="checkbox" data-filter="lip-balm"/> Lip Balm</label>
+          <label><input type="checkbox" data-filter="lip-oil"/> Lip Oil</label>
+          <label><input type="checkbox" data-filter="lip-plumper"/> Lip Plumper</label>
+          <label><input type="checkbox" data-filter="lip-tint"/> Lip Tint</label>
+          <label><input type="checkbox" data-filter="makeup-fixer"/> Makeup Fixer</label>
+          <label><input type="checkbox" data-filter="concealer"/> Concealer</label>
+          <label><input type="checkbox" data-filter="blush"/> Blush</label>
+        </div>
+      </div>
+
+      <div class="kb-filter-group" data-kb-group>
+        <button type="button" class="kb-filter-group__title" data-kb-group-toggle>
+          Khoảng giá <span class="kb-group-sign">−</span>
+        </button>
+        <div class="kb-filter-group__list">
+          <label><input type="checkbox" data-price-max="250000"/> Dưới 250.000₫</label>
+          <label><input type="checkbox" data-price-min="250000" data-price-max="500000"/> 250.000₫ – 500.000₫</label>
+          <label><input type="checkbox" data-price-min="500000" data-price-max="750000"/> 500.000₫ – 750.000₫</label>
+          <label><input type="checkbox" data-price-min="750000"/> Trên 750.000₫</label>
+        </div>
+      </div>
+
+      <button type="button" class="kb-filter-clear" id="kb-filter-clear" hidden>XOÁ BỘ LỌC</button>
+    </div>
+  </aside>
+
+  <div class="kb-collection__main">
+    <div class="kb-collection__toolbar">
+      <div class="kb-collection__count">12 sản phẩm</div>
+      <label class="kb-sort">
+        <span>SẮP XẾP</span>
+        <select onchange="this.blur();">
+          <option value="manual">Nổi bật</option>
+          <option value="best-selling">Bán chạy nhất</option>
+          <option value="price-ascending">Giá: thấp → cao</option>
+          <option value="price-descending">Giá: cao → thấp</option>
+          <option value="created-descending">Mới nhất</option>
+          <option value="title-ascending">Tên A–Z</option>
+        </select>
+      </label>
+    </div>
+
+    <div class="kb-collection__grid" id="kb-product-grid">
+      <a class="kb-product-card" href="product.html" data-type="cushion" data-price="625000">
+        <div class="kb-product-card__img kb-pi-red">&#128138;<span class="kb-product-card__shades-badge">40 MÀU</span></div>
+        <div class="kb-product-card__name">Mask Fit Red Cushion</div>
+        <div class="kb-product-card__desc">Rạng rỡ bền lâu</div>
+        <div class="kb-product-card__price">625.000₫</div>
+        <div class="kb-shade-dots"><span style="background:#f5d5b0"></span><span style="background:#eac29a"></span><span style="background:#d9a87a"></span><span style="background:#c49060"></span><em>+35</em></div>
+      </a>
+      <a class="kb-product-card" href="product.html" data-type="cushion" data-price="625000">
+        <div class="kb-product-card__img kb-pi-orange">&#127764;<span class="kb-product-card__shades-badge">30 MÀU</span></div>
+        <div class="kb-product-card__name">Mask Fit AI Filter Cushion</div>
+        <div class="kb-product-card__desc">Che phủ hoàn hảo</div>
+        <div class="kb-product-card__price">625.000₫</div>
+        <div class="kb-shade-dots"><span style="background:#f5d5b0"></span><span style="background:#eac29a"></span><span style="background:#d9a87a"></span><span style="background:#c49060"></span><em>+25</em></div>
+      </a>
+      <a class="kb-product-card" href="product.html" data-type="lip-and-blush" data-price="500000">
+        <div class="kb-product-card__img kb-pi-silver">&#128138;</div>
+        <div class="kb-product-card__name">Mood Glider Lip And Blush Stick</div>
+        <div class="kb-product-card__desc">Một chạm cho môi & má hoàn hảo</div>
+        <div class="kb-product-card__price">500.000₫</div>
+        <div class="kb-shade-dots"><span style="background:#e09090"></span><span style="background:#c97070"></span><span style="background:#d94c4c"></span><span style="background:#9e0c24"></span><em>+1</em></div>
+      </a>
+      <a class="kb-product-card" href="product.html" data-type="cushion" data-price="375000">
+        <div class="kb-product-card__img kb-pi-red"><span class="kb-badge-red">40shades</span>&#128138;<span class="kb-product-card__shades-badge">35 MÀU</span></div>
+        <div class="kb-product-card__name">Mask Fit Red Cushion Mini</div>
+        <div class="kb-product-card__desc">Rạng rỡ bền lâu</div>
+        <div class="kb-product-card__price">375.000₫</div>
+        <div class="kb-shade-dots"><span style="background:#f5d5b0"></span><span style="background:#eac29a"></span><span style="background:#d9a87a"></span><span style="background:#c49060"></span><em>+35</em></div>
+      </a>
+
+      <a class="kb-product-card" href="product.html" data-type="concealer" data-price="400000">
+        <div class="kb-product-card__img kb-pi-light"><span class="kb-product-card__shades-badge">23 MÀU</span>&#128196;</div>
+        <div class="kb-product-card__name">Glide &amp; Hide Blurring Concealer</div>
+        <div class="kb-product-card__desc">Kem che khuyết điểm 2-in-1 for every detail</div>
+        <div class="kb-product-card__price">400.000₫</div>
+        <div class="kb-shade-dots"><span style="background:#f5d5b0"></span><span style="background:#eac29a"></span><span style="background:#d9a87a"></span><span style="background:#c49060"></span><em>+18</em></div>
+      </a>
+      <a class="kb-product-card" href="product.html" data-type="lip-tint" data-price="375000">
+        <div class="kb-product-card__img kb-pi-pink"><span class="kb-badge-soldout">HẾT HÀNG</span>&#127800;</div>
+        <div class="kb-product-card__name">Glowy Jelly Tint</div>
+        <div class="kb-product-card__desc">Môi bóng jelly, không dính</div>
+        <div class="kb-product-card__price">375.000₫</div>
+        <div class="kb-shade-dots"><span style="background:#f5a8a8"></span><span style="background:#e88888"></span><span style="background:#d26868"></span><span style="background:#b94848"></span><em>+3</em></div>
+      </a>
+      <a class="kb-product-card" href="product.html" data-type="blush" data-price="450000">
+        <div class="kb-product-card__img kb-pi-peach"><span class="kb-badge-new">MỚI</span>&#127855;</div>
+        <div class="kb-product-card__name">Airy Bloom Mesh Blush</div>
+        <div class="kb-product-card__desc">Một chạm cho má hồng rạng rỡ.</div>
+        <div class="kb-product-card__price">450.000₫</div>
+        <div class="kb-shade-dots"><span style="background:#f5c0b0"></span><span style="background:#e8a090"></span><span style="background:#d28070"></span><em>+2</em></div>
+      </a>
+      <a class="kb-product-card" href="product.html" data-type="lip-tint" data-price="200000">
+        <div class="kb-product-card__img kb-pi-light">&#128139;</div>
+        <div class="kb-product-card__name">Mini Waterism Glow Tint</div>
+        <div class="kb-product-card__desc">Son tint du lịch</div>
+        <div class="kb-product-card__price">200.000₫</div>
+        <div class="kb-shade-dots"><span style="background:#a04040"></span><span style="background:#902030"></span><span style="background:#801028"></span><em>+25</em></div>
+      </a>
+
+      <a class="kb-product-card" href="product.html" data-type="cushion" data-price="625000">
+        <div class="kb-product-card__img kb-pi-pink"><span class="kb-product-card__shades-badge">20 MÀU</span>&#127800;</div>
+        <div class="kb-product-card__name">Mask Fit All Cover Cushion</div>
+        <div class="kb-product-card__desc">Cushion lì, che phủ cao</div>
+        <div class="kb-product-card__price">625.000₫</div>
+        <div class="kb-shade-dots"><span style="background:#f5d5b0"></span><span style="background:#eac29a"></span><span style="background:#d9a87a"></span><em>+15</em></div>
+      </a>
+      <a class="kb-product-card" href="product.html" data-type="cushion" data-price="37500">
+        <div class="kb-product-card__img kb-pi-redbox">&#128138;</div>
+        <div class="kb-product-card__name">Mask Fit Red Cushion Sachet</div>
+        <div class="kb-product-card__desc">Tìm màu hoàn hảo</div>
+        <div class="kb-product-card__price">38.000₫</div>
+      </a>
+      <a class="kb-product-card" href="product.html" data-type="makeup-fixer" data-price="375000">
+        <div class="kb-product-card__img kb-pi-fixer">&#129511;</div>
+        <div class="kb-product-card__name">Mask Fit Makeup Fixer</div>
+        <div class="kb-product-card__desc">Xịt khoáng giữ makeup bền lâu</div>
+        <div class="kb-product-card__price">375.000₫</div>
+      </a>
+      <a class="kb-product-card" href="product.html" data-type="cushion" data-price="625000">
+        <div class="kb-product-card__img kb-pi-silver"><span class="kb-product-card__shades-badge">20 MÀU</span>&#128139;</div>
+        <div class="kb-product-card__name">Mask Fit Aura Cushion</div>
+        <div class="kb-product-card__desc">Cushion rạng rỡ</div>
+        <div class="kb-product-card__price">625.000₫</div>
+        <div class="kb-shade-dots"><span style="background:#f5d5b0"></span><span style="background:#eac29a"></span><span style="background:#d9a87a"></span><em>+15</em></div>
+      </a>
+    </div>
+
+    <div class="kb-no-results" id="kb-no-results" hidden>
+      <p>Không tìm thấy sản phẩm phù hợp với bộ lọc đã chọn.</p>
+      <button type="button" class="kb-btn-secondary" onclick="document.getElementById('kb-filter-clear').click();">XOÁ BỘ LỌC</button>
+    </div>
+
+    <div class="kb-pagination">
+      <a href="#" class="active">1</a>
+      <a href="#">2</a>
+      <a href="#">Next →</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER (shared) -->
+<footer class="kb-footer">
+  <div class="kb-footer__grid">
+    <div class="kb-footer__col">
+      <div class="kb-logo">S.O.I</div>
+      <h4>ĐĂNG KÝ — GIẢM 10%</h4>
+      <p>Là người đầu tiên biết về BST mới và ưu đãi độc quyền.</p>
+      <form onsubmit="event.preventDefault(); alert('Cảm ơn bạn đã đăng ký!');">
+        <input type="text" name="name" placeholder="Name" required />
+        <input type="email" name="email" placeholder="Email" required />
+        <button type="submit" class="kb-join-btn">JOIN</button>
+      </form>
+    </div>
+    <div class="kb-footer__col">
+      <h4>DANH MỤC</h4>
+      <ul>
+        <li>Hợp tác</li>
+        <li>Tiếp cận</li>
+        <li>Điều khoản dịch vụ</li>
+        <li>Chính sách bảo mật</li>
+        <li>Chính sách vận chuyển</li>
+        <li>Chính sách hoàn tiền</li>
+      </ul>
+    </div>
+    <div class="kb-footer__col">
+      <h4>LIÊN HỆ</h4>
+      <p>S.O.I Inc.<br/>Copyright &copy; 2026. Đã đăng ký bản quyền</p>
+      <p>Hỗ trợ khách hàng <strong>CHAT TRỰC TUYẾN</strong></p>
+      <p><strong>HỆ THỐNG CỬA HÀNG</strong></p>
+    </div>
+  </div>
+</footer>
+
+<!-- CART DRAWER (render từ localStorage) -->
+<aside id="cart-drawer" class="kb-cart-drawer">
+  <div class="kb-cart-drawer__head">
+    <h3>GIỎ HÀNG (0)</h3>
+    <button type="button" data-kb-close-cart aria-label="Đóng">✕</button>
+  </div>
+  <div class="kb-cart-drawer__free">
+    <span class="kb-free-msg">Thêm 1.250.000₫ để được miễn phí vận chuyển.</span>
+    <div class="kb-cart-drawer__progress"><span style="width:0%"></span></div>
+  </div>
+  <div class="kb-cart-drawer__label">Sản phẩm</div>
+  <div class="kb-cart-drawer__subtotal"><span>TẠM TÍNH</span><strong>0₫</strong></div>
+  <button type="button" class="kb-btn-primary kb-btn-block kb-btn-checkout" onclick="window.location='checkout.html'">
+    <span>THANH TOÁN</span>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg>
+  </button>
+  <p class="kb-cart-drawer__note">Phí ship, thuế và khuyến mãi được tính tại trang thanh toán.</p>
+</aside>
+<div class="kb-cart-overlay" data-kb-close-cart></div>
+
+<!-- MOBILE MENU -->
+<aside id="mobile-menu" class="kb-mobile-menu">
+  <div class="kb-mobile-menu__head">
+    <div class="kb-logo">S<span class="kb-logo__dot">.</span>O<span class="kb-logo__dot">.</span>I</div>
+    <button type="button" data-kb-close-menu>✕</button>
+  </div>
+  <ul>
+    <li><a href="index.html">Mua sắm</a></li>
+    <li><a href="collection.html">Trang điểm</a></li>
+    <li><a href="collection.html">Chăm sóc da</a></li>
+    <li><a href="#">Ưu đãi</a></li>
+    <li><a href="#">Thẻ quà tặng</a></li>
+    <li><a href="#">Dịch vụ ảo</a></li>
+    <li><a href="#">Liên hệ</a></li>
+    <li><a href="#">Tiracels</a></li>
+    <li><a href="#">Tin tức</a></li>
+    <li><a href="#">Phần thưởng</a></li>
+  </ul>
+</aside>
+<div class="kb-menu-overlay" data-kb-close-menu></div>
+
+<button type="button" class="kb-rewards-btn">🎁 Rewards</button>
+<button class="kb-fab" aria-label="Chat">💬</button>
+
+<script>
+(function () {
+  var grid = document.getElementById('kb-product-grid');
+  var noResults = document.getElementById('kb-no-results');
+  var countEl = document.querySelector('.kb-collection__count');
+  var clearBtn = document.getElementById('kb-filter-clear');
+  var filters = document.getElementById('kb-filters');
+  var sortSelect = document.querySelector('.kb-sort select');
+  if (!grid) return;
+
+  var allCards = Array.from(grid.querySelectorAll('.kb-product-card'));
+  var originalOrder = allCards.slice();
+
+  function getActiveFilters() {
+    var types = [];
+    document.querySelectorAll('[data-filter]:checked').forEach(function (cb) {
+      types.push(cb.getAttribute('data-filter'));
+    });
+    var prices = [];
+    document.querySelectorAll('input[type="checkbox"][data-price-max], input[type="checkbox"][data-price-min]').forEach(function (cb) {
+      if (!cb.checked) return;
+      prices.push({
+        min: parseFloat(cb.getAttribute('data-price-min')) || 0,
+        max: parseFloat(cb.getAttribute('data-price-max')) || Infinity,
+      });
+    });
+    return { types: types, prices: prices };
+  }
+
+  function applyFilters() {
+    var f = getActiveFilters();
+    var visible = 0;
+    allCards.forEach(function (card) {
+      var type = card.getAttribute('data-type');
+      var price = parseFloat(card.getAttribute('data-price')) || 0;
+      var typeOk = f.types.length === 0 || f.types.indexOf(type) > -1;
+      var priceOk = f.prices.length === 0 || f.prices.some(function (r) { return price >= r.min && price <= r.max; });
+      var show = typeOk && priceOk;
+      card.style.display = show ? '' : 'none';
+      if (show) visible++;
+    });
+    if (countEl) countEl.textContent = visible + ' sản phẩm';
+    if (noResults) noResults.hidden = visible > 0;
+    var hasFilter = f.types.length > 0 || f.prices.length > 0;
+    if (clearBtn) clearBtn.hidden = !hasFilter;
+  }
+
+  function applySort() {
+    if (!sortSelect) return;
+    var sorted = originalOrder.slice();
+    var v = sortSelect.value;
+    if (v === 'price-ascending') sorted.sort(function (a, b) { return parseFloat(a.dataset.price) - parseFloat(b.dataset.price); });
+    else if (v === 'price-descending') sorted.sort(function (a, b) { return parseFloat(b.dataset.price) - parseFloat(a.dataset.price); });
+    else if (v === 'title-ascending') sorted.sort(function (a, b) {
+      return a.querySelector('.kb-product-card__name').textContent.localeCompare(b.querySelector('.kb-product-card__name').textContent);
+    });
+    // append in new order
+    sorted.forEach(function (c) { grid.appendChild(c); });
+  }
+
+  // Checkbox change → filter
+  document.querySelectorAll('.kb-filter-group__list input[type="checkbox"]').forEach(function (cb) {
+    cb.addEventListener('change', applyFilters);
+  });
+
+  // Clear button
+  if (clearBtn) {
+    clearBtn.addEventListener('click', function () {
+      document.querySelectorAll('.kb-filter-group__list input[type="checkbox"]').forEach(function (cb) { cb.checked = false; });
+      applyFilters();
+      if (window.kbToast) window.kbToast('Đã xoá bộ lọc');
+    });
+  }
+
+  // Sort
+  if (sortSelect) {
+    sortSelect.addEventListener('change', function () {
+      applySort();
+      applyFilters();
+    });
+  }
+
+  // Collapse toàn bộ filter sidebar
+  var toggleBtn = document.querySelector('[data-kb-toggle-filters]');
+  if (toggleBtn) {
+    toggleBtn.addEventListener('click', function () {
+      var collapsed = filters.classList.toggle('is-collapsed');
+      var label = toggleBtn.querySelector('.kb-filters__head-label');
+      var caret = toggleBtn.querySelector('.kb-filters__head-caret');
+      if (label) label.textContent = collapsed ? 'HIỆN BỘ LỌC' : 'ẨN BỘ LỌC';
+      if (caret) caret.textContent = collapsed ? '▼' : '▲';
+    });
+  }
+
+  // Collapse từng nhóm
+  document.querySelectorAll('[data-kb-group-toggle]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var group = btn.closest('[data-kb-group]');
+      if (!group) return;
+      var isOpen = group.classList.toggle('is-open');
+      if (isOpen === false) group.classList.add('is-closed');
+      else group.classList.remove('is-closed');
+      var sign = btn.querySelector('.kb-group-sign');
+      if (sign) sign.textContent = group.classList.contains('is-closed') ? '+' : '−';
+    });
+  });
+})();
+</script>
+<script src="assets/theme.js" defer></script>
+</body>
+</html>

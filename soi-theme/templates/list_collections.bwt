@@ -1,0 +1,22 @@
+<section class="kb-section" style="max-width:1200px;margin:0 auto;">
+  <h1 class="kb-section-title">TẤT CẢ DANH MỤC</h1>
+  <p class="kb-section-sub">Khám phá toàn bộ bộ sưu tập S.O.I</p>
+
+  <div class="kb-best-sellers-grid">
+    {% for collection in collections %}
+      {% unless collection.handle == 'frontpage' or collection.handle == 'all' %}
+        <a class="kb-product-card" href="{{ collection.url }}">
+          <div class="kb-product-card__img">
+            {% if collection.image %}
+              <img src="{{ collection.image | img_url: 'medium' }}" alt="{{ collection.title }}" />
+            {% elsif collection.products.first.featured_image %}
+              <img src="{{ collection.products.first.featured_image | img_url: 'medium' }}" alt="{{ collection.title }}" />
+            {% endif %}
+          </div>
+          <div class="kb-product-card__name">{{ collection.title }}</div>
+          <div class="kb-product-card__desc">{{ collection.products_count }} sản phẩm</div>
+        </a>
+      {% endunless %}
+    {% endfor %}
+  </div>
+</section>

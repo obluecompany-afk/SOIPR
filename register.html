@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Đăng ký — S.O.I</title>
+<link rel="stylesheet" href="assets/theme.css" />
+</head>
+<body>
+
+<div data-kb-header></div>
+
+<main>
+  <section class="kb-section" style="max-width:480px;margin:0 auto;">
+    <h1 class="kb-section-title">ĐĂNG KÝ TÀI KHOẢN</h1>
+
+    <form onsubmit="event.preventDefault(); alert('Demo: tài khoản đã được tạo'); window.location='account.html';">
+      <label class="kb-form-label">Họ</label>
+      <input type="text" name="first_name" required class="kb-form-input" />
+
+      <label class="kb-form-label">Tên</label>
+      <input type="text" name="last_name" required class="kb-form-input" />
+
+      <label class="kb-form-label">Email</label>
+      <input type="email" name="email" required class="kb-form-input" />
+
+      <label class="kb-form-label">Mật khẩu</label>
+      <input type="password" name="password" required class="kb-form-input" minlength="6" />
+
+      <button type="submit" class="kb-btn-primary kb-btn-block" style="margin-top:20px;">TẠO TÀI KHOẢN</button>
+    </form>
+
+    <p class="kb-form-foot">
+      Đã có tài khoản? <a href="login.html">Đăng nhập</a>
+    </p>
+  </section>
+</main>
+
+<div data-kb-footer></div>
+<div data-kb-chrome></div>
+
+<script src="assets/chrome.js" defer></script>
+<script src="assets/theme.js" defer></script>
+</body>
+</html>

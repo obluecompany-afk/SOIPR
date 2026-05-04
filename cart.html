@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Giỏ hàng — S.O.I</title>
+<link rel="stylesheet" href="assets/theme.css" />
+</head>
+<body>
+
+<div data-kb-header></div>
+
+<main data-cart-page>
+  <section class="kb-section" style="max-width:900px;margin:0 auto;">
+    <h1 class="kb-section-title">GIỎ HÀNG (0)</h1>
+
+    <div data-cart-list></div>
+
+    <div class="kb-cart-drawer__subtotal">
+      <span>TỔNG CỘNG</span>
+      <strong>0₫</strong>
+    </div>
+
+    <button type="button" class="kb-btn-primary kb-btn-block kb-btn-checkout" data-kb-checkout
+      onclick="window.location='checkout.html'">
+      <span>TIẾN HÀNH THANH TOÁN</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg>
+    </button>
+    <p class="kb-cart-drawer__note" style="margin-top:10px;">
+      Phí ship, thuế và khuyến mãi được tính tại trang thanh toán.
+    </p>
+
+    <p style="text-align:center;margin-top:30px;">
+      <a href="collection.html" class="kb-link-muted">← Tiếp tục mua sắm</a>
+    </p>
+  </section>
+</main>
+
+<div data-kb-footer></div>
+<div data-kb-chrome></div>
+
+<script src="assets/chrome.js" defer></script>
+<script src="assets/theme.js" defer></script>
+</body>
+</html>

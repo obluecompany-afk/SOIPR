@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Đặt hàng thành công — S.O.I</title>
+<link rel="stylesheet" href="assets/theme.css" />
+</head>
+<body>
+
+<div data-kb-header></div>
+
+<main>
+  <section class="kb-section" style="max-width:800px;margin:0 auto;text-align:center;">
+    <div style="font-size:80px;margin-bottom:10px;">✅</div>
+    <h1 class="kb-section-title">ĐẶT HÀNG THÀNH CÔNG!</h1>
+    <p class="kb-section-sub" id="kb-order-id">Cảm ơn bạn đã đặt hàng.</p>
+
+    <div id="kb-order-details" style="text-align:left;margin-top:30px;"></div>
+
+    <div style="margin-top:40px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+      <a href="account.html"><button type="button" class="kb-btn-secondary" style="border-color:#111;">XEM ĐƠN HÀNG</button></a>
+      <a href="collection.html"><button type="button" class="kb-btn-primary">TIẾP TỤC MUA SẮM</button></a>
+    </div>
+  </section>
+</main>
+
+<div data-kb-footer></div>
+<div data-kb-chrome></div>
+
+<script>
+(function () {
+  var order;
+  try { order = JSON.parse(localStorage.getItem('kb-last-order') || 'null'); }
+  catch (e) {}
+
+  if (!order) {
+    document.getElementById('kb-order-details').innerHTML =
+      '<p style="text-align:center;color:#888;">Không tìm thấy thông tin đơn hàng.</p>';
+    return;
+  }
+
+  function fmt(n) { return Math.round(n).toLocaleString('vi-VN') + '₫'; }
+
+  document.getElementById('kb-order-id').textContent =
+    'Mã đơn hàng: #' + order.id + ' · Chúng tôi đã gửi email xác nhận đến ' + order.customer.email;
+
+  var paymentMap = { cod: 'Tiền mặt khi nhận hàng (COD)', bank: 'Chuyển khoản ngân hàng', card: 'Thẻ tín dụng/ghi nợ' };
+  var shipMap = { standard: 'Giao hàng tiêu chuẩn (3–5 ngày)', express: 'Giao nhanh (1–2 ngày)' };
+
+  var itemsHTML = order.items.map(function (it) {
+    return '<div class="kb-summary-item">' +
+      '<div class="kb-summary-item__img">' + (it.image || '🛍️') +
+        '<span class="kb-summary-item__qty">' + it.quantity + '</span></div>' +
+      '<div class="kb-summary-item__info">' +
+        '<div class="kb-summary-item__name">' + it.name + '</div>' +
+        (it.variant ? '<div class="kb-summary-item__variant">' + it.variant + '</div>' : '') +
+      '</div>' +
+      '<div class="kb-summary-item__price">' + fmt(it.price * it.quantity) + '</div>' +
+    '</div>';
+  }).join('');
+
+  document.getElementById('kb-order-details').innerHTML =
+    '<div class="kb-order-summary" style="margin:0;">' +
+      '<h3 class="kb-checkout-heading">SẢN PHẨM</h3>' +
+      itemsHTML +
+      '<div class="kb-summary-row kb-summary-row--total" style="margin-top:16px;">' +
+        '<span>Tổng cộng</span>' +
+        '<strong>' + fmt(order.subtotal) + '</strong>' +
+      '</div>' +
+    '</div>' +
+    '<div class="kb-order-summary" style="margin-top:20px;">' +
+      '<h3 class="kb-checkout-heading">GIAO ĐẾN</h3>' +
+      '<p>' + order.customer.firstName + ' ' + order.customer.lastName + '</p>' +
+      '<p>' + order.customer.phone + '</p>' +
+      '<p>' + order.customer.address +
+        (order.customer.ward ? ', ' + order.customer.ward : '') +
+        (order.customer.district ? ', ' + order.customer.district : '') +
+        (order.customer.city ? ', ' + order.customer.city : '') + '</p>' +
+    '</div>' +
+    '<div class="kb-order-summary" style="margin-top:20px;">' +
+      '<h3 class="kb-checkout-heading">VẬN CHUYỂN & THANH TOÁN</h3>' +
+      '<p><strong>Vận chuyển:</strong> ' + (shipMap[order.shipping] || order.shipping) + '</p>' +
+      '<p><strong>Thanh toán:</strong> ' + (paymentMap[order.payment] || order.payment) + '</p>' +
+      (order.note ? '<p><strong>Ghi chú:</strong> ' + order.note + '</p>' : '') +
+    '</div>';
+})();
+</script>
+<script src="assets/chrome.js" defer></script>
+<script src="assets/theme.js" defer></script>
+</body>
+</html>

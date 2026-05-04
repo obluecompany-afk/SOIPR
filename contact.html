@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Liên hệ — S.O.I</title>
+<link rel="stylesheet" href="assets/theme.css" />
+</head>
+<body>
+
+<div data-kb-header></div>
+
+<main>
+  <section class="kb-section" style="max-width:1000px;margin:0 auto;">
+    <h1 class="kb-section-title">LIÊN HỆ</h1>
+    <p class="kb-section-sub">Gửi cho chúng tôi lời nhắn — đội ngũ S.O.I sẽ phản hồi trong 24h.</p>
+
+    <div class="kb-contact-grid">
+      <div class="kb-contact-info">
+        <h3>THÔNG TIN</h3>
+        <p><strong>Địa chỉ:</strong><br/>123 Nguyễn Huệ, Q.1, TP. Hồ Chí Minh</p>
+        <p><strong>Email:</strong><br/>hello@soi.vn</p>
+        <p><strong>Hotline:</strong><br/>1900 1234</p>
+        <p><strong>Giờ làm việc:</strong><br/>T2–CN, 9:00 – 21:00</p>
+
+        <h3 style="margin-top:30px;">KẾT NỐI</h3>
+        <p>Facebook · Instagram · TikTok · YouTube</p>
+      </div>
+
+      <div class="kb-contact-form">
+        <form onsubmit="event.preventDefault(); var n=this.querySelector('.kb-notice-success'); n.style.display='block'; this.reset(); setTimeout(function(){n.style.display='none';},4000);">
+          <div class="kb-notice-success" style="display:none;">Cảm ơn bạn! Chúng tôi đã nhận được tin nhắn.</div>
+
+          <label class="kb-form-label">Họ tên</label>
+          <input type="text" required class="kb-form-input" />
+
+          <label class="kb-form-label">Email</label>
+          <input type="email" required class="kb-form-input" />
+
+          <label class="kb-form-label">Số điện thoại</label>
+          <input type="tel" class="kb-form-input" />
+
+          <label class="kb-form-label">Nội dung</label>
+          <textarea rows="6" required class="kb-form-input"></textarea>
+
+          <button type="submit" class="kb-btn-primary kb-btn-block" style="margin-top:14px;">GỬI TIN NHẮN</button>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div data-kb-footer></div>
+<div data-kb-chrome></div>
+
+<script src="assets/chrome.js" defer></script>
+<script src="assets/theme.js" defer></script>
+</body>
+</html>

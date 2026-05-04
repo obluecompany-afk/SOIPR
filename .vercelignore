@@ -1,0 +1,24 @@
+# Sapo theme — chỉ dùng cho upload Sapo, không cần deploy Vercel
+soi-theme/
+soi-theme-pkg/
+*.zip
+
+# Documentation
+*.md
+CLAUDE.md
+HUONG-DAN-*.md
+CACH-*.md
+
+# OS
+.DS_Store
+._*
+__MACOSX/
+
+# Local server
+start.sh
+*.log
+.git/
+.vercel/
+
+# Original references
+Tirtir.png

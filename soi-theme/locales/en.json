@@ -1,0 +1,43 @@
+{
+  "general": {
+    "search": "Search",
+    "account": "Account",
+    "cart": "Cart",
+    "add_to_cart": "Add to cart",
+    "checkout": "Checkout",
+    "subtotal": "Subtotal",
+    "remove": "Remove"
+  },
+  "home": {
+    "best_sellers": "BEST SELLERS",
+    "get_matched": "GET MATCHED, STAY RADIANT",
+    "just_dropped": "JUST DROPPED & TRENDING",
+    "newsletter_title": "Be The First To Know",
+    "shop_now": "SHOP NOW"
+  },
+  "product": {
+    "description": "DESCRIPTION",
+    "faq": "F.A.Q",
+    "find_shade": "FIND MY SHADE",
+    "try_on": "TRY IT ON",
+    "add_favorite": "Add to favorites",
+    "pairs_with": "Pairs well with"
+  },
+  "collection": {
+    "filters": "Filters",
+    "hide_filters": "HIDE FILTERS",
+    "sort_by": "SORT BY",
+    "no_products": "No products yet."
+  },
+  "cart": {
+    "free_shipping_reached": "Congratulations! Your order qualifies for free shipping.",
+    "free_shipping_remaining": "Add {{ amount }} for free shipping.",
+    "empty": "Your cart is empty.",
+    "note": "Shipping, taxes and discounts calculated at checkout."
+  },
+  "footer": {
+    "subscribe": "SUBSCRIBE & GET 10% OFF",
+    "menu": "FOOTER MENU",
+    "contact": "CONTACT US"
+  }
+}

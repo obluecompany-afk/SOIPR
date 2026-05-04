@@ -1,0 +1,5 @@
+<section class="kb-section" style="max-width:800px;margin:0 auto;">
+  <h1 class="kb-section-title">{{ page.title }}</h1>
+  <div class="kb-page-content">{{ page.content }}</div>
+</section>
+{% comment %} Sapo theme · S.O.I · UTF-8 {% endcomment %}

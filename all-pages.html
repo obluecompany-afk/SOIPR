@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>S.O.I — Tất cả trang preview</title>
+<link rel="stylesheet" href="assets/theme.css" />
+<style>
+  .nav-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 14px;
+    max-width: 1000px;
+    margin: 30px auto;
+    padding: 0 20px;
+  }
+  .nav-card {
+    display: block;
+    padding: 20px;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    transition: all 0.2s;
+    background: #fff;
+  }
+  .nav-card:hover {
+    border-color: #C8102E;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 14px rgba(200,16,46,0.15);
+  }
+  .nav-card h3 {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 4px;
+    letter-spacing: 0.5px;
+  }
+  .nav-card p {
+    font-size: 12px;
+    color: #888;
+    line-height: 1.5;
+  }
+  .nav-group {
+    margin-bottom: 40px;
+  }
+  .nav-group-title {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: #C8102E;
+    padding: 0 20px;
+    max-width: 1000px;
+    margin: 0 auto 12px;
+  }
+</style>
+</head>
+<body>
+
+<header class="kb-header">
+  <a href="index.html" class="kb-logo">S<span class="kb-logo__dot">.</span>O<span class="kb-logo__dot">.</span>I</a>
+  <div style="flex:1;text-align:center;font-size:11px;letter-spacing:2px;color:#888;">TẤT CẢ TRANG PREVIEW</div>
+</header>
+
+<section style="text-align:center;padding:40px 20px 20px;">
+  <h1 style="font-size:32px;font-weight:800;margin-bottom:10px;">S.O.I — Preview toàn bộ website</h1>
+  <p style="color:#666;font-size:14px;">Click vào mỗi thẻ để xem trang tương ứng</p>
+</section>
+
+<div class="nav-group">
+  <div class="nav-group-title">TRANG CHÍNH</div>
+  <div class="nav-grid">
+    <a class="nav-card" href="index.html"><h3>🏠 Trang chủ</h3><p>Hero banner, Best Sellers, Just Dropped, Newsletter</p></a>
+    <a class="nav-card" href="collection.html"><h3>🛒 Danh mục sản phẩm</h3><p>Grid 4 cột, filter sidebar, pagination</p></a>
+    <a class="nav-card" href="product.html"><h3>📦 Chi tiết sản phẩm</h3><p>Gallery, shade picker, reviews, sticky CTA</p></a>
+    <a class="nav-card" href="cart.html"><h3>🛍️ Giỏ hàng</h3><p>Full cart page, render từ localStorage</p></a>
+    <a class="nav-card" href="checkout.html"><h3>💳 Thanh toán</h3><p>Form địa chỉ + phương thức + đặt hàng</p></a>
+    <a class="nav-card" href="order-success.html"><h3>✅ Đặt hàng thành công</h3><p>Thank you page sau khi đặt</p></a>
+    <a class="nav-card" href="search.html"><h3>🔍 Kết quả tìm kiếm</h3><p>Form search + grid kết quả</p></a>
+  </div>
+</div>
+
+<div class="nav-group">
+  <div class="nav-group-title">KHÁCH HÀNG</div>
+  <div class="nav-grid">
+    <a class="nav-card" href="login.html"><h3>👤 Đăng nhập</h3><p>Email + password + quên mật khẩu</p></a>
+    <a class="nav-card" href="register.html"><h3>✍️ Đăng ký</h3><p>Form tạo tài khoản mới</p></a>
+    <a class="nav-card" href="account.html"><h3>📊 Dashboard tài khoản</h3><p>Thông tin + 10 đơn gần nhất</p></a>
+    <a class="nav-card" href="orders.html"><h3>📋 Lịch sử đơn hàng</h3><p>Bảng tất cả đơn đã đặt</p></a>
+    <a class="nav-card" href="order.html"><h3>📄 Chi tiết đơn hàng</h3><p>Line items + địa chỉ giao + tổng</p></a>
+    <a class="nav-card" href="addresses.html"><h3>📍 Địa chỉ</h3><p>Danh sách + form thêm mới</p></a>
+    <a class="nav-card" href="change-password.html"><h3>🔒 Đổi mật khẩu</h3><p>Form 3 field</p></a>
+    <a class="nav-card" href="reset-password.html"><h3>🔑 Đặt lại mật khẩu</h3><p>Link từ email</p></a>
+  </div>
+</div>
+
+<div class="nav-group">
+  <div class="nav-group-title">TRANG NỘI DUNG</div>
+  <div class="nav-grid">
+    <a class="nav-card" href="contact.html"><h3>📞 Liên hệ</h3><p>Form + thông tin shop</p></a>
+    <a class="nav-card" href="about.html"><h3>ℹ️ Về chúng tôi</h3><p>Story + 3 giá trị cốt lõi</p></a>
+    <a class="nav-card" href="guide.html"><h3>📖 Hướng dẫn</h3><p>Accordion FAQ chọn màu/skincare</p></a>
+    <a class="nav-card" href="blog.html"><h3>📰 Blog</h3><p>Danh sách bài viết</p></a>
+    <a class="nav-card" href="article.html"><h3>📝 Chi tiết bài viết</h3><p>Single article</p></a>
+    <a class="nav-card" href="list-collections.html"><h3>🗂️ Tất cả danh mục</h3><p>Grid các collection</p></a>
+    <a class="nav-card" href="wishlist.html"><h3>❤️ Yêu thích</h3><p>Sản phẩm đã lưu (localStorage)</p></a>
+  </div>
+</div>
+
+<div class="nav-group">
+  <div class="nav-group-title">HỆ THỐNG</div>
+  <div class="nav-grid">
+    <a class="nav-card" href="password-page.html"><h3>🔐 Shop đóng</h3><p>Coming soon + form nhận tin</p></a>
+    <a class="nav-card" href="404.html"><h3>❌ 404 Không tìm thấy</h3><p>Trang lỗi</p></a>
+  </div>
+</div>
+
+<footer style="text-align:center;padding:30px;font-size:12px;color:#888;">
+  21 trang preview · <a href="soi-theme-v1.zip" style="color:#C8102E;">Tải theme .zip</a>
+</footer>
+
+</body>
+</html>

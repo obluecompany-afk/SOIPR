@@ -1,0 +1,96 @@
+<section class="kb-product">
+  <div class="kb-product__gallery">
+    <div class="kb-product__main-image">
+      {% if product.featured_image %}
+        <img src="{{ product.featured_image | img_url: 'large' }}" alt="{{ product.title }}" />
+      {% endif %}
+    </div>
+    {% if product.images.size > 1 %}
+      <div class="kb-product__thumbs">
+        {% for image in product.images limit: 6 %}
+          <div class="kb-thumb {% if forloop.first %}active{% endif %}">
+            <img src="{{ image | img_url: 'small' }}" alt="{{ product.title }}" />
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+
+  <div class="kb-product__info">
+    <h1 class="kb-product__title">{{ product.title }}</h1>
+    <div class="kb-product__rating">
+      <span class="kb-stars">★★★★★</span>
+      <span class="kb-reviews-count">0 Reviews</span>
+    </div>
+    <div class="kb-product__price">{{ product.price | money }}</div>
+
+    <form action="/cart/add" method="post" class="kb-product-form">
+      <input type="hidden" name="return_to" value="/cart" />
+      {% if product.variants.size > 1 %}
+        <div class="kb-product__option">
+          <div class="kb-product__option-label">
+            {{ product.options.first | default: 'Tuỳ chọn' }}
+            <span data-selected-variant>{{ product.variants.first.title }}</span>
+          </div>
+          <div class="kb-shade-grid">
+            {% for variant in product.variants %}
+              <label class="kb-shade-wrap">
+                <input type="radio" name="id" value="{{ variant.id }}" {% if forloop.first %}checked{% endif %} hidden />
+                <span class="kb-shade {% if forloop.first %}selected{% endif %}" title="{{ variant.title }}"></span>
+              </label>
+            {% endfor %}
+          </div>
+        </div>
+      {% else %}
+        <input type="hidden" name="id" value="{{ product.variants.first.id }}" />
+      {% endif %}
+
+      <div class="kb-product__actions">
+        <button type="button" class="kb-btn-secondary">FIND MY SHADE</button>
+        <button type="button" class="kb-btn-secondary">TRY IT ON</button>
+      </div>
+
+      <div class="kb-product__buy">
+        <div class="kb-qty">
+          <button type="button">-</button>
+          <span>1</span>
+          <button type="button">+</button>
+          <input type="hidden" name="quantity" value="1" />
+        </div>
+        <button type="submit" class="kb-btn-primary">THÊM VÀO GIỎ</button>
+      </div>
+    </form>
+
+    <a href="#" class="kb-favorite">♡ Thêm vào yêu thích</a>
+
+    <div class="kb-accordion">
+      <div class="kb-accordion__item open">
+        <div class="kb-accordion__head">MÔ TẢ <span>—</span></div>
+        <div class="kb-accordion__body">{{ product.description }}</div>
+      </div>
+      <div class="kb-accordion__item">
+        <div class="kb-accordion__head">F.A.Q <span>+</span></div>
+        <div class="kb-accordion__body" hidden>
+          <p>Thông tin thường gặp về sản phẩm.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="kb-related">
+  <div class="kb-tabs">
+    <span class="kb-tab active">SẢN PHẨM LIÊN QUAN</span>
+  </div>
+  <div class="kb-related-grid">
+    {% for related_product in collections.all.products limit: 4 %}
+      {% assign product = related_product %}
+      {% include 'product-card' %}
+    {% endfor %}
+  </div>
+</section>
+
+<div class="kb-sticky-cta">
+  <span>{{ product.title }} — {{ product.price | money }}</span>
+  <button class="kb-btn-primary" onclick="document.querySelector('.kb-product-form button[type=submit]').click()">THÊM VÀO GIỎ</button>
+</div>

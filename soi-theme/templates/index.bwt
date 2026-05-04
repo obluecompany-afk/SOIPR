@@ -1,0 +1,93 @@
+{% include 'hero-banner' %}
+
+<section class="kb-section">
+  <h2 class="kb-section-title">SẢN PHẨM BÁN CHẠY</h2>
+  <div class="kb-best-sellers-grid">
+    {% assign best = collections[settings.best_sellers_handle | default: 'best-sellers'] %}
+    {% assign bs_limit = settings.bestsellers_limit | default: 4 %}
+    {% for product in best.products limit: bs_limit %}
+      {% include 'product-card' %}
+    {% endfor %}
+  </div>
+</section>
+
+<section class="kb-section">
+  <h2 class="kb-section-title">TÌM ĐÚNG MÀU CHO BẠN</h2>
+  <p class="kb-section-sub">Tìm màu phù hợp, thử ảo và khám phá skincare hiệu quả — trước khi mua.</p>
+  <div class="kb-matched-grid">
+    <a class="kb-matched-card" href="/pages/thu-ao">
+      <span class="kb-matched-tag">MÀU SỐNG ĐỘNG</span>
+      <div class="kb-matched-image">📱</div>
+      <h3>THỬ ẢO</h3>
+      <p>Chưa biết hợp màu nào? Thử ảo ngay.</p>
+    </a>
+    <a class="kb-matched-card" href="/pages/tim-mau">
+      <span class="kb-matched-tag">TÌM ĐÚNG TONE</span>
+      <div class="kb-matched-image">💄</div>
+      <h3>TÌM MÀU CỦA BẠN</h3>
+      <p>Tìm màu hợp với bạn</p>
+    </a>
+    <a class="kb-matched-card" href="/pages/trac-nghiem-da">
+      <span class="kb-matched-tag">DÀNH RIÊNG CHO DA BẠN</span>
+      <div class="kb-matched-image">🧖</div>
+      <h3>TRẮC NGHIỆM DA</h3>
+      <p>Tìm quy trình S.O.I phù hợp qua bài trắc nghiệm nhanh.</p>
+    </a>
+  </div>
+</section>
+
+<section class="kb-carousel-section">
+  <div class="kb-carousel">
+    {% assign trending = collections[settings.trending_handle | default: 'trending'] %}
+    {% for product in trending.products limit: 8 %}
+      <div class="kb-carousel-item">
+        <div class="kb-carousel-media">
+          {% if product.featured_image %}
+            <img src="{{ product.featured_image | img_url: 'medium' }}" alt="{{ product.title }}" />
+          {% endif %}
+        </div>
+        <div class="kb-product-mini">
+          <div class="kb-product-mini__img"></div>
+          <div class="kb-product-mini__info">
+            <div class="kb-product-mini__name">{{ product.title }}</div>
+            <div class="kb-product-mini__price">
+              {{ product.price | money }}
+              {% if product.compare_at_price > product.price %}
+                <s>{{ product.compare_at_price | money }}</s>
+              {% endif %}
+            </div>
+          </div>
+          <form action="/cart/add" method="post">
+            <input type="hidden" name="id" value="{{ product.variants.first.id }}" />
+            <button type="submit" class="kb-plus-btn">+</button>
+          </form>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="kb-section">
+  <h2 class="kb-section-title">MỚI RA MẮT &amp; XU HƯỚNG</h2>
+  <div class="kb-just-dropped-grid">
+    {% assign drops = collections[settings.just_dropped_handle | default: 'just-dropped'] %}
+    {% for product in drops.products limit: 2 %}
+      <a class="kb-drop-card {% cycle 'kb-drop-card--pink', 'kb-drop-card--orange' %}" href="{{ product.url }}">
+        <div class="kb-drop-badges">
+          <span class="kb-drop-badge kb-drop-badge--red">MỚI</span>
+          <span class="kb-drop-badge">{{ product.variants.size }} MÀU</span>
+        </div>
+        <div class="kb-drop-info">
+          <h3>{{ product.title | upcase }}</h3>
+          <p>{{ product.description | strip_html | truncate: 60 }}</p>
+        </div>
+      </a>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="kb-newsletter">
+  <h2>Đừng bỏ lỡ tin mới</h2>
+  <p>Nhận thông tin sản phẩm mới, ưu đãi giới hạn và đặc quyền thành viên.<br/>Đăng ký để nhận ưu đãi bất ngờ.</p>
+  <a href="/collections/all"><button>MUA NGAY</button></a>
+</section>

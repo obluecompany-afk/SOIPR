@@ -1,0 +1,43 @@
+<section class="kb-section" style="max-width:900px;margin:0 auto;">
+  <h1 class="kb-section-title">ĐỊA CHỈ CỦA TÔI</h1>
+  <p class="kb-section-sub"><a href="/account">← Quay lại tài khoản</a></p>
+
+  {% if customer == blank %}
+    <p style="text-align:center;padding:40px 0;color:#888;">
+      Bạn cần <a href="/account/login" style="color:var(--color-primary);font-weight:600;">đăng nhập</a> để xem địa chỉ.
+    </p>
+  {% else %}
+
+  {% for address in customer.addresses %}
+    <div class="kb-address-card">
+      <p><strong>{{ address.first_name }} {{ address.last_name }}</strong></p>
+      <p>{{ address.address1 }}</p>
+      {% if address.address2 %}<p>{{ address.address2 }}</p>{% endif %}
+      <p>{{ address.city }}, {{ address.province }}</p>
+      <p>{{ address.country }}</p>
+      <p>{{ address.phone }}</p>
+
+      <a href="#" class="kb-link-muted">Chỉnh sửa</a> ·
+      <a href="#" class="kb-link-muted">Xoá</a>
+      {% if address == customer.default_address %}
+        <span class="kb-badge-new" style="position:static;margin-left:10px;">MẶC ĐỊNH</span>
+      {% endif %}
+    </div>
+  {% endfor %}
+
+  <h3 style="margin-top:40px;">THÊM ĐỊA CHỈ MỚI</h3>
+  {% comment %} Sapo không hỗ trợ form tag 'customer_address' → dùng plain HTML form POST {% endcomment %}
+  <form action="/account/addresses" method="post">
+    <label class="kb-form-label">Họ và tên</label>
+    <input type="text" name="address[first_name]" required class="kb-form-input" />
+    <label class="kb-form-label">Số điện thoại</label>
+    <input type="tel" name="address[phone]" required class="kb-form-input" />
+    <label class="kb-form-label">Địa chỉ</label>
+    <input type="text" name="address[address1]" required class="kb-form-input" />
+    <label class="kb-form-label">Thành phố</label>
+    <input type="text" name="address[city]" required class="kb-form-input" />
+    <button type="submit" class="kb-btn-primary">LƯU ĐỊA CHỈ</button>
+  </form>
+
+  {% endif %}
+</section>

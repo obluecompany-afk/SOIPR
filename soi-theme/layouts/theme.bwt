@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="{{ shop.locale | default: 'vi' }}">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{ page_title }} | {{ shop.name }}</title>
+
+  {% comment %} SEO meta {% endcomment %}
+  <meta name="description" content="{{ page_description | default: settings.meta_description | escape }}" />
+  <meta property="og:title" content="{{ page_title }}" />
+  <meta property="og:description" content="{{ page_description | default: settings.meta_description | escape }}" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="{{ canonical_url | default: shop.url }}" />
+  {% if settings.social_image != blank %}
+    <meta property="og:image" content="{{ settings.social_image }}" />
+  {% endif %}
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="stylesheet" href="{{ 'theme.css' | asset_url }}" />
+
+  {% comment %} Inject màu từ Theme Editor — override CSS variables {% endcomment %}
+  <style>
+    :root {
+      --color-primary: {{ settings.color_primary | default: '#C8102E' }};
+      --color-text: {{ settings.color_text | default: '#1A1A1A' }};
+      --color-bg: {{ settings.color_bg | default: '#FFFFFF' }};
+      --hero-bg: {{ settings.hero_bg_color | default: '#c9dfb7' }};
+    }
+    .kb-hero { background: var(--hero-bg); }
+  </style>
+
+  {{ content_for_header }}
+</head>
+<body class="template-{{ template }}" data-sapo="true" data-free-ship-threshold="{{ settings.free_shipping_threshold | default: 1250000 }}">
+
+  {% comment %} Announcement bar — bật/tắt từ Theme Editor {% endcomment %}
+  {% if settings.announcement_show %}
+    <div class="kb-announcement">
+      {% if settings.announcement_link != blank %}
+        <a href="{{ settings.announcement_link }}">{{ settings.announcement_text }}</a>
+      {% else %}
+        <span>{{ settings.announcement_text }}</span>
+      {% endif %}
+    </div>
+  {% endif %}
+
+  {% include 'header' %}
+
+  <main>
+    {{ content_for_layout }}
+  </main>
+
+  {% include 'footer' %}
+
+  {% include 'cart-drawer' %}
+
+  <button type="button" class="kb-rewards-btn">🎁 Rewards</button>
+  <button type="button" class="kb-fab" aria-label="Chat">💬</button>
+
+  <script src="{{ 'theme.js' | asset_url }}" defer></script>
+</body>
+</html>

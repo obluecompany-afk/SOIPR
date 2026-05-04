@@ -1,0 +1,46 @@
+{% comment %}
+  ASSERT: Template dùng cho AJAX quick-view — chỉ render nội dung product,
+  KHÔNG bao header/footer. Sapo sẽ inject vào modal.
+{% endcomment %}
+<div class="kb-quick-view">
+  <div class="kb-quick-view__gallery">
+    {% if product.featured_image %}
+      <img src="{{ product.featured_image | img_url: 'large' }}" alt="{{ product.title }}" />
+    {% endif %}
+  </div>
+
+  <div class="kb-quick-view__info">
+    <h2 class="kb-product__title">{{ product.title }}</h2>
+    <div class="kb-product__price">{{ product.price | money }}</div>
+    <p class="kb-product-card__desc">{{ product.description | strip_html | truncate: 180 }}</p>
+
+    <form action="/cart/add" method="post" class="kb-product-form">
+      {% if product.variants.size > 1 %}
+        <label class="kb-form-label">{{ product.options.first }}</label>
+        <select name="id" class="kb-form-input">
+          {% for variant in product.variants %}
+            <option value="{{ variant.id }}"{% unless variant.available %} disabled{% endunless %}>
+              {{ variant.title }} — {{ variant.price | money }}
+            </option>
+          {% endfor %}
+        </select>
+      {% else %}
+        <input type="hidden" name="id" value="{{ product.variants.first.id }}" />
+      {% endif %}
+
+      <div class="kb-product__buy" style="margin-top:16px;">
+        <div class="kb-qty">
+          <button type="button">-</button>
+          <span>1</span>
+          <button type="button">+</button>
+          <input type="hidden" name="quantity" value="1" />
+        </div>
+        <button type="submit" class="kb-btn-primary">THÊM VÀO GIỎ</button>
+      </div>
+    </form>
+
+    <a href="{{ product.url }}" class="kb-link-muted" style="display:block;margin-top:14px;">
+      Xem chi tiết →
+    </a>
+  </div>
+</div>

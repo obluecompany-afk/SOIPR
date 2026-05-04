@@ -1,0 +1,41 @@
+<section class="kb-section" style="max-width:900px;margin:0 auto;">
+  <h1 class="kb-section-title">TÀI KHOẢN CỦA TÔI</h1>
+
+  <div class="kb-account-grid">
+    <aside class="kb-account-nav">
+      <ul>
+        <li><a href="/account" class="active">Tổng quan</a></li>
+        <li><a href="/account/addresses">Địa chỉ</a></li>
+        <li><a href="/account/change_password">Đổi mật khẩu</a></li>
+        <li><a href="/account/logout">Đăng xuất</a></li>
+      </ul>
+    </aside>
+
+    <div class="kb-account-main">
+      <h3>Chào {{ customer.first_name }} {{ customer.last_name }}</h3>
+      <p class="kb-section-sub" style="text-align:left;">{{ customer.email }}</p>
+
+      <h4 style="margin-top:30px;">ĐƠN HÀNG GẦN ĐÂY</h4>
+      {% if customer.orders.size > 0 %}
+        <table class="kb-orders-table">
+          <thead>
+            <tr><th>Mã đơn</th><th>Ngày</th><th>Tổng</th><th>Trạng thái</th><th></th></tr>
+          </thead>
+          <tbody>
+            {% for order in customer.orders limit: 10 %}
+              <tr>
+                <td>#{{ order.name }}</td>
+                <td>{{ order.created_at | date: '%d/%m/%Y' }}</td>
+                <td>{{ order.total_price | money }}</td>
+                <td>{{ order.financial_status }}</td>
+                <td><a href="{{ order.customer_url }}">Xem</a></td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      {% else %}
+        <p class="kb-section-sub">Bạn chưa có đơn hàng nào.</p>
+      {% endif %}
+    </div>
+  </div>
+</section>

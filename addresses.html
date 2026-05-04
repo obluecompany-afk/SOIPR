@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Địa chỉ — S.O.I</title>
+<link rel="stylesheet" href="assets/theme.css" />
+</head>
+<body>
+
+<div data-kb-header></div>
+
+<main>
+  <section class="kb-section" style="max-width:900px;margin:0 auto;">
+    <h1 class="kb-section-title">ĐỊA CHỈ CỦA TÔI</h1>
+    <p class="kb-section-sub"><a href="account.html">← Quay lại tài khoản</a></p>
+
+    <div id="kb-address-list">
+      <div class="kb-address-card" data-address-id="1" data-default="true"
+           data-name="Nguyễn Minh Nghĩa"
+           data-phone="+84 909 123 456"
+           data-address="123 Nguyễn Huệ, P.Bến Nghé, Q.1"
+           data-city="TP. Hồ Chí Minh">
+        <p><strong>Nguyễn Minh Nghĩa</strong>
+          <span class="kb-badge-new kb-addr-badge">MẶC ĐỊNH</span>
+        </p>
+        <p>123 Nguyễn Huệ, P.Bến Nghé, Q.1</p>
+        <p>TP. Hồ Chí Minh · Việt Nam</p>
+        <p>+84 909 123 456</p>
+        <div class="kb-addr-actions">
+          <button type="button" class="kb-link-muted" data-addr-action="edit">Chỉnh sửa</button>
+          <span>·</span>
+          <button type="button" class="kb-link-muted" data-addr-action="delete">Xoá</button>
+        </div>
+      </div>
+
+      <div class="kb-address-card" data-address-id="2"
+           data-name="Nguyễn Minh Nghĩa — Văn phòng"
+           data-phone="+84 909 123 456"
+           data-address="88 Lê Lợi, P.Bến Thành, Q.1"
+           data-city="TP. Hồ Chí Minh">
+        <p><strong>Nguyễn Minh Nghĩa — Văn phòng</strong></p>
+        <p>88 Lê Lợi, P.Bến Thành, Q.1</p>
+        <p>TP. Hồ Chí Minh · Việt Nam</p>
+        <p>+84 909 123 456</p>
+        <div class="kb-addr-actions">
+          <button type="button" class="kb-link-muted" data-addr-action="edit">Chỉnh sửa</button>
+          <span>·</span>
+          <button type="button" class="kb-link-muted" data-addr-action="delete">Xoá</button>
+          <span>·</span>
+          <button type="button" class="kb-link-muted" data-addr-action="set-default">Đặt mặc định</button>
+        </div>
+      </div>
+    </div>
+
+    <h3 style="margin-top:40px;" id="kb-form-title">THÊM ĐỊA CHỈ MỚI</h3>
+    <form id="kb-addr-form">
+      <input type="hidden" name="id" />
+
+      <label class="kb-form-label">Họ và tên</label>
+      <input type="text" name="name" required class="kb-form-input" />
+
+      <label class="kb-form-label">Số điện thoại</label>
+      <input type="tel" name="phone" required class="kb-form-input" />
+
+      <label class="kb-form-label">Địa chỉ</label>
+      <input type="text" name="address" required class="kb-form-input" />
+
+      <label class="kb-form-label">Thành phố</label>
+      <input type="text" name="city" required class="kb-form-input" />
+
+      <div style="display:flex;gap:10px;margin-top:14px;">
+        <button type="submit" class="kb-btn-primary" id="kb-addr-submit">LƯU ĐỊA CHỈ</button>
+        <button type="button" class="kb-btn-secondary" id="kb-addr-cancel" style="display:none;">HUỶ</button>
+      </div>
+    </form>
+  </section>
+</main>
+
+<div data-kb-footer></div>
+<div data-kb-chrome></div>
+
+<script>
+(function () {
+  var list = document.getElementById('kb-address-list');
+  var form = document.getElementById('kb-addr-form');
+  var formTitle = document.getElementById('kb-form-title');
+  var submitBtn = document.getElementById('kb-addr-submit');
+  var cancelBtn = document.getElementById('kb-addr-cancel');
+  var editingCard = null;
+
+  function escapeHtml(s) {
+    return (s || '').replace(/[&<>"']/g, function (c) {
+      return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+    });
+  }
+
+  function renderCard(data) {
+    var card = document.createElement('div');
+    card.className = 'kb-address-card';
+    card.dataset.addressId = data.id;
+    if (data.isDefault) card.dataset.default = 'true';
+    card.dataset.name = data.name;
+    card.dataset.phone = data.phone;
+    card.dataset.address = data.address;
+    card.dataset.city = data.city;
+
+    var badge = data.isDefault ? '<span class="kb-badge-new kb-addr-badge">MẶC ĐỊNH</span>' : '';
+    var setDefaultBtn = data.isDefault ? '' :
+      '<span>·</span><button type="button" class="kb-link-muted" data-addr-action="set-default">Đặt mặc định</button>';
+
+    card.innerHTML =
+      '<p><strong>' + escapeHtml(data.name) + '</strong> ' + badge + '</p>' +
+      '<p>' + escapeHtml(data.address) + '</p>' +
+      '<p>' + escapeHtml(data.city) + ' · Việt Nam</p>' +
+      '<p>' + escapeHtml(data.phone) + '</p>' +
+      '<div class="kb-addr-actions">' +
+        '<button type="button" class="kb-link-muted" data-addr-action="edit">Chỉnh sửa</button>' +
+        '<span>·</span>' +
+        '<button type="button" class="kb-link-muted" data-addr-action="delete">Xoá</button>' +
+        setDefaultBtn +
+      '</div>';
+    return card;
+  }
+
+  function resetForm() {
+    form.reset();
+    form.elements.id.value = '';
+    editingCard = null;
+    formTitle.textContent = 'THÊM ĐỊA CHỈ MỚI';
+    submitBtn.textContent = 'LƯU ĐỊA CHỈ';
+    cancelBtn.style.display = 'none';
+  }
+
+  function fillFormFromCard(card) {
+    editingCard = card;
+    form.elements.id.value = card.dataset.addressId;
+    form.elements.name.value = card.dataset.name;
+    form.elements.phone.value = card.dataset.phone;
+    form.elements.address.value = card.dataset.address;
+    form.elements.city.value = card.dataset.city;
+    formTitle.textContent = 'CHỈNH SỬA ĐỊA CHỈ';
+    submitBtn.textContent = 'CẬP NHẬT';
+    cancelBtn.style.display = 'inline-block';
+    form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    setTimeout(function () { form.elements.name.focus(); }, 400);
+  }
+
+  // Handle form submit: add or update
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var data = {
+      id: form.elements.id.value || String(Date.now()),
+      name: form.elements.name.value,
+      phone: form.elements.phone.value,
+      address: form.elements.address.value,
+      city: form.elements.city.value,
+      isDefault: false,
+    };
+
+    if (editingCard) {
+      // Update in place
+      data.isDefault = editingCard.dataset.default === 'true';
+      var newCard = renderCard(data);
+      editingCard.replaceWith(newCard);
+      if (window.kbToast) window.kbToast('Đã cập nhật địa chỉ');
+    } else {
+      // Add new card at end
+      list.appendChild(renderCard(data));
+      if (window.kbToast) window.kbToast('Đã thêm địa chỉ mới');
+    }
+    resetForm();
+  });
+
+  cancelBtn.addEventListener('click', resetForm);
+
+  // Delegated click on list
+  list.addEventListener('click', function (e) {
+    var btn = e.target.closest('[data-addr-action]');
+    if (!btn) return;
+    var card = btn.closest('.kb-address-card');
+    if (!card) return;
+    var action = btn.getAttribute('data-addr-action');
+
+    if (action === 'delete') {
+      if (card.dataset.default === 'true') {
+        alert('Không thể xoá địa chỉ mặc định. Vui lòng đặt địa chỉ khác làm mặc định trước.');
+        return;
+      }
+      if (!confirm('Xoá địa chỉ "' + card.dataset.name + '"?')) return;
+      card.style.transition = 'opacity 0.25s';
+      card.style.opacity = '0';
+      setTimeout(function () {
+        card.remove();
+        if (window.kbToast) window.kbToast('Đã xoá địa chỉ');
+      }, 250);
+    }
+    else if (action === 'edit') {
+      fillFormFromCard(card);
+    }
+    else if (action === 'set-default') {
+      // Remove default from all, set on this
+      list.querySelectorAll('.kb-address-card').forEach(function (c) {
+        c.dataset.default = 'false';
+        var b = c.querySelector('.kb-addr-badge');
+        if (b) b.remove();
+        // Add "Set default" button if missing
+        var actions = c.querySelector('.kb-addr-actions');
+        if (actions && !actions.querySelector('[data-addr-action="set-default"]')) {
+          actions.insertAdjacentHTML('beforeend',
+            '<span>·</span><button type="button" class="kb-link-muted" data-addr-action="set-default">Đặt mặc định</button>');
+        }
+      });
+      card.dataset.default = 'true';
+      var p = card.querySelector('p strong');
+      if (p && !card.querySelector('.kb-addr-badge')) {
+        p.insertAdjacentHTML('afterend', ' <span class="kb-badge-new kb-addr-badge">MẶC ĐỊNH</span>');
+      }
+      // Remove "set default" button from this card
+      var selfBtn = card.querySelector('[data-addr-action="set-default"]');
+      if (selfBtn) {
+        var sep = selfBtn.previousElementSibling;
+        if (sep && sep.tagName === 'SPAN' && sep.textContent.trim() === '·') sep.remove();
+        selfBtn.remove();
+      }
+      if (window.kbToast) window.kbToast('Đã đặt làm địa chỉ mặc định');
+    }
+  });
+})();
+</script>
+<script src="assets/chrome.js" defer></script>
+<script src="assets/theme.js" defer></script>
+</body>
+</html>

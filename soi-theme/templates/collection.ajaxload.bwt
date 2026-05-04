@@ -1,0 +1,11 @@
+{% comment %}
+  ASSERT: Render chỉ grid sản phẩm cho AJAX load-more / infinite scroll.
+  Không bao layout, không header/footer.
+{% endcomment %}
+{% for product in collection.products %}
+  {% include 'product-card' %}
+{% endfor %}
+
+{% if paginate.next %}
+  <div class="kb-ajax-next" data-next-url="{{ paginate.next.url }}"></div>
+{% endif %}

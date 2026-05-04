@@ -1,0 +1,66 @@
+{% capture logo_markup %}
+  {% if settings.logo_image != blank %}
+    <img src="{{ settings.logo_image }}" alt="{{ shop.name }}" class="kb-logo__img" />
+  {% else %}
+    {% assign logo_txt = settings.logo_text | default: 'S.O.I' %}
+    {% comment %} Tự tách ký tự xen dấu chấm — chỉ áp dụng nếu text có dạng "X.X.X" {% endcomment %}
+    {% if logo_txt contains '.' %}
+      {% assign parts = logo_txt | split: '.' %}
+      {% for part in parts %}{{ part }}{% unless forloop.last %}<span class="kb-logo__dot">.</span>{% endunless %}{% endfor %}
+    {% else %}
+      {{ logo_txt }}
+    {% endif %}
+  {% endif %}
+{% endcapture %}
+
+<header class="kb-header">
+  <button class="kb-hamburger" type="button" data-kb-open-menu aria-label="Menu">☰</button>
+  <a href="{{ shop.url }}" class="kb-logo" aria-label="{{ shop.name }}">{{ logo_markup }}</a>
+  <nav class="kb-nav">
+    <ul>
+      {% for link in linklists.main-menu.links %}
+        <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+      {% else %}
+        <li><a href="/collections/all">Mua sắm</a></li>
+        <li><a href="/collections/makeup">Trang điểm</a></li>
+        <li><a href="/collections/skincare">Chăm sóc da</a></li>
+        <li><a href="/collections/deals">Ưu đãi</a></li>
+        <li><a href="/pages/gift-card">Thẻ quà tặng</a></li>
+        <li><a href="/pages/virtual-services">Dịch vụ ảo</a></li>
+        <li><a href="/pages/contact">Liên hệ</a></li>
+        <li><a href="/pages/tiracels">Tiracels</a></li>
+        <li><a href="/blogs/news">Tin tức</a></li>
+        <li><a href="/pages/rewards">Phần thưởng</a></li>
+      {% endfor %}
+    </ul>
+  </nav>
+  <div class="kb-header__icons">
+    <a href="/account" class="kb-icon" aria-label="Tài khoản">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1"/></svg>
+    </a>
+    <a href="/search" class="kb-icon" aria-label="Tìm kiếm">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="21" y2="21"/></svg>
+    </a>
+    <a href="/cart" class="kb-icon kb-icon--cart" data-kb-open-cart aria-label="Giỏ hàng">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><path d="M6 8h12l-1 12H7L6 8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+      {% if cart.item_count > 0 %}<sup class="kb-cart-count">{{ cart.item_count }}</sup>{% endif %}
+    </a>
+  </div>
+</header>
+
+<aside id="mobile-menu" class="kb-mobile-menu">
+  <div class="kb-mobile-menu__head">
+    <div class="kb-logo">{{ logo_markup }}</div>
+    <button type="button" data-kb-close-menu aria-label="Đóng">✕</button>
+  </div>
+  <ul>
+    {% for link in linklists.main-menu.links %}
+      <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+    {% else %}
+      <li><a href="/collections/all">Mua sắm</a></li>
+      <li><a href="/collections/makeup">Trang điểm</a></li>
+      <li><a href="/collections/skincare">Chăm sóc da</a></li>
+    {% endfor %}
+  </ul>
+</aside>
+<div class="kb-menu-overlay" data-kb-close-menu></div>

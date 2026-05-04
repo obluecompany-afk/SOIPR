@@ -1,0 +1,30 @@
+{
+  "current": {
+    "logo_text": "S.O.I",
+    "color_primary": "#C8102E",
+    "color_text": "#1A1A1A",
+    "color_bg": "#FFFFFF",
+    "announcement_show": false,
+    "announcement_text": "FREE SHIP cho đơn từ 1.250.000₫ — Chào mừng đến S.O.I",
+    "hero_tag": "ƯU ĐÃI MÙA XUÂN",
+    "hero_title": "BỘ SƯU TẬP MATCHA",
+    "hero_date": "20/04 – 27/04",
+    "hero_bg_color": "#c9dfb7",
+    "best_sellers_handle": "best-sellers",
+    "trending_handle": "trending",
+    "just_dropped_handle": "just-dropped",
+    "bestsellers_limit": 4,
+    "free_shipping_threshold": 1250000,
+    "contact_address": "123 Nguyễn Huệ, Q.1, TP. Hồ Chí Minh",
+    "contact_email": "hello@soi.vn",
+    "contact_phone": "1900 1234",
+    "contact_hours": "T2–CN, 9:00 – 21:00",
+    "meta_description": "S.O.I — K-beauty skincare & makeup cho làn da Việt."
+  },
+  "presets": {
+    "Default": {
+      "logo_text": "S.O.I",
+      "color_primary": "#C8102E"
+    }
+  }
+}

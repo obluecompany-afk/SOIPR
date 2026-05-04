@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Thanh toán — S.O.I</title>
+<link rel="stylesheet" href="assets/theme.css" />
+</head>
+<body>
+
+<header class="kb-header">
+  <a href="index.html" class="kb-logo">S<span class="kb-logo__dot">.</span>O<span class="kb-logo__dot">.</span>I</a>
+  <div style="flex:1;text-align:center;font-size:11px;letter-spacing:2px;color:#888;">THANH TOÁN</div>
+  <a href="cart.html" class="kb-link-muted" style="font-size:12px;">← Quay lại giỏ hàng</a>
+</header>
+
+<main>
+  <section class="kb-checkout" style="max-width:1100px;margin:30px auto;padding:0 20px;">
+    <div class="kb-checkout-grid">
+      <!-- LEFT: Form -->
+      <form id="kb-checkout-form">
+        <h2 class="kb-checkout-heading">THÔNG TIN LIÊN HỆ</h2>
+        <label class="kb-form-label">Email</label>
+        <input type="email" name="email" required class="kb-form-input" value="minhnghia0897@gmail.com" />
+
+        <label style="display:flex;align-items:center;gap:8px;margin-top:10px;font-size:13px;">
+          <input type="checkbox" name="subscribe" /> Đăng ký nhận tin khuyến mãi
+        </label>
+
+        <h2 class="kb-checkout-heading" style="margin-top:30px;">ĐỊA CHỈ GIAO HÀNG</h2>
+        <div class="kb-field-row">
+          <div>
+            <label class="kb-form-label">Họ</label>
+            <input type="text" name="first_name" required class="kb-form-input" />
+          </div>
+          <div>
+            <label class="kb-form-label">Tên</label>
+            <input type="text" name="last_name" required class="kb-form-input" />
+          </div>
+        </div>
+
+        <label class="kb-form-label">Số điện thoại</label>
+        <input type="tel" name="phone" required class="kb-form-input" placeholder="+84..." />
+
+        <label class="kb-form-label">Địa chỉ</label>
+        <input type="text" name="address" required class="kb-form-input" placeholder="Số nhà, tên đường" />
+
+        <div class="kb-field-row">
+          <div>
+            <label class="kb-form-label">Phường/Xã</label>
+            <input type="text" name="ward" class="kb-form-input" />
+          </div>
+          <div>
+            <label class="kb-form-label">Quận/Huyện</label>
+            <input type="text" name="district" class="kb-form-input" />
+          </div>
+        </div>
+
+        <label class="kb-form-label">Tỉnh/Thành phố</label>
+        <select name="city" required class="kb-form-input">
+          <option value="">— Chọn —</option>
+          <option>TP. Hồ Chí Minh</option>
+          <option>Hà Nội</option>
+          <option>Đà Nẵng</option>
+          <option>Hải Phòng</option>
+          <option>Cần Thơ</option>
+        </select>
+
+        <h2 class="kb-checkout-heading" style="margin-top:30px;">PHƯƠNG THỨC VẬN CHUYỂN</h2>
+        <div class="kb-shipping-options">
+          <label class="kb-ship-option">
+            <input type="radio" name="shipping" value="standard" checked data-ship-cost="0" />
+            <div>
+              <div class="kb-ship-option__name">Giao hàng tiêu chuẩn (3–5 ngày)</div>
+              <div class="kb-ship-option__sub">Miễn phí với đơn từ 1.250.000₫</div>
+            </div>
+            <div class="kb-ship-option__price" data-ship-display>Miễn phí</div>
+          </label>
+          <label class="kb-ship-option">
+            <input type="radio" name="shipping" value="express" data-ship-cost="125000" />
+            <div>
+              <div class="kb-ship-option__name">Giao nhanh (1–2 ngày)</div>
+              <div class="kb-ship-option__sub">Nội thành TP.HCM &amp; HN</div>
+            </div>
+            <div class="kb-ship-option__price">125.000₫</div>
+          </label>
+        </div>
+
+        <h2 class="kb-checkout-heading" style="margin-top:30px;">PHƯƠNG THỨC THANH TOÁN</h2>
+        <div class="kb-payment-options">
+          <label class="kb-ship-option">
+            <input type="radio" name="payment" value="cod" checked />
+            <div>
+              <div class="kb-ship-option__name">Thanh toán khi nhận hàng (COD)</div>
+              <div class="kb-ship-option__sub">Trả tiền mặt khi shipper giao</div>
+            </div>
+            <div class="kb-ship-option__price">💵</div>
+          </label>
+          <label class="kb-ship-option">
+            <input type="radio" name="payment" value="bank" />
+            <div>
+              <div class="kb-ship-option__name">Chuyển khoản ngân hàng</div>
+              <div class="kb-ship-option__sub">Vietcombank, BIDV, Techcombank</div>
+            </div>
+            <div class="kb-ship-option__price">🏦</div>
+          </label>
+          <label class="kb-ship-option">
+            <input type="radio" name="payment" value="card" />
+            <div>
+              <div class="kb-ship-option__name">Thẻ tín dụng / ghi nợ</div>
+              <div class="kb-ship-option__sub">Visa, Mastercard, JCB</div>
+            </div>
+            <div class="kb-ship-option__price">💳</div>
+          </label>
+        </div>
+
+        <h2 class="kb-checkout-heading" style="margin-top:30px;">GHI CHÚ</h2>
+        <textarea name="note" rows="3" class="kb-form-input" placeholder="Ghi chú cho đơn hàng (không bắt buộc)"></textarea>
+
+        <button type="submit" class="kb-btn-primary kb-btn-block" style="margin-top:24px;font-size:14px;padding:16px;">
+          ĐẶT HÀNG
+        </button>
+      </form>
+
+      <!-- RIGHT: Order summary -->
+      <aside class="kb-order-summary">
+        <h2 class="kb-checkout-heading">ĐƠN HÀNG</h2>
+        <div data-cart-list id="kb-summary-items"></div>
+
+        <div class="kb-summary-row">
+          <span>Tạm tính</span>
+          <strong data-kb-summary-subtotal>0₫</strong>
+        </div>
+        <div class="kb-summary-row">
+          <span>Vận chuyển</span>
+          <strong data-kb-summary-shipping>Miễn phí</strong>
+        </div>
+        <div class="kb-summary-row kb-summary-row--total">
+          <span>Tổng cộng</span>
+          <strong data-kb-summary-total>0₫</strong>
+        </div>
+
+        <div class="kb-discount-row">
+          <input type="text" placeholder="Mã giảm giá" class="kb-form-input" style="margin:0;" />
+          <button type="button" class="kb-btn-secondary" style="padding:12px 18px;">ÁP DỤNG</button>
+        </div>
+      </aside>
+    </div>
+  </section>
+</main>
+
+<script src="assets/theme.js" defer></script>
+<script>
+(function () {
+  function wait() {
+    if (!window.kbCart) { return setTimeout(wait, 50); }
+    init();
+  }
+  wait();
+
+  function formatMoney(n) { return Math.round(n).toLocaleString('vi-VN') + '₫'; }
+
+  function renderSummary() {
+    var t = window.kbCart.totals();
+    var list = document.getElementById('kb-summary-items');
+
+    if (t.items.length === 0) {
+      list.innerHTML = '<p style="color:#888;font-size:13px;padding:20px 0;">Giỏ hàng trống. <a href="collection.html" style="color:var(--color-primary);">Mua sắm →</a></p>';
+      document.getElementById('kb-checkout-form').querySelector('button[type="submit"]').disabled = true;
+    } else {
+      list.innerHTML = t.items.map(function (it) {
+        return '<div class="kb-summary-item">' +
+          '<div class="kb-summary-item__img">' + (it.image || '🛍️') +
+            '<span class="kb-summary-item__qty">' + it.quantity + '</span></div>' +
+          '<div class="kb-summary-item__info">' +
+            '<div class="kb-summary-item__name">' + it.name + '</div>' +
+            (it.variant ? '<div class="kb-summary-item__variant">' + it.variant + '</div>' : '') +
+          '</div>' +
+          '<div class="kb-summary-item__price">' + formatMoney(it.price * it.quantity) + '</div>' +
+        '</div>';
+      }).join('');
+    }
+
+    var ship = parseFloat(document.querySelector('input[name="shipping"]:checked')?.getAttribute('data-ship-cost') || 0);
+    var subtotal = t.subtotal;
+    var shipCost = ship; // free shipping logic đã thể hiện trong data-ship-cost (standard=0)
+    var total = subtotal + shipCost;
+    document.querySelector('[data-kb-summary-subtotal]').textContent = formatMoney(subtotal);
+    document.querySelector('[data-kb-summary-shipping]').textContent = shipCost === 0 ? 'Miễn phí' : formatMoney(shipCost);
+    document.querySelector('[data-kb-summary-total]').textContent = formatMoney(total);
+
+    // Update standard shipping display
+    var stdDisplay = document.querySelector('[data-ship-display]');
+    if (stdDisplay) {
+      stdDisplay.textContent = (subtotal >= 1250000) ? 'Miễn phí' : formatMoney(0);
+    }
+  }
+
+  function init() {
+    renderSummary();
+
+    // Update on shipping change
+    document.querySelectorAll('input[name="shipping"]').forEach(function (r) {
+      r.addEventListener('change', renderSummary);
+    });
+
+    // Form submit
+    document.getElementById('kb-checkout-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      var t = window.kbCart.totals();
+      if (t.items.length === 0) {
+        alert('Giỏ hàng trống!');
+        return;
+      }
+      // Save order to localStorage for order-success page
+      var fd = new FormData(this);
+      var order = {
+        id: 'SOI' + Date.now().toString().slice(-6),
+        createdAt: new Date().toISOString(),
+        customer: {
+          email: fd.get('email'),
+          firstName: fd.get('first_name'),
+          lastName: fd.get('last_name'),
+          phone: fd.get('phone'),
+          address: fd.get('address'),
+          ward: fd.get('ward'),
+          district: fd.get('district'),
+          city: fd.get('city'),
+        },
+        shipping: fd.get('shipping'),
+        payment: fd.get('payment'),
+        note: fd.get('note'),
+        items: t.items,
+        subtotal: t.subtotal,
+      };
+      try { localStorage.setItem('kb-last-order', JSON.stringify(order)); } catch (e) {}
+      window.kbCart.clear();
+      window.location = 'order-success.html';
+    });
+  }
+})();
+</script>
+</body>
+</html>
