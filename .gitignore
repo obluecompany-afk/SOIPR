@@ -19,3 +19,6 @@ soi-theme-pkg/
 .vscode/
 .idea/
 *.swp
+
+# Nested git repo
+SOI PR/
