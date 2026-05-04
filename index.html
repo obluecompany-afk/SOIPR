@@ -10,7 +10,11 @@
 
 <!-- HEADER -->
 <header class="kb-header">
-  <button class="kb-hamburger" data-kb-open-menu aria-label="Menu">☰</button>
+  <button class="kb-hamburger" data-kb-toggle-menu aria-label="Menu">
+    <span class="kb-hamburger__bar"></span>
+    <span class="kb-hamburger__bar"></span>
+    <span class="kb-hamburger__bar"></span>
+  </button>
   <a href="index.html" class="kb-logo">
     S<span class="kb-logo__dot">.</span>O<span class="kb-logo__dot">.</span>I
   </a>
@@ -365,26 +369,30 @@
 </aside>
 <div class="kb-cart-overlay" data-kb-close-cart></div>
 
-<!-- MOBILE MENU -->
-<aside id="mobile-menu" class="kb-mobile-menu">
-  <div class="kb-mobile-menu__head">
-    <div class="kb-logo">S<span class="kb-logo__dot">.</span>O<span class="kb-logo__dot">.</span>I</div>
-    <button type="button" data-kb-close-menu>✕</button>
-  </div>
-  <ul>
-    <li><a href="collection.html">Mua sắm</a></li>
-    <li><a href="collection.html">Trang điểm</a></li>
-    <li><a href="collection.html">Chăm sóc da</a></li>
-    <li><a href="#">Ưu đãi</a></li>
-    <li><a href="#">Thẻ quà tặng</a></li>
-    <li><a href="#">Dịch vụ ảo</a></li>
-    <li><a href="#">Liên hệ</a></li>
-    <li><a href="#">Tiracels</a></li>
-    <li><a href="#">Tin tức</a></li>
-    <li><a href="#">Phần thưởng</a></li>
-  </ul>
+<!-- MOBILE MENU (Rhode-style) -->
+<aside id="mobile-menu" class="kb-mobile-menu" aria-hidden="true">
+  <nav class="kb-mobile-menu__nav">
+    <ul class="kb-mobile-menu__list">
+      <li style="--i:0"><a href="collection.html">Mua sắm</a></li>
+      <li style="--i:1"><a href="collection.html">Trang điểm</a></li>
+      <li style="--i:2"><a href="collection.html">Chăm sóc da</a></li>
+      <li style="--i:3"><a href="collection.html">Ưu đãi</a></li>
+      <li style="--i:4"><a href="#">Thẻ quà tặng</a></li>
+      <li style="--i:5"><a href="blog.html">Tin tức</a></li>
+      <li style="--i:6"><a href="contact.html">Liên hệ</a></li>
+    </ul>
+    <div class="kb-mobile-menu__sub" style="--i:7">
+      <a href="login.html">Tài khoản</a>
+      <a href="search.html">Tìm kiếm</a>
+      <a href="#">Phần thưởng</a>
+    </div>
+    <div class="kb-mobile-menu__social" style="--i:8">
+      <a href="#" aria-label="Instagram">Instagram</a>
+      <a href="#" aria-label="TikTok">TikTok</a>
+      <a href="#" aria-label="YouTube">YouTube</a>
+    </div>
+  </nav>
 </aside>
-<div class="kb-menu-overlay" data-kb-close-menu></div>
 
 <!-- FLOATING BUTTONS -->
 <button type="button" class="kb-rewards-btn">🎁 Rewards</button>

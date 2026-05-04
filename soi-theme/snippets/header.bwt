@@ -14,7 +14,11 @@
 {% endcapture %}
 
 <header class="kb-header">
-  <button class="kb-hamburger" type="button" data-kb-open-menu aria-label="Menu">☰</button>
+  <button class="kb-hamburger" type="button" data-kb-toggle-menu aria-label="Menu">
+    <span class="kb-hamburger__bar"></span>
+    <span class="kb-hamburger__bar"></span>
+    <span class="kb-hamburger__bar"></span>
+  </button>
   <a href="{{ shop.url }}" class="kb-logo" aria-label="{{ shop.name }}">{{ logo_markup }}</a>
   <nav class="kb-nav">
     <ul>
@@ -48,19 +52,29 @@
   </div>
 </header>
 
-<aside id="mobile-menu" class="kb-mobile-menu">
-  <div class="kb-mobile-menu__head">
-    <div class="kb-logo">{{ logo_markup }}</div>
-    <button type="button" data-kb-close-menu aria-label="Đóng">✕</button>
-  </div>
-  <ul>
-    {% for link in linklists.main-menu.links %}
-      <li><a href="{{ link.url }}">{{ link.title }}</a></li>
-    {% else %}
-      <li><a href="/collections/all">Mua sắm</a></li>
-      <li><a href="/collections/makeup">Trang điểm</a></li>
-      <li><a href="/collections/skincare">Chăm sóc da</a></li>
-    {% endfor %}
-  </ul>
+<aside id="mobile-menu" class="kb-mobile-menu" aria-hidden="true">
+  <nav class="kb-mobile-menu__nav">
+    <ul class="kb-mobile-menu__list">
+      {% for link in linklists.main-menu.links %}
+        <li style="--i:{{ forloop.index0 }}"><a href="{{ link.url }}">{{ link.title }}</a></li>
+      {% else %}
+        <li style="--i:0"><a href="/collections/all">Mua sắm</a></li>
+        <li style="--i:1"><a href="/collections/makeup">Trang điểm</a></li>
+        <li style="--i:2"><a href="/collections/skincare">Chăm sóc da</a></li>
+        <li style="--i:3"><a href="/collections/deals">Ưu đãi</a></li>
+        <li style="--i:4"><a href="/blogs/news">Tin tức</a></li>
+        <li style="--i:5"><a href="/pages/contact">Liên hệ</a></li>
+      {% endfor %}
+    </ul>
+    <div class="kb-mobile-menu__sub" style="--i:7">
+      <a href="/account">Tài khoản</a>
+      <a href="/search">Tìm kiếm</a>
+      <a href="/pages/rewards">Phần thưởng</a>
+    </div>
+    <div class="kb-mobile-menu__social" style="--i:8">
+      <a href="#" aria-label="Instagram">Instagram</a>
+      <a href="#" aria-label="TikTok">TikTok</a>
+      <a href="#" aria-label="YouTube">YouTube</a>
+    </div>
+  </nav>
 </aside>
-<div class="kb-menu-overlay" data-kb-close-menu></div>

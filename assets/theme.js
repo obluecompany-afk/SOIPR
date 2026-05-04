@@ -261,21 +261,30 @@
   window.kbOpenCart = openCart;
   window.kbCloseCart = closeCart;
 
-  /* ---- Mobile menu ---- */
+  /* ---- Mobile menu (Rhode-style top-down) ---- */
+  function syncHamburger(isOpen) {
+    var btn = document.querySelector('.kb-hamburger');
+    if (!btn) return;
+    btn.classList.toggle('is-open', !!isOpen);
+    btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    btn.setAttribute('aria-label', isOpen ? 'Đóng menu' : 'Menu');
+  }
   function openMenu() {
     closeCart();
     var m = document.getElementById('mobile-menu');
-    var o = document.querySelector('.kb-menu-overlay');
-    if (m) m.classList.add('open');
-    if (o) o.classList.add('open');
+    if (m) { m.classList.add('open'); m.setAttribute('aria-hidden', 'false'); }
+    syncHamburger(true);
     syncBodyLock();
   }
   function closeMenu() {
     var m = document.getElementById('mobile-menu');
-    var o = document.querySelector('.kb-menu-overlay');
-    if (m) m.classList.remove('open');
-    if (o) o.classList.remove('open');
+    if (m) { m.classList.remove('open'); m.setAttribute('aria-hidden', 'true'); }
+    syncHamburger(false);
     syncBodyLock();
+  }
+  function toggleMenu() {
+    var m = document.getElementById('mobile-menu');
+    if (m && m.classList.contains('open')) closeMenu(); else openMenu();
   }
 
   /* ---- Delegated click handlers ---- */
@@ -284,10 +293,20 @@
     if (t) { e.preventDefault(); openCart(); return; }
     t = e.target.closest('[data-kb-close-cart]');
     if (t) { e.preventDefault(); closeCart(); return; }
+    t = e.target.closest('[data-kb-toggle-menu]');
+    if (t) { e.preventDefault(); toggleMenu(); return; }
     t = e.target.closest('[data-kb-open-menu]');
     if (t) { e.preventDefault(); openMenu(); return; }
     t = e.target.closest('[data-kb-close-menu]');
     if (t) { e.preventDefault(); closeMenu(); return; }
+    /* tap link bên trong menu => đóng menu trước khi điều hướng */
+    var lnk = e.target.closest('#mobile-menu a');
+    if (lnk) { closeMenu(); }
+  });
+
+  /* Esc đóng menu */
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') closeMenu();
   });
 
   /* ---- Accordion toggle ---- */
