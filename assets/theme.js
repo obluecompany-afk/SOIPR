@@ -262,6 +262,23 @@
   window.kbCloseCart = closeCart;
 
   /* ---- Mobile menu (Rhode-style top-down) ---- */
+  function syncHeaderHeight() {
+    var h = document.querySelector('.kb-header');
+    if (!h) return;
+    document.documentElement.style.setProperty('--kb-header-h', h.offsetHeight + 'px');
+  }
+  syncHeaderHeight();
+  window.addEventListener('load', syncHeaderHeight);
+  window.addEventListener('resize', syncHeaderHeight);
+  /* re-sync sau khi chrome.js inject header xong */
+  if (document.readyState !== 'complete') {
+    document.addEventListener('DOMContentLoaded', function () {
+      setTimeout(syncHeaderHeight, 0);
+    });
+  } else {
+    setTimeout(syncHeaderHeight, 0);
+  }
+
   function syncHamburger(isOpen) {
     var btn = document.querySelector('.kb-hamburger');
     if (!btn) return;
@@ -271,6 +288,7 @@
   }
   function openMenu() {
     closeCart();
+    syncHeaderHeight(); /* đảm bảo top menu khớp với header hiện tại */
     var m = document.getElementById('mobile-menu');
     if (m) { m.classList.add('open'); m.setAttribute('aria-hidden', 'false'); }
     body.classList.add('kb-mm-open');

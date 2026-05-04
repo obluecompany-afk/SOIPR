@@ -2226,24 +2226,26 @@ body.kb-has-sticky-cta .kb-rewards-btn { bottom: 80px; }
 /* ===== MOBILE MENU — Rhode-style: tabs + product cards ===== */
 .kb-mobile-menu {
   position: fixed;
-  top: 0; left: 0; right: 0;
+  top: var(--kb-header-h, 60px); /* khớp đúng với chiều cao header thật, JS đo */
+  left: 0; right: 0;
   width: 100%;
-  height: 100vh;
-  background: #f5f1e8; /* sáng hơn — cream nhẹ */
+  height: calc(100vh - var(--kb-header-h, 60px));
+  background: #f5f1e8;
   z-index: 90; /* dưới header (z-index 100) để hamburger trong header còn click được */
-  transform: translateY(-100%);
-  transition: transform 0.55s cubic-bezier(.7,0,.2,1);
+  transform: translateY(-110%);
+  transition: transform 0.5s cubic-bezier(.7,0,.2,1), visibility 0s linear 0.5s;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
-  padding: 76px 0 0; /* chừa khoảng cho header sticky */
+  padding: 0;
   visibility: hidden;
 }
 .kb-mobile-menu.open {
   transform: translateY(0);
   visibility: visible;
+  transition: transform 0.5s cubic-bezier(.7,0,.2,1), visibility 0s linear;
 }
 
-/* Tabs ngang scrollable, dính dưới header */
+/* Tabs ngang scrollable, dính ngay đỉnh menu (đã ở dưới header) */
 .kb-mm-tabs {
   display: flex;
   gap: 26px;
@@ -2254,8 +2256,8 @@ body.kb-has-sticky-cta .kb-rewards-btn { bottom: 80px; }
   border-bottom: 1px solid rgba(0,0,0,0.08);
   background: #f5f1e8;
   position: sticky;
-  top: 76px;
-  z-index: 5; /* phải cao hơn card để cuộn không lộ */
+  top: 0;
+  z-index: 5;
 }
 .kb-mm-tabs::-webkit-scrollbar { display: none; }
 .kb-mm-tab {
