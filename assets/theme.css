@@ -318,7 +318,7 @@ img.is-loaded { opacity: 1; }
   font-size: 32px;
   font-weight: 700;
   letter-spacing: 1px;
-  color: var(--color-primary);
+  color: #111;
   flex-shrink: 0;
   line-height: 1;
   margin-left: 40px;
@@ -361,7 +361,7 @@ img.is-loaded { opacity: 1; }
   background: none;
   border: none;
   padding: 6px;
-  color: var(--color-text);
+  color: #111;
   position: relative;
   display: inline-flex;
   align-items: center;
@@ -373,6 +373,15 @@ img.is-loaded { opacity: 1; }
 .kb-icon:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; }
 .kb-icon svg { display: block; }
 .kb-icon--cart { position: relative; }
+
+/* Mobile: icon header luôn đen, không đổi sang đỏ khi tap/hover */
+@media (max-width: 1024px) {
+  .kb-icon,
+  .kb-icon:hover,
+  .kb-icon:active,
+  .kb-icon:focus { color: #111; }
+  .kb-hamburger__bar { background: #111; }
+}
 
 /* ===== HERO (home) ===== */
 .kb-hero {
