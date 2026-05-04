@@ -240,11 +240,14 @@ img.is-loaded { opacity: 1; }
   font-size: 32px;
   font-weight: 700;
   letter-spacing: 1px;
-  color: var(--color-text);
+  color: var(--color-primary);
   flex-shrink: 0;
   line-height: 1;
   margin-left: 40px;
+  text-decoration: none;
+  transition: opacity 0.2s;
 }
+.kb-logo:hover { opacity: 0.85; }
 .kb-logo__dot {
   display: inline-block;
   margin: 0 2px;
