@@ -273,12 +273,14 @@
     closeCart();
     var m = document.getElementById('mobile-menu');
     if (m) { m.classList.add('open'); m.setAttribute('aria-hidden', 'false'); }
+    body.classList.add('kb-mm-open');
     syncHamburger(true);
     syncBodyLock();
   }
   function closeMenu() {
     var m = document.getElementById('mobile-menu');
     if (m) { m.classList.remove('open'); m.setAttribute('aria-hidden', 'true'); }
+    body.classList.remove('kb-mm-open');
     syncHamburger(false);
     syncBodyLock();
   }
@@ -307,6 +309,24 @@
   /* Esc đóng menu */
   document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape') closeMenu();
+  });
+
+  /* ---- Mobile menu tab switcher ---- */
+  document.addEventListener('click', function (e) {
+    var tab = e.target.closest('[data-mm-tab]');
+    if (!tab) return;
+    e.preventDefault();
+    var key = tab.getAttribute('data-mm-tab');
+    var menu = document.getElementById('mobile-menu');
+    if (!menu) return;
+    menu.querySelectorAll('.kb-mm-tab').forEach(function (t) {
+      t.classList.toggle('is-active', t === tab);
+    });
+    menu.querySelectorAll('[data-mm-panel]').forEach(function (p) {
+      p.classList.toggle('is-active', p.getAttribute('data-mm-panel') === key);
+    });
+    /* scroll panel về đầu khi đổi tab */
+    menu.scrollTop = menu.querySelector('.kb-mm-tabs').offsetHeight;
   });
 
   /* ---- Accordion toggle ---- */

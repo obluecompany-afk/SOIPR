@@ -261,21 +261,32 @@
   window.kbOpenCart = openCart;
   window.kbCloseCart = closeCart;
 
-  /* ---- Mobile menu ---- */
+  /* ---- Mobile menu (Rhode-style top-down) ---- */
+  function syncHamburger(isOpen) {
+    var btn = document.querySelector('.kb-hamburger');
+    if (!btn) return;
+    btn.classList.toggle('is-open', !!isOpen);
+    btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    btn.setAttribute('aria-label', isOpen ? 'Đóng menu' : 'Menu');
+  }
   function openMenu() {
     closeCart();
     var m = document.getElementById('mobile-menu');
-    var o = document.querySelector('.kb-menu-overlay');
-    if (m) m.classList.add('open');
-    if (o) o.classList.add('open');
+    if (m) { m.classList.add('open'); m.setAttribute('aria-hidden', 'false'); }
+    body.classList.add('kb-mm-open');
+    syncHamburger(true);
     syncBodyLock();
   }
   function closeMenu() {
     var m = document.getElementById('mobile-menu');
-    var o = document.querySelector('.kb-menu-overlay');
-    if (m) m.classList.remove('open');
-    if (o) o.classList.remove('open');
+    if (m) { m.classList.remove('open'); m.setAttribute('aria-hidden', 'true'); }
+    body.classList.remove('kb-mm-open');
+    syncHamburger(false);
     syncBodyLock();
+  }
+  function toggleMenu() {
+    var m = document.getElementById('mobile-menu');
+    if (m && m.classList.contains('open')) closeMenu(); else openMenu();
   }
 
   /* ---- Delegated click handlers ---- */
@@ -284,10 +295,38 @@
     if (t) { e.preventDefault(); openCart(); return; }
     t = e.target.closest('[data-kb-close-cart]');
     if (t) { e.preventDefault(); closeCart(); return; }
+    t = e.target.closest('[data-kb-toggle-menu]');
+    if (t) { e.preventDefault(); toggleMenu(); return; }
     t = e.target.closest('[data-kb-open-menu]');
     if (t) { e.preventDefault(); openMenu(); return; }
     t = e.target.closest('[data-kb-close-menu]');
     if (t) { e.preventDefault(); closeMenu(); return; }
+    /* tap link bên trong menu => đóng menu trước khi điều hướng */
+    var lnk = e.target.closest('#mobile-menu a');
+    if (lnk) { closeMenu(); }
+  });
+
+  /* Esc đóng menu */
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') closeMenu();
+  });
+
+  /* ---- Mobile menu tab switcher ---- */
+  document.addEventListener('click', function (e) {
+    var tab = e.target.closest('[data-mm-tab]');
+    if (!tab) return;
+    e.preventDefault();
+    var key = tab.getAttribute('data-mm-tab');
+    var menu = document.getElementById('mobile-menu');
+    if (!menu) return;
+    menu.querySelectorAll('.kb-mm-tab').forEach(function (t) {
+      t.classList.toggle('is-active', t === tab);
+    });
+    menu.querySelectorAll('[data-mm-panel]').forEach(function (p) {
+      p.classList.toggle('is-active', p.getAttribute('data-mm-panel') === key);
+    });
+    /* scroll panel về đầu khi đổi tab */
+    menu.scrollTop = menu.querySelector('.kb-mm-tabs').offsetHeight;
   });
 
   /* ---- Accordion toggle ---- */

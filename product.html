@@ -441,29 +441,79 @@
 </aside>
 <div class="kb-cart-overlay" data-kb-close-cart></div>
 
-<!-- MOBILE MENU (Rhode-style) -->
+<!-- MOBILE MENU (Rhode-style: tabs + cards) -->
 <aside id="mobile-menu" class="kb-mobile-menu" aria-hidden="true">
-  <nav class="kb-mobile-menu__nav">
-    <ul class="kb-mobile-menu__list">
-      <li style="--i:0"><a href="collection.html">Mua sắm</a></li>
-      <li style="--i:1"><a href="collection.html">Trang điểm</a></li>
-      <li style="--i:2"><a href="collection.html">Chăm sóc da</a></li>
-      <li style="--i:3"><a href="collection.html">Ưu đãi</a></li>
-      <li style="--i:4"><a href="#">Thẻ quà tặng</a></li>
-      <li style="--i:5"><a href="blog.html">Tin tức</a></li>
-      <li style="--i:6"><a href="contact.html">Liên hệ</a></li>
-    </ul>
-    <div class="kb-mobile-menu__sub" style="--i:7">
-      <a href="login.html">Tài khoản</a>
-      <a href="search.html">Tìm kiếm</a>
-      <a href="#">Phần thưởng</a>
-    </div>
-    <div class="kb-mobile-menu__social" style="--i:8">
-      <a href="#" aria-label="Instagram">Instagram</a>
-      <a href="#" aria-label="TikTok">TikTok</a>
-      <a href="#" aria-label="YouTube">YouTube</a>
-    </div>
-  </nav>
+  <div class="kb-mm-tabs" role="tablist">
+    <button type="button" class="kb-mm-tab is-active" data-mm-tab="sets">BỘ SẢN PHẨM</button>
+    <button type="button" class="kb-mm-tab" data-mm-tab="onthego">TRÊN ĐƯỜNG</button>
+    <button type="button" class="kb-mm-tab" data-mm-tab="best">BÁN CHẠY</button>
+    <button type="button" class="kb-mm-tab" data-mm-tab="deals">ƯU ĐÃI</button>
+  </div>
+  <div class="kb-mm-panel is-active" data-mm-panel="sets">
+    <a href="product.html" class="kb-mm-card">
+      <div class="kb-mm-card__img">🧴</div>
+      <div class="kb-mm-card__info">
+        <h4 class="kb-mm-card__title">BỘ MATCHA</h4>
+        <p class="kb-mm-card__sub">Refresh & dưỡng ẩm</p>
+      </div>
+      <span class="kb-mm-card__badge">mới</span>
+    </a>
+    <a href="product.html" class="kb-mm-card">
+      <div class="kb-mm-card__img">🌸</div>
+      <div class="kb-mm-card__info">
+        <h4 class="kb-mm-card__title">BỘ HOA HỒNG</h4>
+        <p class="kb-mm-card__sub">Sáng & se khít</p>
+      </div>
+      <span class="kb-mm-card__badge">mới</span>
+    </a>
+    <a href="product.html" class="kb-mm-card">
+      <div class="kb-mm-card__img">💄</div>
+      <div class="kb-mm-card__info">
+        <h4 class="kb-mm-card__title">BỘ MÔI</h4>
+        <p class="kb-mm-card__sub">Plumping lip 3 màu</p>
+      </div>
+    </a>
+    <a href="product.html" class="kb-mm-card">
+      <div class="kb-mm-card__img">🧴</div>
+      <div class="kb-mm-card__info">
+        <h4 class="kb-mm-card__title">BỘ S.O.I KIT</h4>
+        <p class="kb-mm-card__sub">4 sản phẩm cốt lõi</p>
+      </div>
+      <span class="kb-mm-card__badge kb-mm-card__badge--alt">chỉ tại S.O.I</span>
+    </a>
+  </div>
+  <div class="kb-mm-panel" data-mm-panel="onthego">
+    <a href="product.html" class="kb-mm-card">
+      <div class="kb-mm-card__img">✈️</div>
+      <div class="kb-mm-card__info">
+        <h4 class="kb-mm-card__title">TRAVEL KIT</h4>
+        <p class="kb-mm-card__sub">Mini size cho chuyến đi</p>
+      </div>
+    </a>
+  </div>
+  <div class="kb-mm-panel" data-mm-panel="best">
+    <a href="product.html" class="kb-mm-card">
+      <div class="kb-mm-card__img">⭐</div>
+      <div class="kb-mm-card__info">
+        <h4 class="kb-mm-card__title">SERUM C</h4>
+        <p class="kb-mm-card__sub">Best seller 2026</p>
+      </div>
+      <span class="kb-mm-card__badge">hot</span>
+    </a>
+  </div>
+  <div class="kb-mm-panel" data-mm-panel="deals">
+    <a href="collection.html" class="kb-mm-card">
+      <div class="kb-mm-card__img">🎁</div>
+      <div class="kb-mm-card__info">
+        <h4 class="kb-mm-card__title">COMBO 2 TẶNG 1</h4>
+        <p class="kb-mm-card__sub">Tiết kiệm 33%</p>
+      </div>
+      <span class="kb-mm-card__badge">sale</span>
+    </a>
+  </div>
+  <div class="kb-mm-cta">
+    <a href="collection.html" class="kb-mm-cta__btn">XEM TẤT CẢ</a>
+  </div>
 </aside>
 
 <!-- FAB -->

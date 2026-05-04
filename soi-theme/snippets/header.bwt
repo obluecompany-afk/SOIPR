@@ -53,28 +53,74 @@
 </header>
 
 <aside id="mobile-menu" class="kb-mobile-menu" aria-hidden="true">
-  <nav class="kb-mobile-menu__nav">
-    <ul class="kb-mobile-menu__list">
-      {% for link in linklists.main-menu.links %}
-        <li style="--i:{{ forloop.index0 }}"><a href="{{ link.url }}">{{ link.title }}</a></li>
-      {% else %}
-        <li style="--i:0"><a href="/collections/all">Mua sắm</a></li>
-        <li style="--i:1"><a href="/collections/makeup">Trang điểm</a></li>
-        <li style="--i:2"><a href="/collections/skincare">Chăm sóc da</a></li>
-        <li style="--i:3"><a href="/collections/deals">Ưu đãi</a></li>
-        <li style="--i:4"><a href="/blogs/news">Tin tức</a></li>
-        <li style="--i:5"><a href="/pages/contact">Liên hệ</a></li>
+  <div class="kb-mm-tabs" role="tablist">
+    <button type="button" class="kb-mm-tab is-active" data-mm-tab="sets">BỘ SẢN PHẨM</button>
+    <button type="button" class="kb-mm-tab" data-mm-tab="onthego">TRÊN ĐƯỜNG</button>
+    <button type="button" class="kb-mm-tab" data-mm-tab="best">BÁN CHẠY</button>
+    <button type="button" class="kb-mm-tab" data-mm-tab="deals">ƯU ĐÃI</button>
+  </div>
+  <div class="kb-mm-panel is-active" data-mm-panel="sets">
+    {% assign sets_col = collections['sets'] %}
+    {% if sets_col.products.size > 0 %}
+      {% for p in sets_col.products limit: 6 %}
+        <a href="{{ p.url }}" class="kb-mm-card">
+          <div class="kb-mm-card__img">{% if p.featured_image != blank %}<img src="{{ p.featured_image }}" alt="{{ p.title }}" style="width:100%;height:100%;object-fit:cover;border-radius:10px;" />{% else %}🧴{% endif %}</div>
+          <div class="kb-mm-card__info">
+            <h4 class="kb-mm-card__title">{{ p.title }}</h4>
+            <p class="kb-mm-card__sub">{{ p.summary | default: '' | truncate: 38 }}</p>
+          </div>
+          {% if p.tags contains 'new' %}<span class="kb-mm-card__badge">mới</span>{% endif %}
+        </a>
       {% endfor %}
-    </ul>
-    <div class="kb-mobile-menu__sub" style="--i:7">
-      <a href="/account">Tài khoản</a>
-      <a href="/search">Tìm kiếm</a>
-      <a href="/pages/rewards">Phần thưởng</a>
-    </div>
-    <div class="kb-mobile-menu__social" style="--i:8">
-      <a href="#" aria-label="Instagram">Instagram</a>
-      <a href="#" aria-label="TikTok">TikTok</a>
-      <a href="#" aria-label="YouTube">YouTube</a>
-    </div>
-  </nav>
+    {% else %}
+      <a href="/collections/all" class="kb-mm-card">
+        <div class="kb-mm-card__img">🧴</div>
+        <div class="kb-mm-card__info">
+          <h4 class="kb-mm-card__title">BỘ MATCHA</h4>
+          <p class="kb-mm-card__sub">Refresh & dưỡng ẩm</p>
+        </div>
+        <span class="kb-mm-card__badge">mới</span>
+      </a>
+      <a href="/collections/all" class="kb-mm-card">
+        <div class="kb-mm-card__img">🌸</div>
+        <div class="kb-mm-card__info">
+          <h4 class="kb-mm-card__title">BỘ HOA HỒNG</h4>
+          <p class="kb-mm-card__sub">Sáng & se khít</p>
+        </div>
+        <span class="kb-mm-card__badge">mới</span>
+      </a>
+    {% endif %}
+  </div>
+  <div class="kb-mm-panel" data-mm-panel="onthego">
+    <a href="/collections/onthego" class="kb-mm-card">
+      <div class="kb-mm-card__img">✈️</div>
+      <div class="kb-mm-card__info">
+        <h4 class="kb-mm-card__title">TRAVEL KIT</h4>
+        <p class="kb-mm-card__sub">Mini size cho chuyến đi</p>
+      </div>
+    </a>
+  </div>
+  <div class="kb-mm-panel" data-mm-panel="best">
+    <a href="/collections/bestsellers" class="kb-mm-card">
+      <div class="kb-mm-card__img">⭐</div>
+      <div class="kb-mm-card__info">
+        <h4 class="kb-mm-card__title">SERUM C</h4>
+        <p class="kb-mm-card__sub">Best seller</p>
+      </div>
+      <span class="kb-mm-card__badge">hot</span>
+    </a>
+  </div>
+  <div class="kb-mm-panel" data-mm-panel="deals">
+    <a href="/collections/deals" class="kb-mm-card">
+      <div class="kb-mm-card__img">🎁</div>
+      <div class="kb-mm-card__info">
+        <h4 class="kb-mm-card__title">COMBO 2 TẶNG 1</h4>
+        <p class="kb-mm-card__sub">Tiết kiệm 33%</p>
+      </div>
+      <span class="kb-mm-card__badge">sale</span>
+    </a>
+  </div>
+  <div class="kb-mm-cta">
+    <a href="/collections/all" class="kb-mm-cta__btn">XEM TẤT CẢ</a>
+  </div>
 </aside>
