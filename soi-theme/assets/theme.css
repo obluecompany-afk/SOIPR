@@ -165,11 +165,70 @@ img.is-loaded { opacity: 1; }
 
 /* 10. Slow zoom-out on hero image */
 .kb-hero[style*="background-image"] {
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
   animation: kb-slow-zoom 14s cubic-bezier(.2,.8,.2,1) forwards;
 }
 @keyframes kb-slow-zoom {
-  from { background-size: 110%; }
-  to { background-size: 105%; }
+  from { background-size: cover; transform: scale(1.05); }
+  to { background-size: cover; transform: scale(1); }
+}
+/* Overlay tối nhẹ để chữ trắng đọc được */
+.kb-hero--with-bg { position: relative; }
+.kb-hero--with-bg .kb-hero__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.45) 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+.kb-hero--with-bg .kb-hero__content,
+.kb-hero--with-bg .kb-hero__cards,
+.kb-hero--with-bg .kb-hero__arrow,
+.kb-hero--with-bg .kb-hero__dots {
+  position: relative;
+  z-index: 2;
+}
+.kb-hero--with-bg .kb-hero__title,
+.kb-hero--with-bg .kb-hero__tag,
+.kb-hero--with-bg .kb-hero__date {
+  color: #fff;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.3);
+}
+
+/* Mobile: hero compact, focus chân dung */
+@media (max-width: 768px) {
+  .kb-hero--with-bg {
+    height: 70vh;
+    min-height: 480px;
+    background-position: center 20%; /* dồn lên trên để giữ phần đầu/mặt model */
+  }
+  .kb-hero--with-bg .kb-hero__content {
+    padding: 40px 20px;
+    width: 100%;
+    text-align: center;
+  }
+  .kb-hero--with-bg .kb-hero__title {
+    font-size: 36px;
+    line-height: 1.05;
+  }
+  .kb-hero--with-bg .kb-hero__cards {
+    display: none; /* ẩn cards cho mobile, focus vào ảnh + tiêu đề */
+  }
+  .kb-hero--with-bg .kb-hero__overlay {
+    background: linear-gradient(180deg, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.55) 100%);
+  }
+}
+
+@media (max-width: 480px) {
+  .kb-hero--with-bg {
+    height: 75vh;
+    min-height: 440px;
+  }
+  .kb-hero--with-bg .kb-hero__title {
+    font-size: 32px;
+  }
 }
 
 /* 11. Section fade-in stagger by index */

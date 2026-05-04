@@ -1,5 +1,6 @@
 {% assign hero_url = settings.hero_link | default: '/collections/all' %}
-<section class="kb-hero"{% if settings.hero_image != blank %} style="background-image:url({{ settings.hero_image }});background-size:cover;background-position:center;"{% endif %}>
+<section class="kb-hero{% if settings.hero_image != blank %} kb-hero--with-bg{% endif %}"{% if settings.hero_image != blank %} style="background-image:url({{ settings.hero_image }});"{% endif %}>
+  {% if settings.hero_image != blank %}<div class="kb-hero__overlay"></div>{% endif %}
   <button type="button" class="kb-hero__arrow kb-hero__arrow--left" aria-label="Previous">‹</button>
   <a href="{{ hero_url }}" class="kb-hero__content" style="text-decoration:none;color:inherit;">
     <div class="kb-hero__tag">{{ settings.hero_tag | default: 'SPRING DEAL' }}</div>
