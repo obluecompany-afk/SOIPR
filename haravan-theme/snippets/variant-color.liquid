@@ -1,0 +1,59 @@
+{%- comment -%}
+  Map tên màu (tiếng Việt + English) → hex color cho shade swatch
+  Usage:  {% capture hex %}{% include 'variant-color', title: variant.title %}{% endcapture %}
+          {% assign hex = hex | strip %}
+  Hỗ trợ:
+  - Tên thường: hồng, đen, đỏ, vàng, xanh, tím, nâu, kem, be...
+  - Hex code trực tiếp trong title: '#FF7F9F' hoặc 'FF7F9F'
+  - Default: #cccccc (xám) khi không match
+{%- endcomment -%}
+{%- assign t = title | downcase | strip -%}
+{%- assign hex = '#cccccc' -%}
+
+{%- comment -%} Hex code trực tiếp dạng #RRGGBB hoặc #RGB {%- endcomment -%}
+{%- if t contains '#' -%}
+  {%- assign parts = t | split: '#' -%}
+  {%- if parts.size > 1 -%}
+    {%- assign maybe_hex = parts | last | split: ' ' | first | split: '/' | first | strip -%}
+    {%- if maybe_hex.size == 3 or maybe_hex.size == 6 -%}
+      {%- assign hex = '#' | append: maybe_hex -%}
+    {%- endif -%}
+  {%- endif -%}
+{%- endif -%}
+
+{%- comment -%} Tên màu tiếng Việt + English (ưu tiên match cụ thể trước) {%- endcomment -%}
+{%- if hex == '#cccccc' -%}
+  {%- if t contains 'hồng nhạt' or t contains 'pink light' or t contains 'baby pink' -%}{%- assign hex = '#FBCFE8' -%}
+  {%- elsif t contains 'hồng đậm' or t contains 'pink dark' -%}{%- assign hex = '#DB2777' -%}
+  {%- elsif t contains 'hồng' or t contains 'pink' -%}{%- assign hex = '#FF7F9F' -%}
+  {%- elsif t contains 'đỏ tươi' or t contains 'red bright' -%}{%- assign hex = '#EF4444' -%}
+  {%- elsif t contains 'đỏ đô' or t contains 'wine' or t contains 'burgundy' -%}{%- assign hex = '#7F1D1D' -%}
+  {%- elsif t contains 'đỏ' or t contains 'red' -%}{%- assign hex = '#C8102E' -%}
+  {%- elsif t contains 'cam đào' or t contains 'peach' -%}{%- assign hex = '#FFB7A0' -%}
+  {%- elsif t contains 'cam' or t contains 'orange' -%}{%- assign hex = '#FF8C42' -%}
+  {%- elsif t contains 'rose gold' or t contains 'rosegold' -%}{%- assign hex = '#E0BFB8' -%}
+  {%- elsif t contains 'vàng đồng' or t contains 'gold' -%}{%- assign hex = '#CD7F32' -%}
+  {%- elsif t contains 'vàng nhạt' or t contains 'lemon' -%}{%- assign hex = '#FEF08A' -%}
+  {%- elsif t contains 'vàng' or t contains 'yellow' -%}{%- assign hex = '#F5D547' -%}
+  {%- elsif t contains 'xanh lá' or t contains 'xanh lục' or t contains 'green' -%}{%- assign hex = '#5BBA6F' -%}
+  {%- elsif t contains 'xanh dương' or t contains 'xanh biển' or t contains 'blue' -%}{%- assign hex = '#3B82F6' -%}
+  {%- elsif t contains 'xanh navy' or t contains 'navy' -%}{%- assign hex = '#1E3A8A' -%}
+  {%- elsif t contains 'xanh than' -%}{%- assign hex = '#1E3A8A' -%}
+  {%- elsif t contains 'xanh mint' or t contains 'mint' -%}{%- assign hex = '#A7F3D0' -%}
+  {%- elsif t contains 'xanh' -%}{%- assign hex = '#3B82F6' -%}
+  {%- elsif t contains 'tím nhạt' or t contains 'lavender' -%}{%- assign hex = '#C4B5FD' -%}
+  {%- elsif t contains 'tím' or t contains 'purple' or t contains 'violet' -%}{%- assign hex = '#8B5CF6' -%}
+  {%- elsif t contains 'đen' or t contains 'black' -%}{%- assign hex = '#1F2937' -%}
+  {%- elsif t contains 'trắng' or t contains 'white' -%}{%- assign hex = '#F5F5F5' -%}
+  {%- elsif t contains 'nâu nhạt' or t contains 'tan' -%}{%- assign hex = '#D2B48C' -%}
+  {%- elsif t contains 'nâu' or t contains 'brown' -%}{%- assign hex = '#92400E' -%}
+  {%- elsif t contains 'xám đậm' or t contains 'charcoal' -%}{%- assign hex = '#374151' -%}
+  {%- elsif t contains 'xám' or t contains 'gray' or t contains 'grey' -%}{%- assign hex = '#6B7280' -%}
+  {%- elsif t contains 'kem' or t contains 'cream' or t contains 'ivory' -%}{%- assign hex = '#F8F4EE' -%}
+  {%- elsif t contains 'be' or t contains 'beige' -%}{%- assign hex = '#F5DEB3' -%}
+  {%- elsif t contains 'bạc' or t contains 'silver' -%}{%- assign hex = '#D1D5DB' -%}
+  {%- elsif t contains 'nude' -%}{%- assign hex = '#E5C5A8' -%}
+  {%- elsif t contains 'coral' -%}{%- assign hex = '#FF7F50' -%}
+  {%- endif -%}
+{%- endif -%}
+{{- hex -}}

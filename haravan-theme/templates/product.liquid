@@ -76,10 +76,11 @@
             Shade-grid với màu palette tự gen từ thứ tự variant.
             Khi click → set hidden input[name=id] + cập nhật label
           {%- endcomment -%}
-          {%- assign shade_palette = '#fae0c5,#f5d5b0,#eec6a1,#e5b690,#d9a87a,#ca9368,#b8815a,#a0714d,#8b5f3f,#6e4a30,#54382a,#3b2720' | split: ',' -%}
           <div class="kb-shade-grid">
             {% for v in product.variants %}
-              {% assign palette_idx = forloop.index0 | modulo: 12 %}
+              {%- comment -%} Map tên variant → hex color qua snippet {%- endcomment -%}
+              {% capture v_hex %}{% include 'variant-color', title: v.title %}{% endcapture %}
+              {% assign v_hex = v_hex | strip %}
               <button type="button"
                 class="kb-shade {% if v.id == current_variant.id %}selected{% endif %}"
                 title="{{ v.title }}"
@@ -87,7 +88,7 @@
                 data-variant-title="{{ v.title | escape }}"
                 data-variant-price="{{ v.price }}"
                 data-variant-available="{{ v.available }}"
-                style="background:{{ shade_palette[palette_idx] }};"
+                style="background:{{ v_hex }};"
                 {% unless v.available %}disabled{% endunless %}></button>
             {% endfor %}
           </div>

@@ -44,11 +44,11 @@
   </div>
 
   {% if variant_count > 1 %}
-    {%- assign shade_palette = '#f5d5b0,#eac29a,#d9a87a,#c49060,#a0714d,#6e4a30,#3b2720' | split: ',' -%}
     <div class="kb-shade-dots">
       {% for v in product.variants limit: 4 %}
-        {% assign palette_idx = forloop.index0 | modulo: 7 %}
-        <span style="background:{{ shade_palette[palette_idx] }}"></span>
+        {% capture v_hex %}{% include 'variant-color', title: v.title %}{% endcapture %}
+        {% assign v_hex = v_hex | strip %}
+        <span style="background:{{ v_hex }}" title="{{ v.title | escape }}"></span>
       {% endfor %}
       {% if variant_count > 4 %}
         <em>+{{ variant_count | minus: 4 }}</em>
