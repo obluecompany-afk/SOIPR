@@ -3,17 +3,30 @@
 ._*
 __MACOSX/
 
+# Next.js
+.next/
+out/
+build/
+dist/
+
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Env (không commit secret!)
+.env
+.env.local
+.env.development.local
+.env.production.local
+
 # Vercel
 .vercel/
 
-# Local
-*.log
-node_modules/
-.env
-.env.local
-
-# Sapo build artifacts (giữ source soi-theme/, ignore zip output)
-soi-theme-pkg/
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
 
 # IDE
 .vscode/
@@ -22,3 +35,6 @@ soi-theme-pkg/
 
 # Nested git repo
 SOI PR/
+
+# Sapo build artifacts (legacy)
+soi-theme-pkg/
