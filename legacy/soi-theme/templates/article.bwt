@@ -1,8 +1,0 @@
-<section class="kb-section" style="max-width:800px;margin:0 auto;">
-  <h1 class="kb-section-title">{{ article.title }}</h1>
-  <p class="kb-section-sub">{{ article.author }} — {{ article.created_at | date: '%d/%m/%Y' }}</p>
-  {% if article.image %}
-    <img src="{{ article.image | img_url: 'large' }}" alt="{{ article.title }}" style="border-radius:8px;margin-bottom:30px;" />
-  {% endif %}
-  <div class="kb-page-content">{{ article.content }}</div>
-</section>

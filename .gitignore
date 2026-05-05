@@ -3,30 +3,18 @@
 ._*
 __MACOSX/
 
-# Next.js
-.next/
-out/
-build/
-dist/
-
-# Node
+# Node (nếu cài @haravan/cli local)
 node_modules/
 npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
 
-# Env (không commit secret!)
+# Env / secrets (không commit Haravan token!)
 .env
 .env.local
-.env.development.local
-.env.production.local
+.haravan/
 
-# Vercel
-.vercel/
-
-# TypeScript
-*.tsbuildinfo
-next-env.d.ts
+# Haravan CLI generated
+haravan-theme/dist/
+haravan-theme/.cache/
 
 # IDE
 .vscode/
@@ -35,6 +23,3 @@ next-env.d.ts
 
 # Nested git repo
 SOI PR/
-
-# Sapo build artifacts (legacy)
-soi-theme-pkg/

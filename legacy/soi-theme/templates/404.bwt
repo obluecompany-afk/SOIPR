@@ -1,5 +1,0 @@
-<section class="kb-section" style="text-align:center;min-height:400px;">
-  <h1 style="font-size:80px;font-weight:800;">404</h1>
-  <p class="kb-section-sub">Rất tiếc, trang bạn tìm không tồn tại.</p>
-  <a href="{{ shop.url }}"><button class="kb-btn-primary">VỀ TRANG CHỦ</button></a>
-</section>
