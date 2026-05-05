@@ -1,0 +1,33 @@
+{%- comment -%}
+  Customer activate account — khi admin invite hoặc verify email
+  URL: /account/activate/{customer_id}/{token}
+  Dùng {% form 'activate_customer_password' %}
+{%- endcomment -%}
+
+<section class="kb-auth">
+  <h1 class="kb-section-title">KÍCH HOẠT TÀI KHOẢN</h1>
+  <p style="color:#888;margin-bottom:24px;font-size:13px;text-align:center;">
+    Tạo mật khẩu để kích hoạt tài khoản của bạn.
+  </p>
+
+  {% form 'activate_customer_password' %}
+    {% if form.errors %}
+      <div class="kb-form-errors">{{ form.errors | default_errors }}</div>
+    {% endif %}
+
+    <label class="kb-form-label">Mật khẩu</label>
+    <input type="password" name="customer[password]" required class="kb-form-input" minlength="8" autofocus />
+
+    <label class="kb-form-label">Xác nhận mật khẩu</label>
+    <input type="password" name="customer[password_confirmation]" required class="kb-form-input" minlength="8" />
+    <p style="font-size:11px;color:#888;margin-top:4px;">Tối thiểu 8 ký tự.</p>
+
+    <button type="submit" class="kb-btn-primary kb-btn-block" style="margin-top:20px;">
+      KÍCH HOẠT TÀI KHOẢN
+    </button>
+
+    <p style="text-align:center;margin-top:14px;font-size:13px;">
+      <a href="/account/login" class="kb-link-muted">← Về trang đăng nhập</a>
+    </p>
+  {% endform %}
+</section>

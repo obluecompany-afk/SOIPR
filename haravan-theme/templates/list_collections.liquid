@@ -1,0 +1,30 @@
+{%- comment -%}
+  List all collections — URL /collections
+  Hiển thị grid card cho mỗi collection
+{%- endcomment -%}
+
+<section class="kb-section" style="max-width:1200px;margin:0 auto;">
+  <h1 class="kb-section-title">DANH MỤC SẢN PHẨM</h1>
+
+  {% if collections.size > 0 %}
+    <div class="kb-list-collections-grid">
+      {% for collection in collections %}
+        {% unless collection.handle == 'frontpage' or collection.handle == 'all' %}
+          <a href="{{ collection.url }}" class="kb-collection-card">
+            <div class="kb-collection-card__img">
+              {% if collection.image %}
+                <img src="{{ collection.image | collection_img_url: 'medium' }}" alt="{{ collection.title }}" />
+              {% elsif collection.products.first.featured_image %}
+                <img src="{{ collection.products.first.featured_image | product_img_url: 'medium' }}" alt="{{ collection.title }}" />
+              {% endif %}
+            </div>
+            <h3 class="kb-collection-card__title">{{ collection.title }}</h3>
+            <p class="kb-collection-card__count">{{ collection.products_count }} sản phẩm</p>
+          </a>
+        {% endunless %}
+      {% endfor %}
+    </div>
+  {% else %}
+    <p style="text-align:center;color:#888;padding:60px 0;">Chưa có danh mục nào.</p>
+  {% endif %}
+</section>
