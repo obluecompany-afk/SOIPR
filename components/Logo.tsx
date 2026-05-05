@@ -5,6 +5,8 @@ type LogoProps = {
   className?: string;
   /** kích thước: 'sm' | 'md' (mặc định) | 'lg' */
   size?: 'sm' | 'md' | 'lg';
+  /** màu chữ chính — mặc định đen #111, footer dùng 'text-white' */
+  textClass?: string;
 };
 
 const sizeClass = {
@@ -17,9 +19,16 @@ const sizeClass = {
  * Logo S.O.I — Times New Roman, dấu chấm đỏ #C8102E giữa các chữ.
  * Dùng cho header, footer, mobile menu.
  */
-export default function Logo({ href = '/', className = '', size = 'md' }: LogoProps) {
+export default function Logo({
+  href = '/',
+  className = '',
+  size = 'md',
+  textClass = 'text-[#111]',
+}: LogoProps) {
   const inner = (
-    <span className={`font-serif font-bold tracking-wider text-[#111] leading-none ${sizeClass[size]} ${className}`}>
+    <span
+      className={`font-serif font-bold tracking-wider leading-none ${sizeClass[size]} ${textClass} ${className}`}
+    >
       S<span className="text-primary">.</span>O<span className="text-primary">.</span>I
     </span>
   );
