@@ -1,0 +1,11 @@
+{
+  "name": "soi-haravan-preview",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "preview": "node scripts/render-preview.mjs"
+  },
+  "devDependencies": {
+    "liquidjs": "^10.20.1"
+  }
+}
