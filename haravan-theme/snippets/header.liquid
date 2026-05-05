@@ -1,0 +1,33 @@
+{% comment %}
+  Header skeleton — sẽ port chi tiết từ components/Header.tsx + components/Logo.tsx ở Step 2.2
+{% endcomment %}
+
+<header class="kb-header">
+  <a href="/" class="kb-logo">
+    {% if settings.logo_image != blank %}
+      <img src="{{ settings.logo_image }}" alt="{{ shop.name }}" />
+    {% else %}
+      {% assign parts = settings.logo_text | default: 'S.O.I' | split: '.' %}
+      {% for part in parts %}{{ part }}{% unless forloop.last %}<span class="kb-logo__dot">.</span>{% endunless %}{% endfor %}
+    {% endif %}
+  </a>
+
+  <nav class="kb-nav">
+    <ul>
+      {% for link in linklists.main-menu.links %}
+        <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+      {% endfor %}
+    </ul>
+  </nav>
+
+  <div class="kb-header__icons">
+    <a href="/account" aria-label="Tài khoản" class="kb-icon">👤</a>
+    <a href="/search" aria-label="Tìm kiếm" class="kb-icon">🔍</a>
+    <a href="/cart" aria-label="Giỏ hàng" class="kb-icon">
+      🛒
+      {% if cart.item_count > 0 %}
+        <sup class="kb-cart-count">{{ cart.item_count }}</sup>
+      {% endif %}
+    </a>
+  </div>
+</header>

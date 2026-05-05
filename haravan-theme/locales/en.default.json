@@ -1,0 +1,22 @@
+{
+  "general": {
+    "search_placeholder": "Search products...",
+    "loading": "Loading...",
+    "error": "An error occurred"
+  },
+  "cart": {
+    "title": "Cart",
+    "empty": "Your cart is empty",
+    "subtotal": "Subtotal",
+    "checkout": "Checkout",
+    "continue_shopping": "Continue shopping",
+    "free_shipping_eligible": "Order qualifies for free shipping",
+    "free_shipping_remaining": "Add {{ amount }} for free shipping"
+  },
+  "product": {
+    "add_to_cart": "Add to cart",
+    "buy_now": "Buy now",
+    "out_of_stock": "Out of stock",
+    "select_variant": "Select variant"
+  }
+}

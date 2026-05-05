@@ -1,0 +1,22 @@
+{
+  "general": {
+    "search_placeholder": "Tìm kiếm sản phẩm...",
+    "loading": "Đang tải...",
+    "error": "Có lỗi xảy ra"
+  },
+  "cart": {
+    "title": "Giỏ hàng",
+    "empty": "Giỏ hàng trống",
+    "subtotal": "Tạm tính",
+    "checkout": "Tiến hành thanh toán",
+    "continue_shopping": "Tiếp tục mua sắm",
+    "free_shipping_eligible": "Đơn hàng đã đủ điều kiện miễn phí vận chuyển",
+    "free_shipping_remaining": "Thêm {{ amount }} để được miễn phí vận chuyển"
+  },
+  "product": {
+    "add_to_cart": "Thêm vào giỏ",
+    "buy_now": "Mua ngay",
+    "out_of_stock": "Hết hàng",
+    "select_variant": "Chọn phân loại"
+  }
+}

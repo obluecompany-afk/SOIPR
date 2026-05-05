@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+  <title>
+    {% if template == 'index' %}{{ shop.name }} — {{ shop.description | default: 'K-Beauty' }}
+    {% elsif template contains 'product' %}{{ product.title }} | {{ shop.name }}
+    {% elsif template contains 'collection' %}{{ collection.title }} | {{ shop.name }}
+    {% else %}{{ page_title | default: shop.name }}{% endif %}
+  </title>
+
+  {% if page_description %}<meta name="description" content="{{ page_description | escape }}" />{% endif %}
+
+  {% if settings.favicon != blank %}
+    <link rel="shortcut icon" href="{{ settings.favicon }}" type="image/png" />
+  {% endif %}
+
+  {{ 'theme.css' | asset_url | stylesheet_tag }}
+
+  {{ content_for_header }}
+</head>
+<body class="template-{{ template | replace: '.', '-' | handle }}">
+
+  {% include 'header' %}
+
+  <main role="main" id="MainContent">
+    {{ content_for_layout }}
+  </main>
+
+  {% include 'footer' %}
+
+  {% include 'cart-drawer' %}
+
+  <script src="{{ 'theme.js' | asset_url }}" defer></script>
+</body>
+</html>

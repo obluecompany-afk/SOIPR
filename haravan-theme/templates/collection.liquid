@@ -1,0 +1,22 @@
+{% comment %}
+  Collection (danh mục sản phẩm) — placeholder Step 2.1
+{% endcomment %}
+
+<div style="max-width: 1200px; margin: 0 auto; padding: 40px 24px;">
+  <h1>{{ collection.title }}</h1>
+  {% if collection.description != blank %}
+    <p style="color: #6B6B6B;">{{ collection.description }}</p>
+  {% endif %}
+
+  <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 24px; margin-top: 32px;">
+    {% for product in collection.products %}
+      <a href="{{ product.url }}" style="text-decoration: none; color: inherit;">
+        {% if product.featured_image %}
+          <img src="{{ product.featured_image | product_img_url: 'medium' }}" alt="{{ product.title }}" style="width: 100%; aspect-ratio: 1; object-fit: cover;" />
+        {% endif %}
+        <h3 style="font-size: 14px; margin: 12px 0 4px;">{{ product.title }}</h3>
+        <p style="color: var(--color-primary); font-weight: 600;">{{ product.price | money }}</p>
+      </a>
+    {% endfor %}
+  </div>
+</div>

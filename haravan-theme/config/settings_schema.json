@@ -1,0 +1,86 @@
+[
+  {
+    "name": "Thông tin chung",
+    "settings": [
+      {
+        "type": "text",
+        "id": "logo_text",
+        "label": "Logo text (mặc định)",
+        "default": "S.O.I",
+        "info": "Định dạng X.X.X — dấu chấm sẽ tự render màu đỏ"
+      },
+      {
+        "type": "text",
+        "id": "logo_image",
+        "label": "Logo image URL (ưu tiên hơn text nếu có)"
+      },
+      {
+        "type": "text",
+        "id": "favicon",
+        "label": "Favicon URL"
+      }
+    ]
+  },
+  {
+    "name": "Màu sắc",
+    "settings": [
+      {
+        "type": "color",
+        "id": "color_primary",
+        "label": "Màu chính (accent)",
+        "default": "#C8102E"
+      },
+      {
+        "type": "color",
+        "id": "color_text",
+        "label": "Màu chữ",
+        "default": "#1A1A1A"
+      },
+      {
+        "type": "color",
+        "id": "color_bg",
+        "label": "Màu nền",
+        "default": "#FFFFFF"
+      }
+    ]
+  },
+  {
+    "name": "Hero banner",
+    "settings": [
+      {
+        "type": "text",
+        "id": "hero_image",
+        "label": "Hero image URL"
+      },
+      {
+        "type": "text",
+        "id": "hero_title",
+        "label": "Hero title",
+        "default": "MATCHA REFRESH"
+      },
+      {
+        "type": "text",
+        "id": "hero_tag",
+        "label": "Hero tag",
+        "default": "ƯU ĐÃI MÙA XUÂN"
+      },
+      {
+        "type": "text",
+        "id": "hero_link",
+        "label": "Hero CTA link",
+        "default": "/collections/all"
+      }
+    ]
+  },
+  {
+    "name": "Vận chuyển & Khuyến mãi",
+    "settings": [
+      {
+        "type": "text",
+        "id": "free_shipping_threshold",
+        "label": "Ngưỡng miễn phí vận chuyển (VND)",
+        "default": "1250000"
+      }
+    ]
+  }
+]

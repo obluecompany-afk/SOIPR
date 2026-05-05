@@ -1,0 +1,57 @@
+/* =========================================================
+   S.O.I — Haravan theme stylesheet (Step 2.1 placeholder)
+   Sẽ build từ Tailwind config + port từ Next.js components ở Step 2.3
+   ========================================================= */
+
+:root {
+  --color-primary: #C8102E;
+  --color-text: #1A1A1A;
+  --color-bg: #FFFFFF;
+  --color-cream: #F8F4EE;
+  --color-menu: #F5F1E8;
+  --color-border: #EAEAEA;
+  --font-serif: 'Times New Roman', Times, serif;
+  --font-sans: Helvetica, Arial, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-sans);
+  color: var(--color-text);
+  background: var(--color-bg);
+  line-height: 1.5;
+}
+
+a { color: inherit; text-decoration: none; }
+
+/* Header placeholder — sẽ port chi tiết */
+.kb-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 30px;
+  border-bottom: 1px solid var(--color-border);
+}
+.kb-logo {
+  font-family: var(--font-serif);
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #111;
+}
+.kb-logo__dot { color: var(--color-primary); }
+.kb-nav ul { display: flex; gap: 20px; list-style: none; margin: 0; padding: 0; }
+.kb-nav a { font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; }
+.kb-header__icons { display: flex; gap: 8px; }
+.kb-icon { padding: 6px; position: relative; }
+.kb-cart-count {
+  position: absolute; top: -4px; right: -4px;
+  background: var(--color-primary); color: #fff;
+  font-size: 10px; font-weight: 700;
+  min-width: 16px; height: 16px;
+  border-radius: 999px; padding: 0 4px;
+  display: inline-flex; align-items: center; justify-content: center;
+}

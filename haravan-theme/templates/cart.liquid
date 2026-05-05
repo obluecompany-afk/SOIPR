@@ -1,0 +1,38 @@
+{% comment %}
+  Cart page — Haravan tự handle cart state qua URL /cart, action /cart/update, /cart/change
+{% endcomment %}
+
+<div style="max-width: 800px; margin: 0 auto; padding: 40px 24px;">
+  <h1>Giỏ hàng ({{ cart.item_count }})</h1>
+
+  {% if cart.item_count == 0 %}
+    <p>Giỏ hàng trống. <a href="/collections/all">Mua sắm →</a></p>
+  {% else %}
+    <form action="/cart" method="post" novalidate>
+      {% for item in cart.items %}
+        <div style="display: flex; gap: 16px; padding: 16px 0; border-bottom: 1px solid #eee;">
+          <img src="{{ item.image | product_img_url: 'small' }}" alt="{{ item.title }}" style="width: 80px; height: 80px; object-fit: cover;" />
+          <div style="flex: 1;">
+            <p style="font-weight: 600;">{{ item.product.title }}</p>
+            {% if item.variant.title != 'Default Title' %}
+              <p style="color: #6B6B6B; font-size: 13px;">{{ item.variant.title }}</p>
+            {% endif %}
+            <p>{{ item.line_price | money }}</p>
+            <input type="number" name="updates[]" value="{{ item.quantity }}" min="0" style="width: 60px;" />
+          </div>
+          <a href="/cart/change?line={{ forloop.index }}&quantity=0">Xoá</a>
+        </div>
+      {% endfor %}
+
+      <div style="display: flex; justify-content: space-between; margin-top: 24px; font-weight: 600;">
+        <span>Tạm tính</span>
+        <span>{{ cart.total_price | money }}</span>
+      </div>
+
+      <button type="submit" name="update" style="margin-top: 16px;">Cập nhật</button>
+      <button type="submit" name="checkout" style="margin-top: 16px; background: #111; color: #fff; padding: 14px 28px; border: 0;">
+        Tiến hành thanh toán
+      </button>
+    </form>
+  {% endif %}
+</div>

@@ -1,0 +1,22 @@
+{% comment %}
+  Product detail page — sẽ port từ legacy/product.html + components/* ở Step 2.2
+{% endcomment %}
+
+<div style="max-width: 1200px; margin: 0 auto; padding: 40px 24px;">
+  <h1>{{ product.title }}</h1>
+  <p style="color: #6B6B6B;">{{ product.description }}</p>
+  <p><strong>{{ product.price | money }}</strong></p>
+
+  <form action="/cart/add" method="post" enctype="multipart/form-data">
+    {% if product.variants.size > 1 %}
+      <select name="id">
+        {% for v in product.variants %}
+          <option value="{{ v.id }}">{{ v.title }} — {{ v.price | money }}</option>
+        {% endfor %}
+      </select>
+    {% else %}
+      <input type="hidden" name="id" value="{{ product.variants.first.id }}" />
+    {% endif %}
+    <button type="submit">Thêm vào giỏ</button>
+  </form>
+</div>
