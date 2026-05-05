@@ -121,6 +121,49 @@
   syncFreeShip();
   window.addEventListener('load', syncFreeShip);
 
+  /* ===== Qty selector +/- (button-span-button + hidden input) ===== */
+  function setupQty(scope) {
+    $$('[data-qty]', scope || document).forEach(function (qty) {
+      var display = qty.querySelector('[data-qty-display]');
+      var input = qty.querySelector('[data-qty-input]');
+      var minus = qty.querySelector('[data-qty-minus]');
+      var plus = qty.querySelector('[data-qty-plus]');
+      if (!display || !input || qty.dataset.qtyReady === '1') return;
+      qty.dataset.qtyReady = '1';
+      function set(val) {
+        var v = Math.max(1, parseInt(val, 10) || 1);
+        display.textContent = v;
+        input.value = v;
+      }
+      if (minus) minus.addEventListener('click', function () { set(parseInt(input.value, 10) - 1); });
+      if (plus)  plus.addEventListener('click',  function () { set(parseInt(input.value, 10) + 1); });
+    });
+  }
+  setupQty();
+  document.addEventListener('DOMContentLoaded', function () { setupQty(); });
+
+  /* ===== Product thumb gallery — click thumb đổi main image ===== */
+  document.addEventListener('click', function (e) {
+    var thumb = e.target.closest('[data-thumb-src]');
+    if (!thumb) return;
+    var src = thumb.getAttribute('data-thumb-src');
+    var mainImg = $('[data-main-image]');
+    if (mainImg && src) mainImg.src = src;
+    $$('.kb-thumb').forEach(function (t) { t.classList.toggle('active', t === thumb); });
+  });
+
+  /* ===== Accordion toggle (mô tả, vận chuyển, thành phần...) ===== */
+  document.addEventListener('click', function (e) {
+    var head = e.target.closest('.kb-accordion__head');
+    if (!head) return;
+    var item = head.parentElement;
+    var body = item.querySelector('.kb-accordion__body');
+    var sign = head.querySelector('span');
+    var open = item.classList.toggle('open');
+    if (body) body.hidden = !open;
+    if (sign) sign.textContent = open ? '−' : '+';
+  });
+
   /* Expose cho debug */
-  window.kbTheme = { openMenu: openMenu, closeMenu: closeMenu, openCart: openCart, closeCart: closeCart };
+  window.kbTheme = { openMenu: openMenu, closeMenu: closeMenu, openCart: openCart, closeCart: closeCart, setupQty: setupQty };
 })();

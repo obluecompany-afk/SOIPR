@@ -40,12 +40,8 @@
                 <div class="kb-cart-item__variant">{{ item.variant.title }}</div>
               {% endif %}
               <div class="kb-cart-item__bottom">
-                <div class="kb-qty">
-                  <button type="button" data-qty-minus aria-label="Giảm">-</button>
-                  <input type="number" name="updates[]" value="{{ item.quantity }}" min="0"
-                         class="kb-cart-item__qty" />
-                  <button type="button" data-qty-plus aria-label="Tăng">+</button>
-                </div>
+                <input type="number" name="updates[]" value="{{ item.quantity }}" min="0"
+                       class="kb-cart-item__qty" style="width:60px;padding:6px 8px;border:1px solid #ddd;text-align:center;" />
                 <strong class="kb-cart-item__price">{{ item.line_price | money }}</strong>
               </div>
               {% if item.quantity > 1 %}

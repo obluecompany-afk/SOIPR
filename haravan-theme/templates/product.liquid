@@ -21,7 +21,9 @@
   <div class="kb-product__gallery">
     <div class="kb-product__main-image">
       {% if product.featured_image %}
-        <img src="{{ product.featured_image | product_img_url: 'large' }}" alt="{{ product.title }}" data-main-image />
+        <img src="{{ product.featured_image | product_img_url: 'large' }}" alt="{{ product.title }}"
+          data-main-image
+          style="width:100%;height:100%;object-fit:cover;border-radius:inherit;" />
       {% else %}
         <div class="kb-emoji-huge">🛍️</div>
       {% endif %}
@@ -29,9 +31,11 @@
     {% if product.images.size > 1 %}
       <div class="kb-product__thumbs">
         {% for img in product.images %}
-          <div class="kb-thumb {% if forloop.first %}active{% endif %}" data-thumb-index="{{ forloop.index0 }}">
-            <img src="{{ img | product_img_url: 'compact' }}" alt="{{ product.title }} - ảnh {{ forloop.index }}" />
-          </div>
+          <button type="button" class="kb-thumb {% if forloop.first %}active{% endif %}"
+            data-thumb-src="{{ img | product_img_url: 'large' }}">
+            <img src="{{ img | product_img_url: 'compact' }}" alt="{{ product.title }} - ảnh {{ forloop.index }}"
+              style="width:100%;height:100%;object-fit:cover;border-radius:inherit;" />
+          </button>
         {% endfor %}
       </div>
     {% endif %}
@@ -82,10 +86,11 @@
       {% endif %}
 
       <div class="kb-product__buy">
-        <div class="kb-qty">
+        <div class="kb-qty" data-qty>
           <button type="button" data-qty-minus aria-label="Giảm">-</button>
-          <input type="number" name="quantity" value="1" min="1" />
+          <span data-qty-display>1</span>
           <button type="button" data-qty-plus aria-label="Tăng">+</button>
+          <input type="hidden" name="quantity" value="1" data-qty-input />
         </div>
         <button type="submit" class="kb-btn-primary"
           {% unless current_variant.available %}disabled{% endunless %}>
