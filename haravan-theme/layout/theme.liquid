@@ -22,7 +22,9 @@
 
   {{ content_for_header }}
 </head>
-<body class="template-{{ template | replace: '.', '-' | handle }}">
+<body class="template-{{ template | replace: '.', '-' | handle }}"
+  data-free-ship-threshold="{{ settings.free_shipping_threshold | default: '1250000' }}"
+  data-cart-total="{{ cart.total_price }}">
 
   {% include 'header' %}
 
@@ -34,6 +36,7 @@
 
   {% include 'cart-drawer' %}
 
+  <script src="{{ 'animations.js' | asset_url }}" defer></script>
   <script src="{{ 'theme.js' | asset_url }}" defer></script>
 </body>
 </html>

@@ -1,0 +1,27 @@
+{%- comment -%}
+  Product card dùng trong grid (best sellers, just dropped, related)
+  Param: product (object)
+{%- endcomment -%}
+
+<a href="{{ product.url }}" class="kb-product-card">
+  <div class="kb-product-card__img">
+    {% if product.featured_image != blank %}
+      <img src="{{ product.featured_image | product_img_url: 'medium' }}" alt="{{ product.title }}" />
+    {% endif %}
+    {% if product.tags contains 'new' %}
+      <span class="kb-badge-new">MỚI</span>
+    {% endif %}
+  </div>
+  <h3 class="kb-product-card__title">{{ product.title }}</h3>
+  {% if product.summary != blank %}
+    <p class="kb-product-card__sub">{{ product.summary | truncate: 60 }}</p>
+  {% endif %}
+  <div class="kb-product-card__price">
+    {% if product.compare_at_price > product.price %}
+      <strong>{{ product.price | money }}</strong>
+      <s>{{ product.compare_at_price | money }}</s>
+    {% else %}
+      <strong>{{ product.price | money }}</strong>
+    {% endif %}
+  </div>
+</a>

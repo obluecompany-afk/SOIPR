@@ -1,5 +1,82 @@
-{% comment %}
-  Cart drawer skeleton — Haravan có cart object built-in (cart.item_count, cart.items, cart.total_price).
-  Sẽ port chi tiết từ components/CartDrawer.tsx ở Step 2.2.
-  Lưu ý: ở Haravan, cart logic do platform handle — không cần localStorage hay React Context.
-{% endcomment %}
+{%- comment -%}
+  Cart drawer (slide từ phải) — dùng cart object Haravan
+  AJAX cart toggle: nút "Thêm vào giỏ" submit form thuần đến /cart/add
+  Subtotal, items, count đều render từ cart object phía server
+{%- endcomment -%}
+
+{%- assign threshold = settings.free_shipping_threshold | default: '1250000' | times: 1 -%}
+{%- assign remaining = threshold | minus: cart.total_price -%}
+
+<aside id="cart-drawer" class="kb-cart-drawer">
+  <div class="kb-cart-drawer__head">
+    <h3>GIỎ HÀNG ({{ cart.item_count }})</h3>
+    <button type="button" data-kb-close-cart aria-label="Đóng">✕</button>
+  </div>
+
+  {% if cart.item_count > 0 %}
+    <div class="kb-cart-drawer__free">
+      <span class="kb-free-msg" data-free-ship-msg>
+        {% if remaining <= 0 %}
+          ✓ Đơn hàng đã đủ điều kiện miễn phí vận chuyển
+        {% else %}
+          Thêm <strong>{{ remaining | money }}</strong> để được miễn phí vận chuyển.
+        {% endif %}
+      </span>
+      <div class="kb-cart-drawer__progress">
+        {% assign pct = cart.total_price | times: 100 | divided_by: threshold %}
+        {% if pct > 100 %}{% assign pct = 100 %}{% endif %}
+        <span data-free-ship-bar style="width:{{ pct }}%"></span>
+      </div>
+    </div>
+
+    <div class="kb-cart-drawer__label">Sản phẩm</div>
+
+    <form action="/cart" method="post" novalidate>
+      <div class="kb-cart-drawer__items">
+        {% for item in cart.items %}
+          <div class="kb-cart-item">
+            <div class="kb-cart-item__img">
+              {% if item.image %}
+                <img src="{{ item.image | product_img_url: 'small' }}" alt="{{ item.title }}" />
+              {% else %}🛍️{% endif %}
+            </div>
+            <div class="kb-cart-item__info">
+              <div class="kb-cart-item__top">
+                <div class="kb-cart-item__name">{{ item.product.title }}</div>
+                <a href="/cart/change?line={{ forloop.index }}&quantity=0" class="kb-cart-item__remove" aria-label="Xoá">✕</a>
+              </div>
+              {% if item.variant.title != 'Default Title' %}
+                <div class="kb-cart-item__variant">{{ item.variant.title }}</div>
+              {% endif %}
+              <div class="kb-cart-item__bottom">
+                <input type="number" name="updates[]" value="{{ item.quantity }}" min="0"
+                       class="kb-cart-item__qty" />
+                <strong>{{ item.line_price | money }}</strong>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+
+      <div class="kb-cart-drawer__subtotal">
+        <span>TẠM TÍNH</span>
+        <strong>{{ cart.total_price | money }}</strong>
+      </div>
+
+      <button type="submit" name="checkout" class="kb-btn-primary kb-btn-block kb-btn-checkout">
+        <span>TIẾN HÀNH THANH TOÁN</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16">
+          <line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/>
+        </svg>
+      </button>
+      <p class="kb-cart-drawer__note">Phí ship, thuế và khuyến mãi tính tại trang thanh toán.</p>
+    </form>
+  {% else %}
+    <div class="kb-cart-drawer__empty">
+      <p>Giỏ hàng trống</p>
+      <a href="/collections/all" class="kb-link-muted">Mua sắm →</a>
+    </div>
+  {% endif %}
+</aside>
+
+<div class="kb-cart-overlay" data-kb-close-cart></div>

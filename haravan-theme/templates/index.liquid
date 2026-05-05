@@ -1,15 +1,80 @@
-{% comment %}
-  Trang chủ — sẽ port từ Next.js home + legacy/index.html ở Step 2.2
-{% endcomment %}
+{%- comment -%}
+  Trang chủ S.O.I — port từ legacy/index.html
+  Sections: Hero banner · Best sellers · Just dropped · Family · Reviews
+{%- endcomment -%}
 
-<section style="padding: 80px 24px; text-align: center; max-width: 800px; margin: 0 auto;">
-  <p style="font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #6B6B6B; margin-bottom: 16px;">
-    Phase 2 · Haravan Theme · Step 2.1 ✓
-  </p>
-  <h1 style="font-family: 'Times New Roman', serif; font-size: 56px; line-height: 1.1; margin: 0;">
-    Skeleton sẵn sàng
-  </h1>
-  <p style="margin-top: 24px; color: #6B6B6B; font-size: 14px;">
-    Theme structure đã tạo. Step 2.2 sẽ port snippets header, footer, cart-drawer và templates sản phẩm.
-  </p>
+{%- assign hero_url = settings.hero_link | default: '/collections/all' -%}
+
+<!-- HERO BANNER -->
+<section class="kb-hero{% if settings.hero_image != blank %} kb-hero--with-bg{% endif %}"
+  {% if settings.hero_image != blank %}style="background-image:url('{{ settings.hero_image }}');"{% endif %}>
+  {% if settings.hero_image != blank %}
+    <img class="kb-hero__bg-img" src="{{ settings.hero_image }}" alt="{{ shop.name }}" />
+    <div class="kb-hero__overlay"></div>
+  {% endif %}
+  <button type="button" class="kb-hero__arrow kb-hero__arrow--left" aria-label="Previous">‹</button>
+  <a href="{{ hero_url }}" class="kb-hero__content">
+    <div class="kb-hero__tag">{{ settings.hero_tag | default: 'ƯU ĐÃI MÙA XUÂN' }}</div>
+    <h1 class="kb-hero__title">{{ settings.hero_title | default: 'MATCHA REFRESH' }}</h1>
+    {% if settings.hero_date != blank %}
+      <div class="kb-hero__date">{{ settings.hero_date }}</div>
+    {% endif %}
+  </a>
+  <div class="kb-hero__cards">
+    <div class="kb-hero__card">
+      <div class="kb-hero__card-title">Quà tặng</div>
+      <div class="kb-hero__card-sub">Cho đơn đầu tiên</div>
+    </div>
+    <div class="kb-hero__card">
+      <div class="kb-hero__card-title">Quà tặng cho đơn từ {{ settings.free_shipping_threshold | default: '1250000' | times: 1 | money }}</div>
+    </div>
+    <div class="kb-hero__card">
+      <div class="kb-hero__card-title">CHĂM SÓC DA MATCHA</div>
+    </div>
+  </div>
+  <button type="button" class="kb-hero__arrow kb-hero__arrow--right" aria-label="Next">›</button>
+  <div class="kb-hero__dots"><span class="active"></span><span></span><span></span></div>
+</section>
+
+<!-- BEST SELLERS -->
+<section class="kb-section">
+  <h2 class="kb-section-title">SẢN PHẨM BÁN CHẠY</h2>
+  <div class="kb-best-sellers-grid">
+    {%- assign best = collections['bestsellers'].products | default: collections.all.products -%}
+    {% for product in best limit: 4 %}
+      {% include 'product-card', product: product %}
+    {% else %}
+      <p style="text-align:center;color:#888;grid-column:1/-1;">
+        Chưa có sản phẩm. Thêm collection 'bestsellers' trên Haravan dashboard.
+      </p>
+    {% endfor %}
+  </div>
+</section>
+
+<!-- JUST DROPPED -->
+<section class="kb-section kb-section--cream">
+  <h2 class="kb-section-title">VỪA RA MẮT</h2>
+  <div class="kb-just-dropped-grid">
+    {%- assign new_arrivals = collections['new'].products | default: collections.all.products -%}
+    {% for product in new_arrivals limit: 3 %}
+      {% include 'product-card', product: product %}
+    {% endfor %}
+  </div>
+</section>
+
+<!-- FAMILY -->
+<section class="kb-section">
+  <h2 class="kb-section-title">BỘ SƯU TẬP</h2>
+  <div class="kb-family-grid">
+    {% for col in collections limit: 4 %}
+      {% if col.handle != 'all' and col.handle != 'frontpage' %}
+        <a href="{{ col.url }}" class="kb-family-card">
+          {% if col.image %}
+            <img src="{{ col.image | collection_img_url: 'medium' }}" alt="{{ col.title }}" />
+          {% endif %}
+          <h3>{{ col.title }}</h3>
+        </a>
+      {% endif %}
+    {% endfor %}
+  </div>
 </section>

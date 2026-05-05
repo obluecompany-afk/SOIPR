@@ -1,9 +1,44 @@
-{% comment %}
-  Footer skeleton — sẽ port chi tiết từ components/Footer.tsx + NewsletterForm ở Step 2.2
-{% endcomment %}
-
 <footer class="kb-footer">
-  <p style="text-align: center; padding: 40px 16px; color: #6B6B6B; font-size: 12px;">
-    © {{ 'now' | date: '%Y' }} {{ shop.name }} — Powered by Haravan
-  </p>
+  <div class="kb-footer__grid">
+    <div class="kb-footer__col">
+      <div class="kb-logo">
+        {% assign parts = settings.logo_text | default: 'S.O.I' | split: '.' %}
+        {% for part in parts %}{{ part }}{% unless forloop.last %}<span class="kb-logo__dot">.</span>{% endunless %}{% endfor %}
+      </div>
+      <h4>ĐĂNG KÝ — GIẢM 10%</h4>
+      <p>Là người đầu tiên biết về BST mới và ưu đãi độc quyền.</p>
+      {% form 'customer' %}
+        <input type="hidden" name="contact[tags]" value="newsletter" />
+        <input type="text" name="contact[first_name]" placeholder="Họ tên" required />
+        <input type="email" name="contact[email]" placeholder="Email" required />
+        <button type="submit" class="kb-join-btn">JOIN</button>
+        {% if form.posted_successfully? %}
+          <p style="color:#7fd17f;font-size:12px;margin-top:8px;">✓ Cảm ơn đã đăng ký!</p>
+        {% endif %}
+      {% endform %}
+    </div>
+
+    <div class="kb-footer__col">
+      <h4>DANH MỤC</h4>
+      <ul>
+        {% for link in linklists.footer.links %}
+          <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+        {% else %}
+          <li><a href="/pages/about">Về chúng tôi</a></li>
+          <li><a href="/pages/contact">Liên hệ</a></li>
+          <li><a href="/pages/guide">Hướng dẫn</a></li>
+          <li><a href="/policies/terms-of-service">Điều khoản</a></li>
+          <li><a href="/policies/privacy-policy">Chính sách bảo mật</a></li>
+          <li><a href="/policies/shipping-policy">Giao hàng</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <div class="kb-footer__col">
+      <h4>LIÊN HỆ</h4>
+      <p>{{ shop.name }}<br/>Copyright &copy; {{ 'now' | date: '%Y' }}. Đã đăng ký bản quyền</p>
+      <p>Hỗ trợ khách hàng <strong>CHAT TRỰC TUYẾN</strong></p>
+      <p><strong>HỆ THỐNG CỬA HÀNG</strong></p>
+    </div>
+  </div>
 </footer>

@@ -1,0 +1,124 @@
+{%- comment -%}
+  Mobile menu Rhode-style: tabs ngang + thẻ sản phẩm + CTA
+  Tab "Bộ sản phẩm" lấy từ collection 'sets', "Bán chạy" từ 'bestsellers', "Ưu đãi" từ 'deals'
+  Fallback hardcoded nếu collection chưa có
+{%- endcomment -%}
+
+<aside id="mobile-menu" class="kb-mobile-menu" aria-hidden="true">
+  <div class="kb-mm-tabs" role="tablist">
+    <button type="button" class="kb-mm-tab is-active" data-mm-tab="sets">BỘ SẢN PHẨM</button>
+    <button type="button" class="kb-mm-tab" data-mm-tab="onthego">TRÊN ĐƯỜNG</button>
+    <button type="button" class="kb-mm-tab" data-mm-tab="best">BÁN CHẠY</button>
+    <button type="button" class="kb-mm-tab" data-mm-tab="deals">ƯU ĐÃI</button>
+  </div>
+
+  {%- assign sets_col = collections['sets'] -%}
+  <div class="kb-mm-panel is-active" data-mm-panel="sets">
+    {% if sets_col.products.size > 0 %}
+      {% for p in sets_col.products limit: 6 %}
+        <a href="{{ p.url }}" class="kb-mm-card">
+          <div class="kb-mm-card__img">
+            {% if p.featured_image != blank %}
+              <img src="{{ p.featured_image | product_img_url: 'medium' }}" alt="{{ p.title }}" />
+            {% else %}🧴{% endif %}
+          </div>
+          <div class="kb-mm-card__info">
+            <h4 class="kb-mm-card__title">{{ p.title }}</h4>
+            <p class="kb-mm-card__sub">{{ p.summary | default: p.description | strip_html | truncate: 38 }}</p>
+          </div>
+          {% if p.tags contains 'new' %}<span class="kb-mm-card__badge">mới</span>{% endif %}
+        </a>
+      {% endfor %}
+    {% else %}
+      <a href="/collections/all" class="kb-mm-card">
+        <div class="kb-mm-card__img">🧴</div>
+        <div class="kb-mm-card__info">
+          <h4 class="kb-mm-card__title">BỘ MATCHA</h4>
+          <p class="kb-mm-card__sub">Refresh & dưỡng ẩm</p>
+        </div>
+        <span class="kb-mm-card__badge">mới</span>
+      </a>
+      <a href="/collections/all" class="kb-mm-card">
+        <div class="kb-mm-card__img">🌸</div>
+        <div class="kb-mm-card__info">
+          <h4 class="kb-mm-card__title">BỘ HOA HỒNG</h4>
+          <p class="kb-mm-card__sub">Sáng & se khít</p>
+        </div>
+        <span class="kb-mm-card__badge">mới</span>
+      </a>
+      <a href="/collections/all" class="kb-mm-card">
+        <div class="kb-mm-card__img">💄</div>
+        <div class="kb-mm-card__info">
+          <h4 class="kb-mm-card__title">BỘ MÔI</h4>
+          <p class="kb-mm-card__sub">Plumping lip 3 màu</p>
+        </div>
+      </a>
+      <a href="/collections/all" class="kb-mm-card">
+        <div class="kb-mm-card__img">🧴</div>
+        <div class="kb-mm-card__info">
+          <h4 class="kb-mm-card__title">BỘ S.O.I KIT</h4>
+          <p class="kb-mm-card__sub">4 sản phẩm cốt lõi</p>
+        </div>
+        <span class="kb-mm-card__badge kb-mm-card__badge--alt">chỉ tại S.O.I</span>
+      </a>
+    {% endif %}
+  </div>
+
+  <div class="kb-mm-panel" data-mm-panel="onthego">
+    <a href="/collections/onthego" class="kb-mm-card">
+      <div class="kb-mm-card__img">✈️</div>
+      <div class="kb-mm-card__info">
+        <h4 class="kb-mm-card__title">TRAVEL KIT</h4>
+        <p class="kb-mm-card__sub">Mini size cho chuyến đi</p>
+      </div>
+    </a>
+    <a href="/collections/onthego" class="kb-mm-card">
+      <div class="kb-mm-card__img">💼</div>
+      <div class="kb-mm-card__info">
+        <h4 class="kb-mm-card__title">TÚI MỸ PHẨM</h4>
+        <p class="kb-mm-card__sub">Gọn nhẹ tiện lợi</p>
+      </div>
+    </a>
+  </div>
+
+  <div class="kb-mm-panel" data-mm-panel="best">
+    <a href="/collections/bestsellers" class="kb-mm-card">
+      <div class="kb-mm-card__img">⭐</div>
+      <div class="kb-mm-card__info">
+        <h4 class="kb-mm-card__title">SERUM C</h4>
+        <p class="kb-mm-card__sub">Best seller 2026</p>
+      </div>
+      <span class="kb-mm-card__badge">hot</span>
+    </a>
+    <a href="/collections/bestsellers" class="kb-mm-card">
+      <div class="kb-mm-card__img">💧</div>
+      <div class="kb-mm-card__info">
+        <h4 class="kb-mm-card__title">KEM DƯỠNG ẨM</h4>
+        <p class="kb-mm-card__sub">Cấp nước 24h</p>
+      </div>
+    </a>
+  </div>
+
+  <div class="kb-mm-panel" data-mm-panel="deals">
+    <a href="/collections/deals" class="kb-mm-card">
+      <div class="kb-mm-card__img">🎁</div>
+      <div class="kb-mm-card__info">
+        <h4 class="kb-mm-card__title">COMBO 2 TẶNG 1</h4>
+        <p class="kb-mm-card__sub">Tiết kiệm 33%</p>
+      </div>
+      <span class="kb-mm-card__badge">sale</span>
+    </a>
+    <a href="/collections/deals" class="kb-mm-card">
+      <div class="kb-mm-card__img">🏷️</div>
+      <div class="kb-mm-card__info">
+        <h4 class="kb-mm-card__title">FLASH SALE</h4>
+        <p class="kb-mm-card__sub">Giảm tới 50%</p>
+      </div>
+      <span class="kb-mm-card__badge">sale</span>
+    </a>
+  </div>
+
+  <div class="kb-mm-cta">
+    <a href="/collections/all" class="kb-mm-cta__btn">XEM TẤT CẢ</a>
+  </div>
+</aside>
