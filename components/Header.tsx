@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import Logo from './Logo';
 import MobileMenu from './MobileMenu';
+import { useCart } from '@/lib/cart-context';
 
 const NAV = [
   { href: '/collection', label: 'Mua sắm' },
@@ -17,8 +18,16 @@ const NAV = [
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const toggleMenu = () => setIsMenuOpen((v) => !v);
+  const cart = useCart();
+  const toggleMenu = () => {
+    if (!isMenuOpen) cart.close(); /* nếu đang mở cart → đóng */
+    setIsMenuOpen((v) => !v);
+  };
   const closeMenu = () => setIsMenuOpen(false);
+  const openCart = () => {
+    closeMenu();
+    cart.open();
+  };
 
   return (
     <>
@@ -93,16 +102,22 @@ export default function Header() {
               <line x1="16.5" y1="16.5" x2="21" y2="21" />
             </svg>
           </Link>
-          <Link
-            href="/cart"
+          <button
+            type="button"
+            onClick={openCart}
             aria-label="Giỏ hàng"
-            className="relative inline-flex p-1.5 text-[#111] transition-colors hover:text-primary"
+            className="relative inline-flex border-0 bg-transparent p-1.5 text-[#111] transition-colors hover:text-primary"
           >
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" width="22" height="22" aria-hidden>
               <path d="M6 8h12l-1 12H7L6 8z" />
               <path d="M9 8V6a3 3 0 0 1 6 0v2" />
             </svg>
-          </Link>
+            {cart.mounted && cart.count > 0 && (
+              <sup className="absolute right-0 top-0 flex h-4 min-w-[1rem] items-center justify-center rounded-full bg-primary px-1 text-[10px] font-bold leading-none text-white">
+                {cart.count}
+              </sup>
+            )}
+          </button>
         </div>
       </header>
 
