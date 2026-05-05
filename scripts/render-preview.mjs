@@ -42,7 +42,6 @@ function makeProduct(id, title, price, opts = {}) {
 const PRODUCTS = [
   makeProduct(1, 'Mask Fit Red Cushion', 625000, {
     summary: 'Rạng rỡ bền lâu',
-    image: '/preview-assets/p1.png',
     tags: ['new', 'best'],
     variants: Array.from({ length: 40 }, (_, i) => ({ id: 100 + i, title: `Shade ${i + 1}`, price: 625000, available: true })),
     options: ['Color'],
@@ -59,14 +58,12 @@ const PRODUCTS = [
     tags: ['hot', 'best'],
     variants: Array.from({ length: 30 }, (_, i) => ({ id: 300 + i, title: `${10 + i}C Shell`, price: 625000, available: true })),
     options: ['Color'],
-    images: ['/preview-assets/p3-1.png', '/preview-assets/p3-2.png', '/preview-assets/p3-3.png', '/preview-assets/p3-4.png'],
   }),
   makeProduct(4, 'Glide & Hide Blurring Concealer', 400000, {
     summary: 'Kem che khuyết điểm 2-in-1',
     tags: ['new'],
   }),
 ];
-PRODUCTS[2].images = PRODUCTS[2].images || [];
 
 const COLLECTION_BEST = {
   title: 'Best Sellers',
