@@ -139,6 +139,267 @@
         </div>
       </div>
     </div>
+
+    <!-- PAIR-WITH (sản phẩm kết hợp) -->
+    {% if collection.products.size > 1 %}
+      {%- assign pair_product = blank -%}
+      {% for p in collection.products %}
+        {% if p.id != product.id and pair_product == blank %}
+          {%- assign pair_product = p -%}
+        {% endif %}
+      {% endfor %}
+      {% if pair_product != blank %}
+        <div class="kb-pair-with">
+          <div class="kb-pair-with__label">Kết hợp cùng</div>
+          <a href="{{ pair_product.url }}" class="kb-pair-card">
+            <div class="kb-pair-card__img">
+              {% if pair_product.featured_image %}
+                <img src="{{ pair_product.featured_image | product_img_url: 'compact' }}"
+                  alt="{{ pair_product.title }}" style="width:100%;height:100%;object-fit:cover;border-radius:6px;" />
+              {% else %}💄{% endif %}
+            </div>
+            <div>
+              <div class="kb-pair-card__name">{{ pair_product.title | upcase }}</div>
+              <div class="kb-pair-card__price">{{ pair_product.price | money }}</div>
+            </div>
+            <span class="kb-plus-btn" title="Xem sản phẩm">+</span>
+          </a>
+        </div>
+      {% endif %}
+    {% endif %}
+  </div>
+</section>
+
+<!-- FEATURE BANNER ORANGE -->
+<section class="kb-feature-banner">
+  <div class="kb-feature-banner__text">
+    <div class="kb-tag">HIỆU ỨNG LỌC HOÀN HẢO!</div>
+    <h2>{{ product.title | split: ' ' | first | upcase }}<br/><em>{{ product.title | split: ' ' | offset: 1 | first | default: 'AI FILTER' | upcase }}</em><br/>{{ product.title | split: ' ' | last | upcase }}</h2>
+    <div class="kb-logo-sm">{{ shop.name }}</div>
+  </div>
+  <div class="kb-feature-banner__img">
+    {% if product.featured_image %}
+      <img src="{{ product.featured_image | product_img_url: 'medium' }}" alt="{{ product.title }}"
+        style="width:100%;height:100%;object-fit:contain;" />
+    {% else %}💄{% endif %}
+  </div>
+</section>
+
+<!-- FEATURES BADGES -->
+<section class="kb-features-row">
+  <div class="kb-feature">LÌ NHẸ</div>
+  <div class="kb-feature">BỀN 72 GIỜ</div>
+  <div class="kb-feature">CHE PHỦ HOÀN HẢO</div>
+  <div class="kb-feature">PHẤN ĐA NĂNG</div>
+  <div class="kb-feature">NHANH & DỄ</div>
+</section>
+
+<!-- SHADE SHOWCASE -->
+<section class="kb-shade-showcase">
+  <div class="kb-shade-showcase__left">
+    <h2>TỎA SÁNG<br/><span class="kb-highlight">TUYỆT ĐỐI!</span><br/>IN #{{ product.variants.size | default: 30 }} MÀU</h2>
+    <div class="kb-subscribe-mini">
+      {% form 'customer' %}
+        <input type="hidden" name="contact[tags]" value="newsletter" />
+        <input name="contact[email]" placeholder="Email" required />
+        <button type="submit">→</button>
+      {% endform %}
+    </div>
+  </div>
+  <div class="kb-shade-showcase__right">
+    <div class="kb-shade-table">
+      <div class="kb-shade-row"><div class="kb-shade-label deep">DEEP</div>
+        <div class="kb-shade-cell" style="background:#4a2e20">43N</div>
+        <div class="kb-shade-cell" style="background:#523526">45N</div>
+        <div class="kb-shade-cell" style="background:#5a3d2c">49N</div>
+        <div class="kb-shade-cell" style="background:#614633">51N</div>
+        <div class="kb-shade-cell" style="background:#6a4d3a">55N</div>
+      </div>
+      <div class="kb-shade-row"><div class="kb-shade-label mediumdeep">MEDIUM DEEP</div>
+        <div class="kb-shade-cell" style="background:#7a5944">33N</div>
+        <div class="kb-shade-cell" style="background:#82614c">34W</div>
+        <div class="kb-shade-cell" style="background:#8a6954">37N</div>
+        <div class="kb-shade-cell" style="background:#927058">39W</div>
+        <div class="kb-shade-cell"></div>
+      </div>
+      <div class="kb-shade-row"><div class="kb-shade-label medium">MEDIUM</div>
+        <div class="kb-shade-cell" style="background:#9b7a60">27C</div>
+        <div class="kb-shade-cell" style="background:#a38268">27N</div>
+        <div class="kb-shade-cell" style="background:#ab8a70">28N</div>
+        <div class="kb-shade-cell" style="background:#b39278">29N</div>
+        <div class="kb-shade-cell" style="background:#bb9a80">30N</div>
+      </div>
+      <div class="kb-shade-row"><div class="kb-shade-label lightmedium">LIGHT MEDIUM</div>
+        <div class="kb-shade-cell" style="background:#c3a288">23N</div>
+        <div class="kb-shade-cell" style="background:#cba990">24N</div>
+        <div class="kb-shade-cell" style="background:#d3b198">24W</div>
+        <div class="kb-shade-cell" style="background:#dbb9a0">25C</div>
+        <div class="kb-shade-cell" style="background:#e3c1a8">25N</div>
+      </div>
+      <div class="kb-shade-row"><div class="kb-shade-label light">LIGHT</div>
+        <div class="kb-shade-cell" style="background:#ebc9b0">19C</div>
+        <div class="kb-shade-cell" style="background:#f2d0b8">21C</div>
+        <div class="kb-shade-cell" style="background:#f5d5bd">21N</div>
+        <div class="kb-shade-cell" style="background:#f8dac2">21W</div>
+        <div class="kb-shade-cell" style="background:#fadec8">22N</div>
+      </div>
+      <div class="kb-shade-row"><div class="kb-shade-label verylight">VERY LIGHT</div>
+        <div class="kb-shade-cell" style="background:#fde6d2">10C</div>
+        <div class="kb-shade-cell" style="background:#ffe8d6">11N</div>
+        <div class="kb-shade-cell" style="background:#ffebda">13N</div>
+        <div class="kb-shade-cell" style="background:#ffedde">15C</div>
+        <div class="kb-shade-cell" style="background:#ffefe2">17N</div>
+      </div>
+    </div>
+    <div class="kb-vita">
+      <div class="kb-vita__card">
+        <div class="kb-vita__title">Elasticity</div>
+        <div class="kb-vita__desc">Vitamin C, Niacinamide Infuse Vita Complex reduces the production of melanin, while giving strength to skin elasticity to restore youth.</div>
+      </div>
+      <div class="kb-vita__card">
+        <div class="kb-vita__title">Pore-less</div>
+        <div class="kb-vita__desc">With natural probiotics found in kumquat, this cares for smoothing your skin while ensuring the cover lasts a long time.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- THIN-TECH SECTION -->
+<section class="kb-thin-tech">
+  <div class="kb-thin-tech__visual">
+    <div class="kb-thin-tech__tag">Độc quyền {{ shop.name }}</div>
+    <h2>THIN-<br/>TECH™</h2>
+    <p>Cùng độ che phủ,<br/>nhưng mỏng nhẹ hơn.</p>
+  </div>
+  <div class="kb-thin-tech__title">THIN-TECH™ AI CUSHION</div>
+</section>
+
+<!-- SPECS -->
+<section class="kb-specs">
+  <div class="kb-specs__list">
+    <div class="kb-spec"><div class="kb-spec__label">LOẠI</div><div class="kb-spec__value">Lì nhẹ</div></div>
+    <div class="kb-spec"><div class="kb-spec__label">ĐỘ CHE</div><div class="kb-spec__value">Cao, hoàn hảo</div></div>
+    <div class="kb-spec"><div class="kb-spec__label">ĐỘ BỀN</div><div class="kb-spec__value">Tới 72 giờ</div></div>
+    <div class="kb-spec"><div class="kb-spec__label">LOẠI DA</div><div class="kb-spec__value">Da dầu, hỗn hợp</div></div>
+    <div class="kb-spec"><div class="kb-spec__label">{{ product.variants.size | default: 30 }} MÀU</div></div>
+  </div>
+  <div class="kb-specs__checks">
+    <div class="kb-spec-label">DÀNH CHO</div>
+    <div class="kb-check">✓ Người lo lắng về lỗ chân lông sau trang điểm</div>
+    <div class="kb-check">✓ Người thích che cao nhưng lên mỏng</div>
+    <div class="kb-check">✓ Người cần dải màu rộng mà không bị xỉn</div>
+    <div class="kb-check">✓ Người muốn vẻ hoàn hảo tuyệt đối</div>
+  </div>
+</section>
+
+<!-- BỘ SƯU TẬP CUSHION (Family) -->
+{%- assign family_col = collections['cushion'] | default: collections['family'] -%}
+{% if family_col.products.size > 0 %}
+  <section class="kb-family">
+    <h2 class="kb-section-title">{{ family_col.title | upcase }}</h2>
+    {% if family_col.description != blank %}
+      <p class="kb-section-sub">{{ family_col.description | strip_html | truncate: 80 }}</p>
+    {% else %}
+      <p class="kb-section-sub">TÌM SẢN PHẨM HOÀN HẢO CỦA BẠN</p>
+    {% endif %}
+    <div class="kb-family-grid">
+      {% assign fam_classes = 'kb-fam-red,kb-fam-pink,kb-fam-silver,kb-fam-orange' | split: ',' %}
+      {% assign fam_badges = 'SATIN,DEWY,GLOW,LÌ NHẸ' | split: ',' %}
+      {% for p in family_col.products limit: 4 %}
+        <a class="kb-family-card" href="{{ p.url }}" style="text-decoration:none;color:inherit;">
+          <div class="kb-family-card__img {{ fam_classes[forloop.index0] }}">
+            {% if p.featured_image %}
+              <img src="{{ p.featured_image | product_img_url: 'medium' }}" alt="{{ p.title }}"
+                style="width:100%;height:100%;object-fit:contain;padding:15%;" />
+            {% endif %}
+          </div>
+          <div class="kb-family-card__name">{{ p.title | upcase }}</div>
+          <div class="kb-family-card__badge">{{ fam_badges[forloop.index0] }}</div>
+          <div class="kb-family-card__spec">Độ che <span class="kb-bar" style="--w:80%"></span></div>
+          <div class="kb-family-card__spec">Dưỡng ẩm <span class="kb-bar" style="--w:60%"></span></div>
+          <div class="kb-family-card__spec">Độ bóng <span class="kb-bar" style="--w:70%"></span></div>
+          <div class="kb-family-card__spec">Độ bền <span class="kb-bar" style="--w:90%"></span></div>
+        </a>
+      {% endfor %}
+    </div>
+  </section>
+{% endif %}
+
+<!-- SẢN PHẨM LIÊN QUAN -->
+{% if collection.products.size > 1 %}
+  <section class="kb-related">
+    <div class="kb-tabs">
+      <span class="kb-tab active">SẢN PHẨM LIÊN QUAN</span>
+      <span class="kb-tab">ĐÃ XEM GẦN ĐÂY</span>
+    </div>
+    <div class="kb-related-grid">
+      {% for related in collection.products limit: 4 %}
+        {% if related.id != product.id %}
+          {% include 'product-card', product: related %}
+        {% endif %}
+      {% endfor %}
+    </div>
+  </section>
+{% endif %}
+
+<!-- REVIEWS -->
+<section class="kb-reviews">
+  <div class="kb-reviews__summary">
+    <div class="kb-reviews__score">
+      <div class="kb-reviews__num">4.8</div>
+      <div class="kb-stars">★★★★★</div>
+      <div class="kb-reviews__based">dựa trên {{ reviews_count }} đánh giá</div>
+    </div>
+    <div class="kb-reviews__bars">
+      <div class="kb-review-bar"><span style="width:85%"></span> 5★</div>
+      <div class="kb-review-bar"><span style="width:55%"></span> 4★</div>
+      <div class="kb-review-bar"><span style="width:25%"></span> 3★</div>
+      <div class="kb-review-bar"><span style="width:10%"></span> 2★</div>
+      <div class="kb-review-bar"><span style="width:5%"></span> 1★</div>
+    </div>
+    <div class="kb-reviews__pct">
+      <div class="kb-reviews__pct-num">97%</div>
+      <div>sẽ giới thiệu sản phẩm này</div>
+    </div>
+  </div>
+
+  <div class="kb-reviews__list">
+    <div class="kb-review">
+      <div class="kb-review__avatar">N</div>
+      <div>
+        <div class="kb-review__name">Nyla F.</div>
+        <div class="kb-review__sub">Khách đã mua</div>
+      </div>
+      <div class="kb-review__body">
+        <div class="kb-stars">★★★★★</div>
+        <div class="kb-review__title">It's actually blurring</div>
+        <p>It feels so lightweight my face feels so free it covers my redness superbly. I'm a light peach in hydration all came concealer so it's a tad bit light but on photos it's so pretty.</p>
+      </div>
+    </div>
+    <div class="kb-review">
+      <div class="kb-review__avatar">E</div>
+      <div>
+        <div class="kb-review__name">Elena G.</div>
+        <div class="kb-review__sub">Khách đã mua</div>
+      </div>
+      <div class="kb-review__body">
+        <div class="kb-stars">★</div>
+        <div class="kb-review__title">Came broken</div>
+        <p>I can't reach customer service to request an exchange! They're closed on weekends, and then closed for holidays. You can't file a report unless you contact someone right away.</p>
+      </div>
+    </div>
+    <div class="kb-review">
+      <div class="kb-review__avatar">A</div>
+      <div>
+        <div class="kb-review__name">Angela B.</div>
+        <div class="kb-review__sub">Khách đã mua</div>
+      </div>
+      <div class="kb-review__body">
+        <div class="kb-stars">★★★★★</div>
+        <div class="kb-review__title">Amazing coverage</div>
+        <p>I have used the Red before but wanted to try this and it's definitely better. The coverage and the feel of it on my skin, lightweight and flawless highly recommend.</p>
+      </div>
+    </div>
   </div>
 </section>
 

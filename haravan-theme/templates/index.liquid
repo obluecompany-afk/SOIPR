@@ -1,6 +1,6 @@
 {%- comment -%}
-  Trang chủ S.O.I — port từ legacy/index.html
-  Sections: Hero banner · Best sellers · Just dropped · Family · Reviews
+  Trang chủ S.O.I — match design legacy/index.html
+  Sections: Hero · Best sellers · Get matched · Video carousel · Just dropped · Newsletter
 {%- endcomment -%}
 
 {%- assign hero_url = settings.hero_link | default: '/collections/all' -%}
@@ -15,9 +15,11 @@
   <button type="button" class="kb-hero__arrow kb-hero__arrow--left" aria-label="Previous">‹</button>
   <a href="{{ hero_url }}" class="kb-hero__content">
     <div class="kb-hero__tag">{{ settings.hero_tag | default: 'ƯU ĐÃI MÙA XUÂN' }}</div>
-    <h1 class="kb-hero__title">{{ settings.hero_title | default: 'MATCHA REFRESH' }}</h1>
+    <h1 class="kb-hero__title">{{ settings.hero_title | default: 'MATCHAREFRESH' }}</h1>
     {% if settings.hero_date != blank %}
       <div class="kb-hero__date">{{ settings.hero_date }}</div>
+    {% else %}
+      <div class="kb-hero__date">20/04 — 27/04</div>
     {% endif %}
   </a>
   <div class="kb-hero__cards">
@@ -44,37 +46,123 @@
     {% for product in best limit: 4 %}
       {% include 'product-card', product: product %}
     {% else %}
-      <p style="text-align:center;color:#888;grid-column:1/-1;">
+      <p style="text-align:center;color:#888;grid-column:1/-1;padding:40px 0;">
         Chưa có sản phẩm. Thêm collection 'bestsellers' trên Haravan dashboard.
       </p>
     {% endfor %}
   </div>
 </section>
 
-<!-- JUST DROPPED -->
-<section class="kb-section kb-section--cream">
-  <h2 class="kb-section-title">VỪA RA MẮT</h2>
-  <div class="kb-just-dropped-grid">
+<!-- GET MATCHED -->
+<section class="kb-section">
+  <h2 class="kb-section-title">TÌM ĐÚNG MÀU CHO BẠN</h2>
+  <p class="kb-section-sub">Tìm màu phù hợp, thử sản phẩm ảo và khám phá skincare hiệu quả — trước khi mua.</p>
+  <div class="kb-matched-grid">
+    <a class="kb-matched-card" href="/pages/virtual-try-on">
+      <span class="kb-matched-tag">MÀU SỐNG ĐỘNG</span>
+      <div class="kb-matched-image">📱</div>
+      <h3>THỬ ẢO</h3>
+      <p>Chưa biết hợp màu nào? Thử ảo ngay.</p>
+    </a>
+    <a class="kb-matched-card" href="/pages/find-shade">
+      <span class="kb-matched-tag">TÌM ĐÚNG TONE</span>
+      <div class="kb-matched-image">💄</div>
+      <h3>TÌM MÀU CỦA BẠN</h3>
+      <p>Tìm màu hợp với bạn</p>
+    </a>
+    <a class="kb-matched-card" href="/pages/skin-quiz">
+      <span class="kb-matched-tag">DÀNH RIÊNG CHO DA BẠN</span>
+      <div class="kb-matched-image">🧖</div>
+      <h3>TRẮC NGHIỆM DA</h3>
+      <p>Tìm quy trình S.O.I phù hợp qua bài trắc nghiệm nhanh.</p>
+    </a>
+  </div>
+</section>
+
+<!-- VIDEO CAROUSEL — lookbook -->
+<section class="kb-carousel-section">
+  <div class="kb-carousel">
     {%- assign new_arrivals = collections['new'].products | default: collections.all.products -%}
-    {% for product in new_arrivals limit: 3 %}
-      {% include 'product-card', product: product %}
+    {% for product in new_arrivals limit: 5 %}
+      <a class="kb-carousel-item" href="{{ product.url }}">
+        <div class="kb-carousel-media kb-cm-{{ forloop.index }}">
+          {% if product.featured_image %}
+            <img src="{{ product.featured_image | product_img_url: 'large' }}"
+              alt="{{ product.title }}" style="width:100%;height:100%;object-fit:cover;" />
+          {% endif %}
+        </div>
+        <div class="kb-product-mini">
+          <div class="kb-product-mini__img">
+            {% if product.featured_image %}
+              <img src="{{ product.featured_image | product_img_url: 'small' }}"
+                alt="{{ product.title }}" style="width:100%;height:100%;object-fit:cover;border-radius:6px;" />
+            {% else %}🛍️{% endif %}
+          </div>
+          <div class="kb-product-mini__info">
+            <div class="kb-product-mini__name">{{ product.title }}</div>
+            <div class="kb-product-mini__price">
+              {{ product.price | money }}
+              {% if product.compare_at_price > product.price %}
+                <s>{{ product.compare_at_price | money }}</s>
+              {% endif %}
+            </div>
+          </div>
+          <a href="{{ product.url }}" class="kb-plus-btn" title="Xem sản phẩm">+</a>
+        </div>
+      </a>
     {% endfor %}
   </div>
 </section>
 
-<!-- FAMILY -->
+<!-- JUST DROPPED -->
 <section class="kb-section">
-  <h2 class="kb-section-title">BỘ SƯU TẬP</h2>
-  <div class="kb-family-grid">
-    {% for col in collections limit: 4 %}
-      {% if col.handle != 'all' and col.handle != 'frontpage' %}
-        <a href="{{ col.url }}" class="kb-family-card">
-          {% if col.image %}
-            <img src="{{ col.image | collection_img_url: 'medium' }}" alt="{{ col.title }}" />
+  <h2 class="kb-section-title">MỚI RA MẮT & XU HƯỚNG</h2>
+  <div class="kb-just-dropped-grid">
+    {%- assign trending = collections['trending'].products | default: collections.all.products -%}
+    {% for product in trending limit: 2 %}
+      {% assign card_class = 'kb-drop-card--pink' %}
+      {% if forloop.last %}{% assign card_class = 'kb-drop-card--orange' %}{% endif %}
+      <a class="kb-drop-card {{ card_class }}" href="{{ product.url }}">
+        <div class="kb-drop-badges">
+          {% if product.tags contains 'new' %}<span class="kb-drop-badge kb-drop-badge--red">MỚI</span>{% endif %}
+          {% if product.tags contains 'hot' %}<span class="kb-drop-badge kb-drop-badge--red">HOT</span>{% endif %}
+          {% if product.variants.size > 1 %}
+            <span class="kb-drop-badge">{{ product.variants.size }} MÀU</span>
           {% endif %}
-          <h3>{{ col.title }}</h3>
-        </a>
-      {% endif %}
+        </div>
+        <div class="kb-drop-info">
+          <h3>{{ product.title | upcase }}</h3>
+          <p>{{ product.summary | default: product.description | strip_html | truncate: 80 }}</p>
+        </div>
+      </a>
+    {% else %}
+      <a class="kb-drop-card kb-drop-card--pink" href="/collections/all">
+        <div class="kb-drop-badges">
+          <span class="kb-drop-badge kb-drop-badge--red">MỚI</span>
+          <span class="kb-drop-badge">6 MÀU</span>
+        </div>
+        <div class="kb-drop-info">
+          <h3>MOOD GLIDER LIP &amp; BLUSH STICK</h3>
+          <p>Color that melts in like skin.</p>
+        </div>
+      </a>
+      <a class="kb-drop-card kb-drop-card--orange" href="/collections/all">
+        <div class="kb-drop-badges">
+          <span class="kb-drop-badge kb-drop-badge--red">HOT</span>
+          <span class="kb-drop-badge">20 MÀU</span>
+        </div>
+        <div class="kb-drop-info">
+          <h3>MASK FIT AI FILTER CUSHION</h3>
+          <p>Flawless, Filter-Like Skin — Now in Real Life.</p>
+        </div>
+      </a>
     {% endfor %}
   </div>
+</section>
+
+<!-- NEWSLETTER CTA -->
+<section class="kb-newsletter">
+  <h2>Đừng bỏ lỡ tin mới</h2>
+  <p>Nhận thông tin sản phẩm mới, ưu đãi giới hạn và đặc quyền thành viên.<br/>Đăng ký để nhận ưu đãi bất ngờ.</p>
+  <a href="/collections/all"><button type="button">MUA NGAY</button></a>
 </section>
