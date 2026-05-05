@@ -1,0 +1,11 @@
+{%- comment -%}
+  Generic page — about, contact, guide, terms, privacy, shipping...
+  Page object có: title, content, url, handle
+{%- endcomment -%}
+
+<article class="kb-page" style="max-width:780px;margin:0 auto;padding:40px 24px;">
+  <h1 class="kb-section-title">{{ page.title }}</h1>
+  <div class="kb-page__body" style="font-size:15px;line-height:1.7;">
+    {{ page.content }}
+  </div>
+</article>

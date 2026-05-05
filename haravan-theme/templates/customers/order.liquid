@@ -1,0 +1,60 @@
+{%- comment -%}
+  Single order detail
+{%- endcomment -%}
+
+<section class="kb-account" style="max-width:900px;margin:0 auto;">
+  <header class="kb-account__header">
+    <div>
+      <h1 class="kb-section-title">ĐƠN HÀNG #{{ order.name }}</h1>
+      <p style="color:#888;font-size:13px;">Đặt ngày {{ order.created_at | date: '%d/%m/%Y' }}</p>
+    </div>
+    <a href="/account/orders" class="kb-link-muted">← Tất cả đơn hàng</a>
+  </header>
+
+  <div class="kb-order-status">
+    <p><strong>Thanh toán:</strong> {{ order.financial_status_label }}</p>
+    <p><strong>Vận chuyển:</strong> {{ order.fulfillment_status_label }}</p>
+  </div>
+
+  <h2 class="kb-section-title" style="font-size:16px;">SẢN PHẨM</h2>
+  <table class="kb-orders-table">
+    <thead>
+      <tr><th>Sản phẩm</th><th>Số lượng</th><th>Đơn giá</th><th>Thành tiền</th></tr>
+    </thead>
+    <tbody>
+      {% for item in order.line_items %}
+        <tr>
+          <td>
+            <a href="{{ item.url }}">{{ item.product.title }}</a>
+            {% if item.variant.title != 'Default Title' %}
+              <small style="display:block;color:#888;">{{ item.variant.title }}</small>
+            {% endif %}
+          </td>
+          <td>{{ item.quantity }}</td>
+          <td>{{ item.price | money }}</td>
+          <td>{{ item.line_price | money }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+    <tfoot>
+      <tr><td colspan="3"><strong>Tạm tính</strong></td><td>{{ order.subtotal_price | money }}</td></tr>
+      <tr><td colspan="3">Vận chuyển</td><td>{{ order.shipping_price | money }}</td></tr>
+      {% if order.tax_price > 0 %}
+        <tr><td colspan="3">Thuế</td><td>{{ order.tax_price | money }}</td></tr>
+      {% endif %}
+      <tr><td colspan="3"><strong>Tổng cộng</strong></td><td><strong>{{ order.total_price | money }}</strong></td></tr>
+    </tfoot>
+  </table>
+
+  {% if order.shipping_address %}
+    <h2 class="kb-section-title" style="font-size:16px;margin-top:30px;">ĐỊA CHỈ GIAO HÀNG</h2>
+    <p>
+      {{ order.shipping_address.first_name }} {{ order.shipping_address.last_name }}<br/>
+      {{ order.shipping_address.address1 }}<br/>
+      {% if order.shipping_address.address2 != blank %}{{ order.shipping_address.address2 }}<br/>{% endif %}
+      {{ order.shipping_address.city }}, {{ order.shipping_address.province }}<br/>
+      {{ order.shipping_address.country }}<br/>
+      {{ order.shipping_address.phone }}
+    </p>
+  {% endif %}
+</section>

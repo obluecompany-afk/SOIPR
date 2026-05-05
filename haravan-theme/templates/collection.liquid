@@ -1,22 +1,112 @@
-{% comment %}
-  Collection (danh mục sản phẩm) — placeholder Step 2.1
-{% endcomment %}
+{%- comment -%}
+  Collection page — port từ legacy/collection.html
+  Filter + sort dùng URL params Haravan: ?sort_by=price-ascending, ?filter.product_type=cushion
+{%- endcomment -%}
 
-<div style="max-width: 1200px; margin: 0 auto; padding: 40px 24px;">
-  <h1>{{ collection.title }}</h1>
-  {% if collection.description != blank %}
-    <p style="color: #6B6B6B;">{{ collection.description }}</p>
-  {% endif %}
+<!-- CATEGORY HERO -->
+{% if collection.image %}
+  <section class="kb-category-hero">
+    <a class="kb-category-hero__card" href="{{ collection.url }}"
+      style="background-image:url({{ collection.image | collection_img_url: 'large' }});">
+      <span class="kb-category-hero__label">{{ collection.title | upcase }}</span>
+    </a>
+  </section>
+{% endif %}
 
-  <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 24px; margin-top: 32px;">
-    {% for product in collection.products %}
-      <a href="{{ product.url }}" style="text-decoration: none; color: inherit;">
-        {% if product.featured_image %}
-          <img src="{{ product.featured_image | product_img_url: 'medium' }}" alt="{{ product.title }}" style="width: 100%; aspect-ratio: 1; object-fit: cover;" />
+<section class="kb-collection">
+  <!-- FILTERS SIDEBAR -->
+  <aside class="kb-filters" id="kb-filters">
+    <button type="button" class="kb-filters__head" data-kb-toggle-filters>
+      <span class="kb-filters__head-label">BỘ LỌC</span>
+      <span class="kb-filters__head-caret">▲</span>
+    </button>
+    <form class="kb-filters__body" method="get">
+      <!-- Sort hidden carry-over -->
+      <input type="hidden" name="sort_by" value="{{ current_sort_by | default: 'manual' }}" />
+
+      <!-- Product type filter -->
+      {%- assign product_types = collection.products | map: 'type' | uniq -%}
+      {% if product_types.size > 0 %}
+        <div class="kb-filter-group" data-kb-group>
+          <button type="button" class="kb-filter-group__title" data-kb-group-toggle>
+            Loại sản phẩm <span class="kb-group-sign">−</span>
+          </button>
+          <div class="kb-filter-group__list">
+            {% for type in product_types %}
+              <label>
+                <input type="checkbox" name="filter.product_type" value="{{ type | handle }}"
+                  {% if current_tags contains type %}checked{% endif %} />
+                {{ type }}
+              </label>
+            {% endfor %}
+          </div>
+        </div>
+      {% endif %}
+
+      <!-- Price range -->
+      <div class="kb-filter-group" data-kb-group>
+        <button type="button" class="kb-filter-group__title" data-kb-group-toggle>
+          Khoảng giá <span class="kb-group-sign">−</span>
+        </button>
+        <div class="kb-filter-group__list">
+          <label><input type="radio" name="filter.price" value="0-250000" /> Dưới 250.000₫</label>
+          <label><input type="radio" name="filter.price" value="250000-500000" /> 250.000₫ – 500.000₫</label>
+          <label><input type="radio" name="filter.price" value="500000-750000" /> 500.000₫ – 750.000₫</label>
+          <label><input type="radio" name="filter.price" value="750000-" /> Trên 750.000₫</label>
+        </div>
+      </div>
+
+      <button type="submit" class="kb-btn-secondary kb-btn-block" style="margin-top:16px;">ÁP DỤNG</button>
+      <a href="{{ collection.url }}" class="kb-filter-clear">XOÁ BỘ LỌC</a>
+    </form>
+  </aside>
+
+  <!-- MAIN -->
+  <div class="kb-collection__main">
+    <div class="kb-collection__toolbar">
+      <div class="kb-collection__count">{{ collection.products_count }} sản phẩm</div>
+      <label class="kb-sort">
+        <span>SẮP XẾP</span>
+        <select onchange="window.location.search = '?sort_by=' + this.value;">
+          <option value="manual" {% if current_sort_by == 'manual' %}selected{% endif %}>Nổi bật</option>
+          <option value="best-selling" {% if current_sort_by == 'best-selling' %}selected{% endif %}>Bán chạy nhất</option>
+          <option value="price-ascending" {% if current_sort_by == 'price-ascending' %}selected{% endif %}>Giá: thấp → cao</option>
+          <option value="price-descending" {% if current_sort_by == 'price-descending' %}selected{% endif %}>Giá: cao → thấp</option>
+          <option value="created-descending" {% if current_sort_by == 'created-descending' %}selected{% endif %}>Mới nhất</option>
+          <option value="title-ascending" {% if current_sort_by == 'title-ascending' %}selected{% endif %}>Tên A–Z</option>
+        </select>
+      </label>
+    </div>
+
+    <div class="kb-collection__grid">
+      {% paginate collection.products by 12 %}
+        {% for product in collection.products %}
+          {% include 'product-card', product: product %}
+        {% else %}
+          <p style="grid-column:1/-1;text-align:center;color:#888;padding:60px 0;">
+            Không có sản phẩm phù hợp.
+            <a href="{{ collection.url }}" class="kb-link-muted">Xoá bộ lọc</a>
+          </p>
+        {% endfor %}
+
+        {% if paginate.pages > 1 %}
+          <nav class="kb-pagination">
+            {% if paginate.previous %}
+              <a href="{{ paginate.previous.url }}" class="kb-pagination__prev">‹ Trước</a>
+            {% endif %}
+            {% for part in paginate.parts %}
+              {% if part.is_link %}
+                <a href="{{ part.url }}" class="kb-pagination__page">{{ part.title }}</a>
+              {% else %}
+                <span class="kb-pagination__page kb-pagination__page--current">{{ part.title }}</span>
+              {% endif %}
+            {% endfor %}
+            {% if paginate.next %}
+              <a href="{{ paginate.next.url }}" class="kb-pagination__next">Sau ›</a>
+            {% endif %}
+          </nav>
         {% endif %}
-        <h3 style="font-size: 14px; margin: 12px 0 4px;">{{ product.title }}</h3>
-        <p style="color: var(--color-primary); font-weight: 600;">{{ product.price | money }}</p>
-      </a>
-    {% endfor %}
+      {% endpaginate %}
+    </div>
   </div>
-</div>
+</section>

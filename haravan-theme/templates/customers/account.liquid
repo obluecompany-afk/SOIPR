@@ -1,0 +1,51 @@
+{%- comment -%}
+  Customer account dashboard — yêu cầu customer logged in
+{%- endcomment -%}
+
+<section class="kb-account">
+  <header class="kb-account__header">
+    <div>
+      <h1 class="kb-section-title">XIN CHÀO, {{ customer.first_name | upcase }}</h1>
+      <p style="color:#888;font-size:13px;margin-top:4px;">{{ customer.email }}</p>
+    </div>
+    <a href="/account/logout" class="kb-link-muted">ĐĂNG XUẤT →</a>
+  </header>
+
+  <div class="kb-account__grid">
+    <a href="/account/orders" class="kb-account__card">
+      <h3>ĐƠN HÀNG</h3>
+      <p>{{ customer.orders_count }} đơn</p>
+    </a>
+    <a href="/account/addresses" class="kb-account__card">
+      <h3>SỔ ĐỊA CHỈ</h3>
+      <p>{{ customer.addresses_count }} địa chỉ</p>
+    </a>
+    <a href="/account/change_password" class="kb-account__card">
+      <h3>ĐỔI MẬT KHẨU</h3>
+      <p>Bảo mật tài khoản</p>
+    </a>
+  </div>
+
+  <h2 class="kb-section-title" style="font-size:18px;margin-top:40px;">ĐƠN HÀNG GẦN ĐÂY</h2>
+  {% if customer.orders.size > 0 %}
+    <table class="kb-orders-table">
+      <thead>
+        <tr><th>Mã</th><th>Ngày</th><th>Tổng tiền</th><th>Thanh toán</th><th>Vận chuyển</th><th></th></tr>
+      </thead>
+      <tbody>
+        {% for order in customer.orders limit: 10 %}
+          <tr>
+            <td><a href="{{ order.customer_url }}">#{{ order.name }}</a></td>
+            <td>{{ order.created_at | date: '%d/%m/%Y' }}</td>
+            <td>{{ order.total_price | money }}</td>
+            <td>{{ order.financial_status_label }}</td>
+            <td>{{ order.fulfillment_status_label }}</td>
+            <td><a href="{{ order.customer_url }}" class="kb-link-muted">Xem →</a></td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p style="color:#888;font-size:13px;padding:20px 0;">Bạn chưa có đơn hàng nào.</p>
+  {% endif %}
+</section>

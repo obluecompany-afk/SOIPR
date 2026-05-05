@@ -1,0 +1,77 @@
+{%- comment -%}
+  Single article — port từ legacy/article.html
+{%- endcomment -%}
+
+<article class="kb-article" style="max-width:780px;margin:0 auto;padding:40px 24px;">
+  <header style="text-align:center;margin-bottom:32px;">
+    <div class="kb-tag">{{ article.published_at | date: '%d/%m/%Y' }}</div>
+    <h1 class="kb-section-title" style="font-size:36px;">{{ article.title }}</h1>
+    {% if article.author != blank %}
+      <p style="color:#888;font-size:13px;">Bởi {{ article.author }}</p>
+    {% endif %}
+  </header>
+
+  {% if article.image %}
+    <img src="{{ article.image | article_img_url: 'large' }}" alt="{{ article.title }}"
+      style="width:100%;margin-bottom:32px;" />
+  {% endif %}
+
+  <div class="kb-article__body" style="font-size:15px;line-height:1.7;">
+    {{ article.content }}
+  </div>
+
+  {% if article.tags.size > 0 %}
+    <footer style="margin-top:40px;padding-top:24px;border-top:1px solid #eee;">
+      <p style="font-size:12px;color:#888;text-transform:uppercase;letter-spacing:0.1em;">Tags:</p>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;">
+        {% for tag in article.tags %}
+          <a href="{{ blog.url }}/tagged/{{ tag | handle }}" class="kb-tag" style="background:#eee;color:#333;">
+            {{ tag }}
+          </a>
+        {% endfor %}
+      </div>
+    </footer>
+  {% endif %}
+
+  <!-- Comments -->
+  {% if blog.comments_enabled? %}
+    <section style="margin-top:40px;padding-top:32px;border-top:1px solid #eee;">
+      <h2 class="kb-section-title" style="font-size:18px;">BÌNH LUẬN ({{ article.comments_count }})</h2>
+
+      {% if article.comments.size > 0 %}
+        {% for comment in article.comments %}
+          <div class="kb-comment" style="margin-bottom:20px;padding:16px;background:#f9f9f9;border-radius:8px;">
+            <p style="font-weight:600;font-size:14px;">{{ comment.author }}</p>
+            <p style="color:#888;font-size:11px;">{{ comment.created_at | date: '%d/%m/%Y' }}</p>
+            <p style="margin-top:8px;">{{ comment.content }}</p>
+          </div>
+        {% endfor %}
+      {% endif %}
+
+      {% form 'new_comment', article %}
+        {% if form.errors %}<div class="kb-form-errors">{{ form.errors | default_errors }}</div>{% endif %}
+        {% if form.posted_successfully? %}
+          <p style="color:#7a9;">✓ Bình luận đã được gửi.</p>
+        {% endif %}
+
+        <div class="kb-field-row">
+          <div>
+            <label class="kb-form-label">Tên</label>
+            <input type="text" name="comment[author]" required class="kb-form-input" />
+          </div>
+          <div>
+            <label class="kb-form-label">Email</label>
+            <input type="email" name="comment[email]" required class="kb-form-input" />
+          </div>
+        </div>
+        <label class="kb-form-label">Bình luận</label>
+        <textarea name="comment[body]" required class="kb-form-input" rows="4"></textarea>
+        <button type="submit" class="kb-btn-primary" style="margin-top:12px;">GỬI BÌNH LUẬN</button>
+      {% endform %}
+    </section>
+  {% endif %}
+
+  <p style="margin-top:40px;text-align:center;">
+    <a href="{{ blog.url }}" class="kb-link-muted">← Tất cả bài viết</a>
+  </p>
+</article>

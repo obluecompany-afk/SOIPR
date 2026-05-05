@@ -1,22 +1,139 @@
-{% comment %}
-  Product detail page — sẽ port từ legacy/product.html + components/* ở Step 2.2
-{% endcomment %}
+{%- comment -%}
+  Product detail page — port từ legacy/product.html
+  Dùng product object Haravan: product.title, .images, .variants, .price, .description
+{%- endcomment -%}
 
-<div style="max-width: 1200px; margin: 0 auto; padding: 40px 24px;">
-  <h1>{{ product.title }}</h1>
-  <p style="color: #6B6B6B;">{{ product.description }}</p>
-  <p><strong>{{ product.price | money }}</strong></p>
+{%- assign current_variant = product.selected_or_first_available_variant -%}
 
-  <form action="/cart/add" method="post" enctype="multipart/form-data">
-    {% if product.variants.size > 1 %}
-      <select name="id">
-        {% for v in product.variants %}
-          <option value="{{ v.id }}">{{ v.title }} — {{ v.price | money }}</option>
+<!-- BREADCRUMB -->
+<nav class="kb-breadcrumb">
+  <a href="/">Trang chủ</a>
+  <span>/</span>
+  {% if collection %}
+    <a href="{{ collection.url }}">{{ collection.title }}</a>
+    <span>/</span>
+  {% endif %}
+  <span>{{ product.title }}</span>
+</nav>
+
+<section class="kb-product">
+  <!-- GALLERY -->
+  <div class="kb-product__gallery">
+    <div class="kb-product__main-image">
+      {% if product.featured_image %}
+        <img src="{{ product.featured_image | product_img_url: 'large' }}" alt="{{ product.title }}" data-main-image />
+      {% else %}
+        <div class="kb-emoji-huge">🛍️</div>
+      {% endif %}
+    </div>
+    {% if product.images.size > 1 %}
+      <div class="kb-product__thumbs">
+        {% for img in product.images %}
+          <div class="kb-thumb {% if forloop.first %}active{% endif %}" data-thumb-index="{{ forloop.index0 }}">
+            <img src="{{ img | product_img_url: 'compact' }}" alt="{{ product.title }} - ảnh {{ forloop.index }}" />
+          </div>
         {% endfor %}
-      </select>
-    {% else %}
-      <input type="hidden" name="id" value="{{ product.variants.first.id }}" />
+      </div>
     {% endif %}
-    <button type="submit">Thêm vào giỏ</button>
-  </form>
-</div>
+  </div>
+
+  <!-- INFO -->
+  <div class="kb-product__info">
+    <h1 class="kb-product__title">{{ product.title }}</h1>
+
+    {% if product.metafields.reviews.rating %}
+      <div class="kb-product__rating">
+        <span class="kb-stars">★★★★★</span>
+        <span class="kb-reviews-count">{{ product.metafields.reviews.count | default: 0 }} Đánh giá</span>
+      </div>
+    {% endif %}
+
+    <div class="kb-product__price">
+      {% if current_variant.compare_at_price > current_variant.price %}
+        <strong>{{ current_variant.price | money }}</strong>
+        <s>{{ current_variant.compare_at_price | money }}</s>
+      {% else %}
+        <strong>{{ current_variant.price | money }}</strong>
+      {% endif %}
+    </div>
+
+    <form action="/cart/add" method="post" enctype="multipart/form-data" class="kb-product-form">
+      {% if product.variants.size > 1 %}
+        {% for option in product.options %}
+          <div class="kb-product__option">
+            <div class="kb-product__option-label">
+              {{ option }}
+              <span data-selected-variant>{{ current_variant.title }}</span>
+            </div>
+            <select name="id" class="kb-variant-select">
+              {% for variant in product.variants %}
+                <option value="{{ variant.id }}"
+                  {% if variant.id == current_variant.id %}selected{% endif %}
+                  {% unless variant.available %}disabled{% endunless %}>
+                  {{ variant.title }} — {{ variant.price | money }}
+                  {% unless variant.available %} (Hết hàng){% endunless %}
+                </option>
+              {% endfor %}
+            </select>
+          </div>
+        {% endfor %}
+      {% else %}
+        <input type="hidden" name="id" value="{{ current_variant.id }}" />
+      {% endif %}
+
+      <div class="kb-product__buy">
+        <div class="kb-qty">
+          <button type="button" data-qty-minus aria-label="Giảm">-</button>
+          <input type="number" name="quantity" value="1" min="1" />
+          <button type="button" data-qty-plus aria-label="Tăng">+</button>
+        </div>
+        <button type="submit" class="kb-btn-primary"
+          {% unless current_variant.available %}disabled{% endunless %}>
+          {% if current_variant.available %}THÊM VÀO GIỎ{% else %}HẾT HÀNG{% endif %}
+        </button>
+      </div>
+    </form>
+
+    <button type="button" class="kb-favorite" data-kb-favorite data-product-id="{{ product.id }}">
+      <span class="kb-favorite__icon">♡</span>
+      <span class="kb-favorite__label">Thêm vào yêu thích</span>
+    </button>
+
+    <!-- ACCORDION -->
+    <div class="kb-accordion">
+      <div class="kb-accordion__item open">
+        <div class="kb-accordion__head">MÔ TẢ <span>—</span></div>
+        <div class="kb-accordion__body">
+          {{ product.description }}
+        </div>
+      </div>
+      {% if product.metafields.global.ingredients %}
+        <div class="kb-accordion__item">
+          <div class="kb-accordion__head">THÀNH PHẦN <span>+</span></div>
+          <div class="kb-accordion__body" hidden>{{ product.metafields.global.ingredients }}</div>
+        </div>
+      {% endif %}
+      <div class="kb-accordion__item">
+        <div class="kb-accordion__head">VẬN CHUYỂN & ĐỔI TRẢ <span>+</span></div>
+        <div class="kb-accordion__body" hidden>
+          Miễn phí vận chuyển cho đơn từ {{ settings.free_shipping_threshold | default: '1250000' | times: 1 | money }}.
+          Đổi trả miễn phí trong 30 ngày.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RELATED PRODUCTS -->
+{% if collection.products.size > 1 %}
+  <section class="kb-section">
+    <h2 class="kb-section-title">SẢN PHẨM LIÊN QUAN</h2>
+    <div class="kb-related-grid">
+      {% for related in collection.products limit: 4 %}
+        {% if related.id != product.id %}
+          {% include 'product-card', product: related %}
+        {% endif %}
+      {% endfor %}
+    </div>
+  </section>
+{% endif %}

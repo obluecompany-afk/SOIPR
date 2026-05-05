@@ -1,0 +1,47 @@
+{%- comment -%}
+  Customer login — port từ legacy/login.html
+  Dùng {% form 'customer_login' %} của Haravan
+{%- endcomment -%}
+
+<section class="kb-auth">
+  <h1 class="kb-section-title">ĐĂNG NHẬP</h1>
+
+  {% form 'customer_login' %}
+    {% if form.errors %}
+      <div class="kb-form-errors">
+        {{ form.errors | default_errors }}
+      </div>
+    {% endif %}
+
+    <label class="kb-form-label">Email</label>
+    <input type="email" name="customer[email]" required class="kb-form-input" autofocus />
+
+    <label class="kb-form-label">Mật khẩu</label>
+    <input type="password" name="customer[password]" required class="kb-form-input" />
+
+    <button type="submit" class="kb-btn-primary kb-btn-block" style="margin-top:16px;">
+      ĐĂNG NHẬP
+    </button>
+
+    <div style="display:flex;justify-content:space-between;margin-top:16px;font-size:13px;">
+      <a href="/account/login#recover" class="kb-link-muted">Quên mật khẩu?</a>
+      <a href="/account/register" class="kb-link-muted">Đăng ký →</a>
+    </div>
+  {% endform %}
+
+  <!-- Recover password (hidden, hash route) -->
+  <div id="recover" class="kb-recover" style="margin-top:40px;padding-top:30px;border-top:1px solid #eee;">
+    <h2 class="kb-section-title" style="font-size:18px;">QUÊN MẬT KHẨU</h2>
+    {% form 'recover_customer_password' %}
+      {% if form.posted_successfully? %}
+        <p style="color:#7a9;font-size:13px;">✓ Email khôi phục đã được gửi.</p>
+      {% endif %}
+      {% if form.errors %}
+        <div class="kb-form-errors">{{ form.errors | default_errors }}</div>
+      {% endif %}
+      <label class="kb-form-label">Email</label>
+      <input type="email" name="email" required class="kb-form-input" />
+      <button type="submit" class="kb-btn-secondary" style="margin-top:12px;">GỬI YÊU CẦU</button>
+    {% endform %}
+  </div>
+</section>

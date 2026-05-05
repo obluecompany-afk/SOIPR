@@ -1,0 +1,77 @@
+{%- comment -%}
+  Customer addresses CRUD
+{%- endcomment -%}
+
+<section class="kb-account">
+  <header class="kb-account__header">
+    <h1 class="kb-section-title">SỔ ĐỊA CHỈ</h1>
+    <a href="/account" class="kb-link-muted">← Quay lại</a>
+  </header>
+
+  <!-- Add new address -->
+  <details class="kb-address-add">
+    <summary class="kb-btn-secondary" style="display:inline-block;cursor:pointer;">+ THÊM ĐỊA CHỈ</summary>
+    {% form 'customer_address', customer.new_address %}
+      {% if form.errors %}<div class="kb-form-errors">{{ form.errors | default_errors }}</div>{% endif %}
+      <div class="kb-field-row">
+        <div>
+          <label class="kb-form-label">Họ</label>
+          <input type="text" name="address[first_name]" required class="kb-form-input" />
+        </div>
+        <div>
+          <label class="kb-form-label">Tên</label>
+          <input type="text" name="address[last_name]" required class="kb-form-input" />
+        </div>
+      </div>
+      <label class="kb-form-label">Số điện thoại</label>
+      <input type="tel" name="address[phone]" required class="kb-form-input" />
+      <label class="kb-form-label">Địa chỉ</label>
+      <input type="text" name="address[address1]" required class="kb-form-input" />
+      <div class="kb-field-row">
+        <div>
+          <label class="kb-form-label">Tỉnh/Thành phố</label>
+          <input type="text" name="address[city]" required class="kb-form-input" />
+        </div>
+        <div>
+          <label class="kb-form-label">Quốc gia</label>
+          <input type="text" name="address[country]" value="Vietnam" required class="kb-form-input" />
+        </div>
+      </div>
+      <label style="display:flex;gap:8px;margin-top:12px;font-size:13px;">
+        <input type="checkbox" name="address[default]" value="1" />
+        Đặt làm địa chỉ mặc định
+      </label>
+      <button type="submit" class="kb-btn-primary" style="margin-top:14px;">LƯU ĐỊA CHỈ</button>
+    {% endform %}
+  </details>
+
+  <!-- Existing addresses -->
+  {% if customer.addresses.size > 0 %}
+    <div class="kb-addresses-list" style="margin-top:30px;">
+      {% for address in customer.addresses %}
+        <div class="kb-address-card">
+          <p>
+            <strong>{{ address.first_name }} {{ address.last_name }}</strong>
+            {% if address == customer.default_address %}
+              <span class="kb-badge-new" style="background:#444;">MẶC ĐỊNH</span>
+            {% endif %}
+          </p>
+          <p>{{ address.address1 }}</p>
+          {% if address.address2 != blank %}<p>{{ address.address2 }}</p>{% endif %}
+          <p>{{ address.city }}, {{ address.province }}</p>
+          <p>{{ address.country }} — {{ address.phone }}</p>
+          <div style="display:flex;gap:8px;margin-top:10px;">
+            <a href="/account/addresses/{{ address.id }}" class="kb-btn-secondary">SỬA</a>
+            <form method="post" action="/account/addresses/{{ address.id }}" style="display:inline;">
+              <input type="hidden" name="_method" value="delete" />
+              <button type="submit" class="kb-btn-secondary"
+                onclick="return confirm('Xoá địa chỉ này?')">XOÁ</button>
+            </form>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p style="color:#888;padding:30px 0;">Bạn chưa có địa chỉ nào.</p>
+  {% endif %}
+</section>

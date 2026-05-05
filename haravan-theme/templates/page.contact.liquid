@@ -1,0 +1,54 @@
+{%- comment -%}
+  Page contact — Haravan auto pick template page.contact.liquid khi page.handle = 'contact'
+{%- endcomment -%}
+
+<section class="kb-section" style="max-width:900px;margin:0 auto;">
+  <h1 class="kb-section-title">{{ page.title | default: 'LIÊN HỆ' }}</h1>
+
+  {% if page.content != blank %}
+    <div style="margin-bottom:32px;font-size:15px;line-height:1.7;">{{ page.content }}</div>
+  {% endif %}
+
+  <div class="kb-contact-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:40px;">
+    <div>
+      <h2 class="kb-section-title" style="font-size:16px;">THÔNG TIN</h2>
+      <p><strong>{{ shop.name }}</strong></p>
+      {% if shop.address %}<p>{{ shop.address }}</p>{% endif %}
+      {% if shop.phone %}<p>📞 {{ shop.phone }}</p>{% endif %}
+      <p>📧 {{ shop.email | default: 'hello@soi.vn' }}</p>
+      <p style="margin-top:16px;">
+        <strong>Giờ làm việc:</strong><br/>
+        Thứ 2 - Thứ 6: 9:00 - 18:00<br/>
+        Thứ 7 - CN: 10:00 - 17:00
+      </p>
+    </div>
+
+    <div>
+      <h2 class="kb-section-title" style="font-size:16px;">GỬI TIN NHẮN</h2>
+      {% form 'contact' %}
+        {% if form.posted_successfully? %}
+          <p style="color:#7a9;background:#f0fff4;padding:12px;border-radius:6px;">
+            ✓ Cảm ơn bạn đã liên hệ! Chúng tôi sẽ phản hồi trong 24h.
+          </p>
+        {% endif %}
+        {% if form.errors %}<div class="kb-form-errors">{{ form.errors | default_errors }}</div>{% endif %}
+
+        <label class="kb-form-label">Họ tên</label>
+        <input type="text" name="contact[name]" required class="kb-form-input" />
+
+        <label class="kb-form-label">Email</label>
+        <input type="email" name="contact[email]" required class="kb-form-input" />
+
+        <label class="kb-form-label">Điện thoại</label>
+        <input type="tel" name="contact[phone]" class="kb-form-input" />
+
+        <label class="kb-form-label">Tin nhắn</label>
+        <textarea name="contact[body]" required rows="4" class="kb-form-input"></textarea>
+
+        <button type="submit" class="kb-btn-primary kb-btn-block" style="margin-top:12px;">
+          GỬI TIN NHẮN
+        </button>
+      {% endform %}
+    </div>
+  </div>
+</section>

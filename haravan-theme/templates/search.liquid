@@ -1,0 +1,61 @@
+{%- comment -%}
+  Search results — Haravan auto populate `search` object dựa trên query ?q=
+{%- endcomment -%}
+
+<section class="kb-section" style="max-width:1200px;margin:0 auto;">
+  <form action="/search" method="get" class="kb-search-form">
+    <input type="search" name="q" value="{{ search.terms | escape }}"
+      placeholder="Tìm kiếm sản phẩm..." autofocus class="kb-form-input" style="margin:0;" />
+    <button type="submit" class="kb-btn-primary" style="padding:14px 28px;">TÌM</button>
+  </form>
+
+  {% if search.performed %}
+    <h1 class="kb-section-title">
+      KẾT QUẢ TÌM KIẾM CHO "{{ search.terms | escape }}"
+    </h1>
+    <p style="color:#888;font-size:13px;margin-bottom:24px;">
+      {{ search.results_count }} kết quả
+    </p>
+
+    {% if search.results.size > 0 %}
+      <div class="kb-collection__grid">
+        {% paginate search.results by 24 %}
+          {% for item in search.results %}
+            {% if item.object_type == 'product' %}
+              {% include 'product-card', product: item %}
+            {% elsif item.object_type == 'article' %}
+              <a href="{{ item.url }}" class="kb-search-result kb-search-result--article">
+                <h3>{{ item.title }}</h3>
+                <p>{{ item.content | strip_html | truncate: 120 }}</p>
+              </a>
+            {% else %}
+              <a href="{{ item.url }}" class="kb-search-result">
+                <h3>{{ item.title }}</h3>
+              </a>
+            {% endif %}
+          {% endfor %}
+
+          {% if paginate.pages > 1 %}
+            <nav class="kb-pagination" style="grid-column:1/-1;">
+              {% for part in paginate.parts %}
+                {% if part.is_link %}
+                  <a href="{{ part.url }}" class="kb-pagination__page">{{ part.title }}</a>
+                {% else %}
+                  <span class="kb-pagination__page kb-pagination__page--current">{{ part.title }}</span>
+                {% endif %}
+              {% endfor %}
+            </nav>
+          {% endif %}
+        {% endpaginate %}
+      </div>
+    {% else %}
+      <p style="text-align:center;padding:60px 0;color:#888;">
+        Không tìm thấy kết quả cho "{{ search.terms | escape }}".
+      </p>
+    {% endif %}
+  {% else %}
+    <p style="text-align:center;padding:60px 0;color:#888;">
+      Nhập từ khoá để tìm sản phẩm, bài viết, trang...
+    </p>
+  {% endif %}
+</section>

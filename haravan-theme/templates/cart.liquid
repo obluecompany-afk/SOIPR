@@ -1,38 +1,87 @@
-{% comment %}
-  Cart page — Haravan tự handle cart state qua URL /cart, action /cart/update, /cart/change
-{% endcomment %}
+{%- comment -%}
+  Cart page — port từ legacy/cart.html
+  Form action /cart, submit name="checkout" để đi qua /checkout của Haravan
+{%- endcomment -%}
 
-<div style="max-width: 800px; margin: 0 auto; padding: 40px 24px;">
-  <h1>Giỏ hàng ({{ cart.item_count }})</h1>
+<section class="kb-section" style="max-width:900px;margin:0 auto;">
+  <h1 class="kb-section-title">GIỎ HÀNG ({{ cart.item_count }})</h1>
 
   {% if cart.item_count == 0 %}
-    <p>Giỏ hàng trống. <a href="/collections/all">Mua sắm →</a></p>
+    <div style="text-align:center;padding:60px 0;">
+      <p style="color:#888;font-size:14px;margin-bottom:24px;">Giỏ hàng của bạn đang trống.</p>
+      <a href="/collections/all" class="kb-btn-primary" style="display:inline-block;padding:14px 28px;">
+        TIẾP TỤC MUA SẮM →
+      </a>
+    </div>
   {% else %}
     <form action="/cart" method="post" novalidate>
-      {% for item in cart.items %}
-        <div style="display: flex; gap: 16px; padding: 16px 0; border-bottom: 1px solid #eee;">
-          <img src="{{ item.image | product_img_url: 'small' }}" alt="{{ item.title }}" style="width: 80px; height: 80px; object-fit: cover;" />
-          <div style="flex: 1;">
-            <p style="font-weight: 600;">{{ item.product.title }}</p>
-            {% if item.variant.title != 'Default Title' %}
-              <p style="color: #6B6B6B; font-size: 13px;">{{ item.variant.title }}</p>
-            {% endif %}
-            <p>{{ item.line_price | money }}</p>
-            <input type="number" name="updates[]" value="{{ item.quantity }}" min="0" style="width: 60px;" />
+      <div class="kb-cart-list">
+        {% for item in cart.items %}
+          <div class="kb-cart-item">
+            <a href="{{ item.url }}" class="kb-cart-item__img">
+              {% if item.image %}
+                <img src="{{ item.image | product_img_url: 'small' }}" alt="{{ item.product.title }}" />
+              {% else %}🛍️{% endif %}
+            </a>
+            <div class="kb-cart-item__info">
+              <div class="kb-cart-item__top">
+                <a href="{{ item.url }}" class="kb-cart-item__name">{{ item.product.title }}</a>
+                <a href="/cart/change?line={{ forloop.index }}&quantity=0"
+                   class="kb-cart-item__remove" aria-label="Xoá sản phẩm">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+                       stroke-linecap="round" stroke-linejoin="round" width="16" height="16">
+                    <path d="M3 6h18"/>
+                    <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+                    <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/>
+                  </svg>
+                </a>
+              </div>
+              {% if item.variant.title != 'Default Title' %}
+                <div class="kb-cart-item__variant">{{ item.variant.title }}</div>
+              {% endif %}
+              <div class="kb-cart-item__bottom">
+                <div class="kb-qty">
+                  <button type="button" data-qty-minus aria-label="Giảm">-</button>
+                  <input type="number" name="updates[]" value="{{ item.quantity }}" min="0"
+                         class="kb-cart-item__qty" />
+                  <button type="button" data-qty-plus aria-label="Tăng">+</button>
+                </div>
+                <strong class="kb-cart-item__price">{{ item.line_price | money }}</strong>
+              </div>
+              {% if item.quantity > 1 %}
+                <span class="kb-cart-item__unit">{{ item.price | money }} × {{ item.quantity }}</span>
+              {% endif %}
+            </div>
           </div>
-          <a href="/cart/change?line={{ forloop.index }}&quantity=0">Xoá</a>
-        </div>
-      {% endfor %}
-
-      <div style="display: flex; justify-content: space-between; margin-top: 24px; font-weight: 600;">
-        <span>Tạm tính</span>
-        <span>{{ cart.total_price | money }}</span>
+        {% endfor %}
       </div>
 
-      <button type="submit" name="update" style="margin-top: 16px;">Cập nhật</button>
-      <button type="submit" name="checkout" style="margin-top: 16px; background: #111; color: #fff; padding: 14px 28px; border: 0;">
-        Tiến hành thanh toán
-      </button>
+      <div class="kb-cart-drawer__subtotal">
+        <span>TỔNG CỘNG</span>
+        <strong>{{ cart.total_price | money }}</strong>
+      </div>
+
+      <div style="display:flex;gap:12px;margin-top:20px;">
+        <button type="submit" name="update" class="kb-btn-secondary" style="flex:1;">
+          CẬP NHẬT
+        </button>
+        <button type="submit" name="checkout" class="kb-btn-primary kb-btn-checkout" style="flex:2;">
+          <span>TIẾN HÀNH THANH TOÁN</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+               stroke-linecap="round" stroke-linejoin="round" width="16" height="16">
+            <line x1="5" y1="12" x2="19" y2="12"/>
+            <polyline points="13 6 19 12 13 18"/>
+          </svg>
+        </button>
+      </div>
+
+      <p class="kb-cart-drawer__note" style="margin-top:14px;">
+        Phí ship, thuế và khuyến mãi được tính tại trang thanh toán.
+      </p>
     </form>
+
+    <p style="text-align:center;margin-top:30px;">
+      <a href="/collections/all" class="kb-link-muted">← Tiếp tục mua sắm</a>
+    </p>
   {% endif %}
-</div>
+</section>

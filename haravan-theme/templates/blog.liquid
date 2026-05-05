@@ -1,0 +1,48 @@
+{%- comment -%}
+  Blog list — port từ legacy/blog.html
+{%- endcomment -%}
+
+<section class="kb-section" style="max-width:1200px;margin:0 auto;">
+  <h1 class="kb-section-title">{{ blog.title }}</h1>
+
+  {% if blog.articles.size > 0 %}
+    <div class="kb-blog-grid">
+      {% paginate blog.articles by 12 %}
+        {% for article in blog.articles %}
+          <article class="kb-blog-card">
+            <a href="{{ article.url }}">
+              {% if article.image %}
+                <img src="{{ article.image | article_img_url: 'medium' }}" alt="{{ article.title }}" />
+              {% endif %}
+              <div class="kb-blog-card__body">
+                <div class="kb-tag">{{ article.published_at | date: '%d/%m/%Y' }}</div>
+                <h3>{{ article.title }}</h3>
+                <p>{{ article.excerpt_or_content | strip_html | truncate: 120 }}</p>
+              </div>
+            </a>
+          </article>
+        {% endfor %}
+
+        {% if paginate.pages > 1 %}
+          <nav class="kb-pagination" style="grid-column:1/-1;">
+            {% if paginate.previous %}
+              <a href="{{ paginate.previous.url }}" class="kb-pagination__prev">‹ Trước</a>
+            {% endif %}
+            {% for part in paginate.parts %}
+              {% if part.is_link %}
+                <a href="{{ part.url }}" class="kb-pagination__page">{{ part.title }}</a>
+              {% else %}
+                <span class="kb-pagination__page kb-pagination__page--current">{{ part.title }}</span>
+              {% endif %}
+            {% endfor %}
+            {% if paginate.next %}
+              <a href="{{ paginate.next.url }}" class="kb-pagination__next">Sau ›</a>
+            {% endif %}
+          </nav>
+        {% endif %}
+      {% endpaginate %}
+    </div>
+  {% else %}
+    <p style="text-align:center;color:#888;padding:60px 0;">Chưa có bài viết nào.</p>
+  {% endif %}
+</section>
