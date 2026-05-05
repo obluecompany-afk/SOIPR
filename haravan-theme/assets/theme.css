@@ -2719,3 +2719,27 @@ body.kb-mm-open .kb-header__icons .kb-icon[aria-label="Tài khoản"] {
 .kb-favorite.is-active {
   color: var(--color-primary);
 }
+
+/* ===== Override grid với auto-fit (Step 2.14)
+   Khi store có ít sản phẩm (1-3) thay vì 4, grid tự co lại
+   thay vì để trống các cột. Max-width 280px giữ card không bị to vô lý. */
+.kb-best-sellers-grid,
+.kb-related-grid,
+.kb-collection__grid,
+.kb-just-dropped-grid,
+.kb-family-grid {
+  grid-template-columns: repeat(auto-fit, minmax(240px, 280px)) !important;
+  justify-content: center;
+}
+.kb-just-dropped-grid {
+  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)) !important;
+}
+
+/* Đảm bảo image card không bị crop với object-fit:cover làm hỏng badge */
+.kb-product-card__img { position: relative; overflow: hidden; }
+.kb-product-card__img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
