@@ -12,8 +12,8 @@ npm-debug.log*
 .env.local
 .haravan/
 
-# Haravan CLI generated
-haravan-theme/dist/
+# Haravan build artifacts
+dist/
 haravan-theme/.cache/
 
 # IDE

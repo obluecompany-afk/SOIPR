@@ -31,43 +31,39 @@ bash scripts/view-legacy.sh
 
 ## Build & deploy Haravan theme
 
-### Bước 1 — Cài Haravan CLI
+### Cách 1 — Upload zip qua Haravan dashboard (KHUYẾN NGHỊ — không cần API token)
+
+```bash
+bash scripts/build-zip.sh
+# → tạo dist/soi-theme.zip (Shopify-chuẩn)
+# → tạo dist/soi-theme-wrapped.zip (fallback có wrapper folder)
+```
+
+Sau đó vào Haravan dashboard:
+1. **Cấu hình → Giao diện → Tải lên giao diện**
+2. Chọn `dist/soi-theme.zip` (thử phiên bản 1 trước)
+3. Nếu báo lỗi "invalid theme structure" → thử `dist/soi-theme-wrapped.zip`
+4. Sau khi upload xong, bấm **Xuất bản** để dùng theme mới
+
+### Cách 2 — Haravan CLI (cần API token, có live reload)
 
 ```bash
 npm install -g @haravan/cli
-haravan login
-```
-
-### Bước 2 — Local dev (live reload)
-
-```bash
-cd haravan-theme
-haravan theme serve
-```
-
-### Bước 3 — Deploy
-
-```bash
-cd haravan-theme
-haravan theme push   # upload lên store
+haravan login                        # nhập store URL + token
+cd haravan-theme && haravan theme serve   # dev với hot reload
+haravan theme push                   # upload thay cho zip
 ```
 
 > **Cần có**: Haravan store account + API token (lấy ở dashboard, mục Apps → Private apps).
 
 ## Roadmap
 
-- [x] Phase 2.1 — Theme skeleton (folders, configs, placeholder snippets/templates)
-- [ ] Phase 2.2 — Port chi tiết design từ `legacy/*.html` + `legacy/assets/theme.css` qua Liquid
-  - Header (Rhode-style hamburger morph + nav)
-  - Mobile menu (tabs ngang + thẻ sản phẩm + CTA)
-  - Footer (3 cột dark BG + form newsletter)
-  - Cart drawer (slide phải, free-ship progress, dùng `cart` object Haravan)
-  - Hero banner (Supabase image + slow-zoom)
-  - Product card grid
-- [ ] Phase 2.3 — Hoàn thiện CSS production trong `assets/theme.css`
-- [ ] Phase 2.4 — Setup Haravan CLI dev workflow + push lên store thử
-- [ ] Phase 2.5 — Customer pages (account, login, register, orders, addresses)
-- [ ] Phase 2.6 — Search + Blog (article, blog list) + Page (about, contact, guide) + 404
+- [x] **Phase 2.1** — Theme skeleton
+- [x] **Phase 2.2** — Port snippets header, footer, mobile-menu, cart-drawer, product-card
+- [x] **Phase 2.3-2.10** — Port toàn bộ templates: index, product, collection, cart, customer (login/register/account/orders/addresses/reset_password), search, blog, article, page, page.contact, 404
+- [x] **Phase 2.11** — Build zip script (`scripts/build-zip.sh`)
+- [ ] **Phase 2.12** — Test upload `dist/soi-theme.zip` lên Haravan store thật
+- [ ] **Phase 2.13** — Iterate fix bug sau khi xem trên store
 
 ## Source code references
 
