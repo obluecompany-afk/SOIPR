@@ -1,27 +1,58 @@
 {%- comment -%}
-  Product card dùng trong grid (best sellers, just dropped, related)
-  Param: product (object)
+  Product card cho grid (best sellers, just dropped, related)
+  Match design legacy: image background pastel + badge pill + shade dots
+  Param: product
 {%- endcomment -%}
 
-<a href="{{ product.url }}" class="kb-product-card">
-  <div class="kb-product-card__img">
-    {% if product.featured_image != blank %}
-      <img src="{{ product.featured_image | product_img_url: 'medium' }}" alt="{{ product.title }}" />
+{%- assign card_bg_classes = 'kb-pi-red,kb-pi-pink,kb-pi-orange,kb-pi-dark,kb-pi-cream' | split: ',' -%}
+{%- assign idx = product.id | modulo: 5 -%}
+{%- assign bg_class = card_bg_classes[idx] -%}
+
+{%- comment -%} Đếm số lượng variants để hiện badge "X MÀU" {%- endcomment -%}
+{%- assign variant_count = product.variants.size -%}
+{%- assign show_count_badge = false -%}
+{% if variant_count > 1 %}{% assign show_count_badge = true %}{% endif %}
+
+<a class="kb-product-card" href="{{ product.url }}">
+  <div class="kb-product-card__img {{ bg_class }}">
+    {% if product.featured_image %}
+      <img src="{{ product.featured_image | product_img_url: 'medium' }}" alt="{{ product.title }}"
+        style="width:100%;height:100%;object-fit:contain;padding:20%;" />
+    {% else %}
+      <div class="kb-emoji-lg">🛍️</div>
     {% endif %}
-    {% if product.tags contains 'new' %}
-      <span class="kb-badge-new">MỚI</span>
+
+    {% if show_count_badge %}
+      <span class="kb-product-card__shades-badge">{{ variant_count }} MÀU</span>
+    {% else %}
+      <span class="kb-product-card__shades-badge">THÊM NHANH</span>
     {% endif %}
   </div>
-  <h3 class="kb-product-card__title">{{ product.title }}</h3>
+
+  <div class="kb-product-card__name">{{ product.title }}</div>
+
   {% if product.summary != blank %}
-    <p class="kb-product-card__sub">{{ product.summary | truncate: 60 }}</p>
+    <div class="kb-product-card__desc">{{ product.summary | truncate: 60 }}</div>
   {% endif %}
+
   <div class="kb-product-card__price">
     {% if product.compare_at_price > product.price %}
-      <strong>{{ product.price | money }}</strong>
-      <s>{{ product.compare_at_price | money }}</s>
+      {{ product.price | money }} <s style="color:#999;font-weight:400;">{{ product.compare_at_price | money }}</s>
     {% else %}
-      <strong>{{ product.price | money }}</strong>
+      {{ product.price | money }}
     {% endif %}
   </div>
+
+  {% if variant_count > 1 %}
+    {%- assign shade_palette = '#f5d5b0,#eac29a,#d9a87a,#c49060,#a0714d,#6e4a30,#3b2720' | split: ',' -%}
+    <div class="kb-shade-dots">
+      {% for v in product.variants limit: 4 %}
+        {% assign palette_idx = forloop.index0 | modulo: 7 %}
+        <span style="background:{{ shade_palette[palette_idx] }}"></span>
+      {% endfor %}
+      {% if variant_count > 4 %}
+        <em>+{{ variant_count | minus: 4 }}</em>
+      {% endif %}
+    </div>
+  {% endif %}
 </a>

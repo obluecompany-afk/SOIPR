@@ -152,6 +152,21 @@
     $$('.kb-thumb').forEach(function (t) { t.classList.toggle('active', t === thumb); });
   });
 
+  /* ===== Variant shade selector — click chấm tròn đổi variant ===== */
+  document.addEventListener('click', function (e) {
+    var shade = e.target.closest('.kb-shade[data-variant-id]');
+    if (!shade) return;
+    e.preventDefault();
+    if (shade.disabled) return;
+    var grid = shade.parentElement;
+    grid.querySelectorAll('.kb-shade').forEach(function (s) { s.classList.remove('selected'); });
+    shade.classList.add('selected');
+    var input = document.querySelector('[data-variant-input]');
+    if (input) input.value = shade.getAttribute('data-variant-id');
+    var label = document.querySelector('[data-selected-variant]');
+    if (label) label.textContent = shade.getAttribute('data-variant-title');
+  });
+
   /* ===== Accordion toggle (mô tả, vận chuyển, thành phần...) ===== */
   document.addEventListener('click', function (e) {
     var head = e.target.closest('.kb-accordion__head');
@@ -162,6 +177,17 @@
     var open = item.classList.toggle('open');
     if (body) body.hidden = !open;
     if (sign) sign.textContent = open ? '−' : '+';
+  });
+
+  /* ===== Auto add body class khi có sticky CTA (cho padding-bottom) ===== */
+  if ($('.kb-sticky-cta')) body.classList.add('kb-has-sticky-cta');
+
+  /* ===== Variant select dropdown change → cập nhật price + label ===== */
+  document.addEventListener('change', function (e) {
+    var sel = e.target.closest('.kb-variant-select');
+    if (!sel) return;
+    var label = document.querySelector('[data-selected-variant]');
+    if (label) label.textContent = sel.options[sel.selectedIndex].text.split('—')[0].trim();
   });
 
   /* Expose cho debug */

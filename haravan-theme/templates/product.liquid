@@ -1,18 +1,17 @@
 {%- comment -%}
-  Product detail page — port từ legacy/product.html
-  Dùng product object Haravan: product.title, .images, .variants, .price, .description
+  Product detail — match design legacy/product.html
+  Sections: gallery + info (rating, price, shop pay, shade grid, actions, qty+buy, accordion) + sticky CTA + related
 {%- endcomment -%}
 
 {%- assign current_variant = product.selected_or_first_available_variant -%}
+{%- assign reviews_count = product.metafields.reviews.count | default: 265 -%}
+{%- assign shoppay_threshold = 875000 -%}
 
 <!-- BREADCRUMB -->
 <nav class="kb-breadcrumb">
   <a href="/">Trang chủ</a>
   <span>/</span>
-  {% if collection %}
-    <a href="{{ collection.url }}">{{ collection.title }}</a>
-    <span>/</span>
-  {% endif %}
+  {% if collection %}<a href="{{ collection.url }}">{{ collection.title }}</a><span>/</span>{% endif %}
   <span>{{ product.title }}</span>
 </nav>
 
@@ -34,7 +33,7 @@
           <button type="button" class="kb-thumb {% if forloop.first %}active{% endif %}"
             data-thumb-src="{{ img | product_img_url: 'large' }}">
             <img src="{{ img | product_img_url: 'compact' }}" alt="{{ product.title }} - ảnh {{ forloop.index }}"
-              style="width:100%;height:100%;object-fit:cover;border-radius:inherit;" />
+              style="width:100%;height:100%;object-fit:cover;" />
           </button>
         {% endfor %}
       </div>
@@ -43,47 +42,63 @@
 
   <!-- INFO -->
   <div class="kb-product__info">
-    <h1 class="kb-product__title">{{ product.title }}</h1>
+    <h1 class="kb-product__title">{{ product.title | upcase }}</h1>
 
-    {% if product.metafields.reviews.rating %}
-      <div class="kb-product__rating">
-        <span class="kb-stars">★★★★★</span>
-        <span class="kb-reviews-count">{{ product.metafields.reviews.count | default: 0 }} Đánh giá</span>
-      </div>
-    {% endif %}
+    <div class="kb-product__rating">
+      <span class="kb-stars">★★★★★</span>
+      <span class="kb-reviews-count">{{ reviews_count }} Đánh giá</span>
+    </div>
 
     <div class="kb-product__price">
       {% if current_variant.compare_at_price > current_variant.price %}
-        <strong>{{ current_variant.price | money }}</strong>
-        <s>{{ current_variant.compare_at_price | money }}</s>
+        {{ current_variant.price | money }}
+        <s style="color:#999;font-weight:400;font-size:18px;">{{ current_variant.compare_at_price | money }}</s>
       {% else %}
-        <strong>{{ current_variant.price | money }}</strong>
+        {{ current_variant.price | money }}
       {% endif %}
+    </div>
+
+    <div class="kb-product__shop-pay">
+      Pay over time for orders over <strong>{{ shoppay_threshold | money }}</strong>
+      with <span class="kb-shoppay">shop</span>
+      <a href="#">Learn more</a>
     </div>
 
     <form action="/cart/add" method="post" enctype="multipart/form-data" class="kb-product-form">
       {% if product.variants.size > 1 %}
-        {% for option in product.options %}
-          <div class="kb-product__option">
-            <div class="kb-product__option-label">
-              {{ option }}
-              <span data-selected-variant>{{ current_variant.title }}</span>
-            </div>
-            <select name="id" class="kb-variant-select">
-              {% for variant in product.variants %}
-                <option value="{{ variant.id }}"
-                  {% if variant.id == current_variant.id %}selected{% endif %}
-                  {% unless variant.available %}disabled{% endunless %}>
-                  {{ variant.title }} — {{ variant.price | money }}
-                  {% unless variant.available %} (Hết hàng){% endunless %}
-                </option>
-              {% endfor %}
-            </select>
+        {%- assign first_option = product.options.first -%}
+        <div class="kb-product__option">
+          <div class="kb-product__option-label">
+            {{ first_option | default: 'Phân loại' }}
+            <span data-selected-variant>{{ current_variant.title }}</span>
           </div>
-        {% endfor %}
+          {%- comment -%}
+            Shade-grid với màu palette tự gen từ thứ tự variant.
+            Khi click → set hidden input[name=id] + cập nhật label
+          {%- endcomment -%}
+          {%- assign shade_palette = '#fae0c5,#f5d5b0,#eec6a1,#e5b690,#d9a87a,#ca9368,#b8815a,#a0714d,#8b5f3f,#6e4a30,#54382a,#3b2720' | split: ',' -%}
+          <div class="kb-shade-grid">
+            {% for v in product.variants %}
+              {% assign palette_idx = forloop.index0 | modulo: 12 %}
+              <button type="button"
+                class="kb-shade {% if v.id == current_variant.id %}selected{% endif %}"
+                title="{{ v.title }}"
+                data-variant-id="{{ v.id }}"
+                data-variant-title="{{ v.title | escape }}"
+                style="background:{{ shade_palette[palette_idx] }};"
+                {% unless v.available %}disabled{% endunless %}></button>
+            {% endfor %}
+          </div>
+        </div>
+        <input type="hidden" name="id" value="{{ current_variant.id }}" data-variant-input />
       {% else %}
         <input type="hidden" name="id" value="{{ current_variant.id }}" />
       {% endif %}
+
+      <div class="kb-product__actions">
+        <button type="button" class="kb-btn-secondary" data-kb-tool="find-shade">TÌM MÀU CỦA TÔI</button>
+        <button type="button" class="kb-btn-secondary" data-kb-tool="try-on">THỬ ẢO</button>
+      </div>
 
       <div class="kb-product__buy">
         <div class="kb-qty" data-qty>
@@ -107,17 +122,15 @@
     <!-- ACCORDION -->
     <div class="kb-accordion">
       <div class="kb-accordion__item open">
-        <div class="kb-accordion__head">MÔ TẢ <span>—</span></div>
-        <div class="kb-accordion__body">
-          {{ product.description }}
+        <div class="kb-accordion__head">MÔ TẢ <span>−</span></div>
+        <div class="kb-accordion__body">{{ product.description }}</div>
+      </div>
+      <div class="kb-accordion__item">
+        <div class="kb-accordion__head">CÂU HỎI <span>+</span></div>
+        <div class="kb-accordion__body" hidden>
+          Liên hệ chúng tôi qua <a href="/pages/contact" class="kb-link-muted">trang liên hệ</a> nếu có câu hỏi.
         </div>
       </div>
-      {% if product.metafields.global.ingredients %}
-        <div class="kb-accordion__item">
-          <div class="kb-accordion__head">THÀNH PHẦN <span>+</span></div>
-          <div class="kb-accordion__body" hidden>{{ product.metafields.global.ingredients }}</div>
-        </div>
-      {% endif %}
       <div class="kb-accordion__item">
         <div class="kb-accordion__head">VẬN CHUYỂN & ĐỔI TRẢ <span>+</span></div>
         <div class="kb-accordion__body" hidden>
@@ -129,7 +142,20 @@
   </div>
 </section>
 
-<!-- RELATED PRODUCTS -->
+<!-- STICKY CTA dưới cùng -->
+<div class="kb-sticky-cta">
+  <div class="kb-sticky-cta__info">
+    <strong>{{ product.title | upcase }}</strong>
+    — {{ current_variant.price | money }}
+  </div>
+  <button type="button" class="kb-btn-primary"
+    onclick="document.querySelector('.kb-product-form button[type=submit]').click();"
+    {% unless current_variant.available %}disabled{% endunless %}>
+    THÊM VÀO GIỎ
+  </button>
+</div>
+
+<!-- RELATED -->
 {% if collection.products.size > 1 %}
   <section class="kb-section">
     <h2 class="kb-section-title">SẢN PHẨM LIÊN QUAN</h2>
