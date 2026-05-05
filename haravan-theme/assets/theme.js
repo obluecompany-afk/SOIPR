@@ -152,7 +152,11 @@
     $$('.kb-thumb').forEach(function (t) { t.classList.toggle('active', t === thumb); });
   });
 
-  /* ===== Variant shade selector — click chấm tròn đổi variant ===== */
+  /* ===== Variant shade selector — click đổi variant + update price + label + sticky ===== */
+  function formatVND(n) {
+    var num = parseFloat(n) || 0;
+    return Math.round(num).toLocaleString('vi-VN') + '₫';
+  }
   document.addEventListener('click', function (e) {
     var shade = e.target.closest('.kb-shade[data-variant-id]');
     if (!shade) return;
@@ -161,10 +165,34 @@
     var grid = shade.parentElement;
     grid.querySelectorAll('.kb-shade').forEach(function (s) { s.classList.remove('selected'); });
     shade.classList.add('selected');
-    var input = document.querySelector('[data-variant-input]');
+
+    /* Update hidden input */
+    var input = $('[data-variant-input]');
     if (input) input.value = shade.getAttribute('data-variant-id');
-    var label = document.querySelector('[data-selected-variant]');
+
+    /* Update label */
+    var label = $('[data-selected-variant]');
     if (label) label.textContent = shade.getAttribute('data-variant-title');
+
+    /* Update price (chính + sticky) — nếu variant có price khác */
+    var price = parseFloat(shade.getAttribute('data-variant-price'));
+    if (!isNaN(price)) {
+      var formatted = formatVND(price);
+      var mainPrice = $('[data-current-price]');
+      if (mainPrice) mainPrice.textContent = formatted;
+      var stickyPrice = $('[data-sticky-price]');
+      if (stickyPrice) stickyPrice.textContent = formatted;
+    }
+
+    /* Update available state */
+    var available = shade.getAttribute('data-variant-available') === 'true';
+    var addBtn = $('.kb-product__buy .kb-btn-primary');
+    var stickyBtn = $('[data-sticky-add]');
+    [addBtn, stickyBtn].forEach(function (b) {
+      if (!b) return;
+      b.disabled = !available;
+      b.textContent = available ? 'THÊM VÀO GIỎ' : 'HẾT HÀNG';
+    });
   });
 
   /* ===== Accordion toggle (mô tả, vận chuyển, thành phần...) ===== */
@@ -182,14 +210,88 @@
   /* ===== Auto add body class khi có sticky CTA (cho padding-bottom) ===== */
   if ($('.kb-sticky-cta')) body.classList.add('kb-has-sticky-cta');
 
+  /* ===== Smart sticky CTA — ẩn khi nút THÊM VÀO GIỎ chính trong viewport ===== */
+  if ('IntersectionObserver' in window) {
+    var stickyCta = $('.kb-sticky-cta');
+    var mainBuy = $('.kb-product__buy .kb-btn-primary');
+    if (stickyCta && mainBuy) {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          stickyCta.style.display = e.isIntersecting ? 'none' : 'flex';
+        });
+      }, { threshold: 0.5 });
+      io.observe(mainBuy);
+    }
+  }
+
   /* ===== Variant select dropdown change → cập nhật price + label ===== */
   document.addEventListener('change', function (e) {
     var sel = e.target.closest('.kb-variant-select');
     if (!sel) return;
-    var label = document.querySelector('[data-selected-variant]');
+    var label = $('[data-selected-variant]');
     if (label) label.textContent = sel.options[sel.selectedIndex].text.split('—')[0].trim();
   });
 
+  /* ===== Wishlist favorite — toggle với localStorage ===== */
+  var WISHLIST_KEY = 'soi-wishlist';
+  function getWishlist() {
+    try { return JSON.parse(localStorage.getItem(WISHLIST_KEY) || '[]'); } catch (_) { return []; }
+  }
+  function setWishlist(arr) {
+    try { localStorage.setItem(WISHLIST_KEY, JSON.stringify(arr)); } catch (_) {}
+  }
+  function syncFavorite(btn) {
+    var id = btn.getAttribute('data-product-id');
+    var active = getWishlist().indexOf(id) !== -1;
+    btn.classList.toggle('is-active', active);
+    btn.setAttribute('aria-pressed', active ? 'true' : 'false');
+    var label = btn.querySelector('.kb-favorite__label');
+    var icon = btn.querySelector('.kb-favorite__icon');
+    if (icon) icon.textContent = active ? '♥' : '♡';
+    if (label) label.textContent = active ? 'Đã yêu thích' : 'Thêm vào yêu thích';
+  }
+  document.addEventListener('click', function (e) {
+    var fav = e.target.closest('[data-kb-favorite]');
+    if (!fav) return;
+    e.preventDefault();
+    var id = fav.getAttribute('data-product-id');
+    if (!id) return;
+    var list = getWishlist();
+    var idx = list.indexOf(id);
+    if (idx >= 0) list.splice(idx, 1);
+    else list.push(id);
+    setWishlist(list);
+    syncFavorite(fav);
+  });
+  $$('[data-kb-favorite]').forEach(syncFavorite);
+
+  /* ===== Filter group collapse/expand ===== */
+  document.addEventListener('click', function (e) {
+    var toggle = e.target.closest('[data-kb-group-toggle]');
+    if (!toggle) return;
+    e.preventDefault();
+    var group = toggle.parentElement;
+    var open = group.classList.toggle('is-collapsed');
+    var sign = toggle.querySelector('.kb-group-sign');
+    if (sign) sign.textContent = open ? '+' : '−';
+  });
+
+  /* ===== Filter sidebar collapse trên mobile ===== */
+  document.addEventListener('click', function (e) {
+    var t = e.target.closest('[data-kb-toggle-filters]');
+    if (!t) return;
+    var aside = $('#kb-filters');
+    if (!aside) return;
+    var collapsed = aside.classList.toggle('is-collapsed');
+    var label = t.querySelector('.kb-filters__head-label');
+    var caret = t.querySelector('.kb-filters__head-caret');
+    if (label) label.textContent = collapsed ? 'HIỆN BỘ LỌC' : 'BỘ LỌC';
+    if (caret) caret.textContent = collapsed ? '▼' : '▲';
+  });
+
   /* Expose cho debug */
-  window.kbTheme = { openMenu: openMenu, closeMenu: closeMenu, openCart: openCart, closeCart: closeCart, setupQty: setupQty };
+  window.kbTheme = {
+    openMenu: openMenu, closeMenu: closeMenu, openCart: openCart, closeCart: closeCart,
+    setupQty: setupQty, getWishlist: getWishlist,
+  };
 })();

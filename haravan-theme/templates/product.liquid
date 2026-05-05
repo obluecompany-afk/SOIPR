@@ -49,12 +49,12 @@
       <span class="kb-reviews-count">{{ reviews_count }} Đánh giá</span>
     </div>
 
-    <div class="kb-product__price">
+    <div class="kb-product__price" data-product-price>
       {% if current_variant.compare_at_price > current_variant.price %}
-        {{ current_variant.price | money }}
+        <span data-current-price>{{ current_variant.price | money }}</span>
         <s style="color:#999;font-weight:400;font-size:18px;">{{ current_variant.compare_at_price | money }}</s>
       {% else %}
-        {{ current_variant.price | money }}
+        <span data-current-price>{{ current_variant.price | money }}</span>
       {% endif %}
     </div>
 
@@ -85,6 +85,8 @@
                 title="{{ v.title }}"
                 data-variant-id="{{ v.id }}"
                 data-variant-title="{{ v.title | escape }}"
+                data-variant-price="{{ v.price }}"
+                data-variant-available="{{ v.available }}"
                 style="background:{{ shade_palette[palette_idx] }};"
                 {% unless v.available %}disabled{% endunless %}></button>
             {% endfor %}
@@ -407,9 +409,9 @@
 <div class="kb-sticky-cta">
   <div class="kb-sticky-cta__info">
     <strong>{{ product.title | upcase }}</strong>
-    — {{ current_variant.price | money }}
+    — <span data-sticky-price>{{ current_variant.price | money }}</span>
   </div>
-  <button type="button" class="kb-btn-primary"
+  <button type="button" class="kb-btn-primary" data-sticky-add
     onclick="document.querySelector('.kb-product-form button[type=submit]').click();"
     {% unless current_variant.available %}disabled{% endunless %}>
     THÊM VÀO GIỎ

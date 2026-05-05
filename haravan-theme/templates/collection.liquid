@@ -3,15 +3,22 @@
   Filter + sort dùng URL params Haravan: ?sort_by=price-ascending, ?filter.product_type=cushion
 {%- endcomment -%}
 
-<!-- CATEGORY HERO -->
-{% if collection.image %}
-  <section class="kb-category-hero">
-    <a class="kb-category-hero__card" href="{{ collection.url }}"
-      style="background-image:url({{ collection.image | collection_img_url: 'large' }});">
-      <span class="kb-category-hero__label">{{ collection.title | upcase }}</span>
-    </a>
-  </section>
-{% endif %}
+<!-- CATEGORY HERO (2 card FACE/LIPS — luôn show) -->
+<section class="kb-category-hero">
+  <a class="kb-category-hero__card kb-ch-face" href="/collections/makeup">
+    <span class="kb-category-hero__label">FACE</span>
+  </a>
+  <a class="kb-category-hero__card kb-ch-lips" href="/collections/lips">
+    <span class="kb-category-hero__label">LIPS</span>
+  </a>
+</section>
+
+<!-- BREADCRUMB -->
+<nav class="kb-breadcrumb">
+  <a href="/">Trang chủ</a>
+  <span>/</span>
+  <span>{{ collection.title | default: 'Tất cả sản phẩm' }}</span>
+</nav>
 
 <section class="kb-collection">
   <!-- FILTERS SIDEBAR -->
@@ -21,10 +28,9 @@
       <span class="kb-filters__head-caret">▲</span>
     </button>
     <form class="kb-filters__body" method="get">
-      <!-- Sort hidden carry-over -->
       <input type="hidden" name="sort_by" value="{{ current_sort_by | default: 'manual' }}" />
 
-      <!-- Product type filter -->
+      <!-- Product type filter (multi-select) -->
       {%- assign product_types = collection.products | map: 'type' | uniq -%}
       {% if product_types.size > 0 %}
         <div class="kb-filter-group" data-kb-group>
@@ -33,9 +39,10 @@
           </button>
           <div class="kb-filter-group__list">
             {% for type in product_types %}
+              {%- assign type_handle = type | handle -%}
               <label>
-                <input type="checkbox" name="filter.product_type" value="{{ type | handle }}"
-                  {% if current_tags contains type %}checked{% endif %} />
+                <input type="checkbox" name="filter.p.product_type" value="{{ type_handle }}"
+                  {% if current_tags contains type_handle %}checked{% endif %} />
                 {{ type }}
               </label>
             {% endfor %}
@@ -49,10 +56,21 @@
           Khoảng giá <span class="kb-group-sign">−</span>
         </button>
         <div class="kb-filter-group__list">
-          <label><input type="radio" name="filter.price" value="0-250000" /> Dưới 250.000₫</label>
-          <label><input type="radio" name="filter.price" value="250000-500000" /> 250.000₫ – 500.000₫</label>
-          <label><input type="radio" name="filter.price" value="500000-750000" /> 500.000₫ – 750.000₫</label>
-          <label><input type="radio" name="filter.price" value="750000-" /> Trên 750.000₫</label>
+          <label><input type="radio" name="filter.v.price.gte" value="" data-price-range /> Tất cả</label>
+          <label><input type="radio" name="filter.v.price.lte" value="250000" data-price-range /> Dưới 250.000₫</label>
+          <label><input type="radio" name="filter.v.price.between" value="250000-500000" data-price-range /> 250.000₫ – 500.000₫</label>
+          <label><input type="radio" name="filter.v.price.between" value="500000-750000" data-price-range /> 500.000₫ – 750.000₫</label>
+          <label><input type="radio" name="filter.v.price.gte" value="750000" data-price-range /> Trên 750.000₫</label>
+        </div>
+      </div>
+
+      <!-- Availability -->
+      <div class="kb-filter-group" data-kb-group>
+        <button type="button" class="kb-filter-group__title" data-kb-group-toggle>
+          Tình trạng <span class="kb-group-sign">−</span>
+        </button>
+        <div class="kb-filter-group__list">
+          <label><input type="checkbox" name="filter.v.availability" value="1" /> Còn hàng</label>
         </div>
       </div>
 
@@ -64,10 +82,16 @@
   <!-- MAIN -->
   <div class="kb-collection__main">
     <div class="kb-collection__toolbar">
-      <div class="kb-collection__count">{{ collection.products_count }} sản phẩm</div>
+      <div class="kb-collection__count">
+        <strong>{{ collection.products_count }}</strong> sản phẩm
+      </div>
       <label class="kb-sort">
         <span>SẮP XẾP</span>
-        <select onchange="window.location.search = '?sort_by=' + this.value;">
+        <select onchange="
+          var url = new URL(window.location);
+          url.searchParams.set('sort_by', this.value);
+          window.location = url.toString();
+        ">
           <option value="manual" {% if current_sort_by == 'manual' %}selected{% endif %}>Nổi bật</option>
           <option value="best-selling" {% if current_sort_by == 'best-selling' %}selected{% endif %}>Bán chạy nhất</option>
           <option value="price-ascending" {% if current_sort_by == 'price-ascending' %}selected{% endif %}>Giá: thấp → cao</option>
@@ -78,35 +102,37 @@
       </label>
     </div>
 
-    <div class="kb-collection__grid">
-      {% paginate collection.products by 12 %}
-        {% for product in collection.products %}
-          {% include 'product-card', product: product %}
-        {% else %}
-          <p style="grid-column:1/-1;text-align:center;color:#888;padding:60px 0;">
-            Không có sản phẩm phù hợp.
-            <a href="{{ collection.url }}" class="kb-link-muted">Xoá bộ lọc</a>
-          </p>
-        {% endfor %}
+    {% if collection.products.size == 0 %}
+      <div class="kb-no-results">
+        <p>Không tìm thấy sản phẩm phù hợp với bộ lọc đã chọn.</p>
+        <a href="{{ collection.url }}" class="kb-btn-secondary" style="display:inline-block;">XOÁ BỘ LỌC</a>
+      </div>
+    {% else %}
+      <div class="kb-collection__grid">
+        {% paginate collection.products by 12 %}
+          {% for product in collection.products %}
+            {% include 'product-card', product: product %}
+          {% endfor %}
 
-        {% if paginate.pages > 1 %}
-          <nav class="kb-pagination">
-            {% if paginate.previous %}
-              <a href="{{ paginate.previous.url }}" class="kb-pagination__prev">‹ Trước</a>
-            {% endif %}
-            {% for part in paginate.parts %}
-              {% if part.is_link %}
-                <a href="{{ part.url }}" class="kb-pagination__page">{{ part.title }}</a>
-              {% else %}
-                <span class="kb-pagination__page kb-pagination__page--current">{{ part.title }}</span>
+          {% if paginate.pages > 1 %}
+            <nav class="kb-pagination" style="grid-column:1/-1;">
+              {% if paginate.previous %}
+                <a href="{{ paginate.previous.url }}" class="kb-pagination__prev">‹ Trước</a>
               {% endif %}
-            {% endfor %}
-            {% if paginate.next %}
-              <a href="{{ paginate.next.url }}" class="kb-pagination__next">Sau ›</a>
-            {% endif %}
-          </nav>
-        {% endif %}
-      {% endpaginate %}
-    </div>
+              {% for part in paginate.parts %}
+                {% if part.is_link %}
+                  <a href="{{ part.url }}" class="kb-pagination__page">{{ part.title }}</a>
+                {% else %}
+                  <span class="kb-pagination__page kb-pagination__page--current">{{ part.title }}</span>
+                {% endif %}
+              {% endfor %}
+              {% if paginate.next %}
+                <a href="{{ paginate.next.url }}" class="kb-pagination__next">Sau ›</a>
+              {% endif %}
+            </nav>
+          {% endif %}
+        {% endpaginate %}
+      </div>
+    {% endif %}
   </div>
 </section>
