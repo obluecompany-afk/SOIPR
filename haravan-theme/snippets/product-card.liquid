@@ -35,14 +35,6 @@
     <div class="kb-product-card__desc">{{ product.summary | truncate: 60 }}</div>
   {% endif %}
 
-  <div class="kb-product-card__price">
-    {% if product.compare_at_price > product.price %}
-      {{ product.price | money }} <s style="color:#999;font-weight:400;">{{ product.compare_at_price | money }}</s>
-    {% else %}
-      {{ product.price | money }}
-    {% endif %}
-  </div>
-
   {% if variant_count > 1 %}
     <div class="kb-shade-dots">
       {% for v in product.variants limit: 4 %}
@@ -55,4 +47,12 @@
       {% endif %}
     </div>
   {% endif %}
+
+  <div class="kb-product-card__price">
+    {% if product.compare_at_price > product.price %}
+      {{ product.price | money }} <s style="color:#999;font-weight:400;">{{ product.compare_at_price | money }}</s>
+    {% else %}
+      {{ product.price | money }}
+    {% endif %}
+  </div>
 </a>
