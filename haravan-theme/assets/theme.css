@@ -2743,3 +2743,20 @@ body.kb-mm-open .kb-header__icons .kb-icon[aria-label="Tài khoản"] {
   object-fit: cover;
   display: block;
 }
+
+/* ===== Section title spacing — tạo khoảng trắng giữa title và grid ===== */
+.kb-section-title {
+  margin-bottom: 40px !important;
+}
+.kb-section-title + .kb-section-sub {
+  margin-top: -28px;  /* sub-text gần title nếu có */
+  margin-bottom: 32px;
+}
+.kb-best-sellers-grid,
+.kb-related-grid,
+.kb-collection__grid,
+.kb-just-dropped-grid,
+.kb-family-grid,
+.kb-matched-grid {
+  margin-top: 12px;
+}
